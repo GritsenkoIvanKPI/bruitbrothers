@@ -382,6 +382,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   mask: url("assets/brand/brothers-crop.png") center / contain no-repeat;
 }
 .footer__cell ul { display: grid; gap: 0.35em; }
+.footer__nav ul { gap: 0.15em; }
+.footer__nav a { font-family: var(--display); font-size: var(--t-h3); line-height: 1.05; letter-spacing: -0.02em; }
+.footer__contact { font-size: clamp(16px, 1.25vw, 21px); line-height: 1.4; }
+.footer__contact ul { gap: 0.6em; }
 .footer__title { font-size: var(--t-h1); line-height: 0.95; max-width: 18ch; }
 .footer__cta .btn { margin-top: var(--s3); max-width: 420px; }
 .footer__cell--bottom { opacity: 0.75; }
@@ -450,13 +454,15 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       "art  nav   contact"
       "art  legal privacy";
     gap: 0;
-    min-height: calc(100vh - var(--header));
-    min-height: calc(100svh - var(--header));
+    height: calc(100vh - var(--header));
+    height: calc(100svh - var(--header));
+    min-height: 600px;
     padding: 0;
   }
   .footer__cta { grid-area: cta; order: 0; padding: var(--s4) var(--s3) 0 0; }
-  .footer__art { grid-area: art; order: 0; justify-content: flex-start; align-items: flex-end; margin: var(--s3) 0 0; }
-  .footer__mark { width: min(78%, 640px); margin-bottom: -12%; }
+  .footer__art { grid-area: art; order: 0; justify-content: flex-start; align-items: flex-end; margin: var(--s3) 0 0; min-height: 0; }
+  /* fill the space under the CTA; the bottom edge crops the figures' legs */
+  .footer__mark { height: 112%; width: auto; max-width: 90%; margin-bottom: -10%; }
   .footer__cell { padding: var(--s3) var(--g); border-left: var(--line); }
   .footer__nav { grid-area: nav; }
   .footer__cell--top:not(.footer__nav) { grid-area: contact; }
@@ -772,7 +778,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       <div class="footer__mark" role="img" aria-label="The two Bruit Brothers"></div>
     </div>
 
-    <nav class="footer__cell footer__cell--top footer__nav label" aria-label="Footer">
+    <nav class="footer__cell footer__cell--top footer__nav" aria-label="Footer">
       <ul>
         <li><a class="link" href="#solutions">Solutions</a></li>
         <li><a class="link" href="#always">What you get</a></li>
@@ -780,7 +786,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <li><a class="link" href="#audit">Free brand audit</a></li>
       </ul>
     </nav>
-    <div class="footer__cell footer__cell--top label">
+    <div class="footer__cell footer__cell--top footer__contact">
       <ul>
         <li><a class="link" href="mailto:office@bruitbrothers.com">office@bruitbrothers.com</a></li>
         <li><a class="link" href="tel:+35799701001">+357 99 701 001</a></li>
