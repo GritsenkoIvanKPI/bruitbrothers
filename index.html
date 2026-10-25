@@ -160,13 +160,46 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 /* ============ Intro ============ */
 .intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s5);
+  min-height: 90vh;
+  min-height: 90svh;
   background: var(--blue);
   color: var(--cream);
-  padding-top: var(--s4);
-  padding-bottom: var(--s4);
+  padding-top: var(--s5);
+  padding-bottom: var(--s3);
 }
-.intro__cols { display: grid; gap: var(--s3); }
-.intro__cols p + p { margin-top: var(--s2); }
+.intro__statement {
+  max-width: 24ch;
+  font-size: clamp(40px, 5.6vw, 108px);
+  line-height: 1.08;
+}
+.intro__for { font-style: italic; opacity: 0.75; }
+.hl {
+  display: inline-block;
+  padding: 0 0.12em;
+  margin: 0.04em 0;
+  background: var(--cream);
+  color: var(--blue);
+  white-space: nowrap;
+}
+.intro__row {
+  display: grid;
+  gap: var(--s4);
+  padding-top: var(--s3);
+  border-top: var(--line-cream);
+}
+.intro__years {
+  max-width: 34ch;
+  font-size: clamp(18px, 1.5vw, 26px);
+  font-weight: 300;
+  line-height: 1.35;
+}
+.intro__em { font-family: var(--display); font-style: italic; font-size: 1.5em; line-height: 1; }
+.intro__win { font-size: clamp(34px, 3.6vw, 64px); line-height: 0.98; max-width: 16ch; }
+.intro__win em { font-style: italic; }
 
 /* ============ Challenges ============ */
 .pain { padding-top: var(--s5); padding-bottom: var(--s5); }
@@ -293,10 +326,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .header .btn { grid-column: 4; justify-self: end; }
 
 
-  .intro__cols { grid-template-columns: repeat(4, 1fr); gap: 0; }
-  .intro__cols > div { padding-right: var(--s3); }
-  .intro__cols > div:nth-child(1) { grid-column: 3; }
-  .intro__cols > div:nth-child(2) { grid-column: 4; }
+  .intro__row { grid-template-columns: 1fr 1fr; align-items: end; }
+  .intro__win { justify-self: end; text-align: right; }
 
   .pain__grid { grid-template-columns: 1fr 1fr; gap: 0; }
   .pain__body { border-left: var(--line); padding-left: var(--g); }
@@ -363,16 +394,12 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     </div>
   </section>
 
-  <!-- Intro -->
-  <section class="intro wrap" aria-label="About Bruit Brothers">
-    <div class="intro__cols">
-      <div data-reveal>
-        <p class="label">Strategy, Creative, and Digital Advertising for Food &amp; Beverage, Alcohol, Tobacco, and OTC Medicines</p>
-      </div>
-      <div data-reveal data-d="1">
-        <p class="label">8 years in, we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
-        <p class="label">Wherever you sell, we take the mess – you take the win.</p>
-      </div>
+  <!-- What we do -->
+  <section class="intro wrap" aria-label="What we do">
+    <h2 class="intro__statement display" data-reveal>Strategy, Creative, and Digital Advertising <em class="intro__for">for</em> <span class="hl">Food &amp; Beverage</span>, <span class="hl">Alcohol</span>, <span class="hl">Tobacco</span>, and <span class="hl">OTC Medicines</span></h2>
+    <div class="intro__row">
+      <p class="intro__years" data-reveal><em class="intro__em">8 years in,</em> we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
+      <p class="intro__win display" data-reveal data-d="1">Wherever you sell, we take the mess – <em>you take the win.</em></p>
     </div>
   </section>
 
