@@ -160,45 +160,27 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 /* ============ Intro ============ */
 .intro {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--s5);
-  min-height: 90vh;
-  min-height: 90svh;
-  background: var(--blue);
-  color: var(--cream);
+  display: grid;
+  gap: var(--s4);
+  background: var(--cream);
+  color: var(--blue);
   padding-top: var(--s5);
   padding-bottom: var(--s3);
 }
 .intro__statement {
-  max-width: 24ch;
-  font-size: clamp(40px, 5.6vw, 108px);
-  line-height: 1.08;
+  max-width: 22ch;
+  font-size: clamp(34px, 3.9vw, 70px);
+  line-height: 1.04;
 }
-.intro__for { font-style: italic; opacity: 0.75; }
-.hl {
-  display: inline-block;
-  padding: 0 0.12em;
-  margin: 0.04em 0;
-  background: var(--cream);
-  color: var(--blue);
-  white-space: nowrap;
-}
-.intro__row {
-  display: grid;
-  gap: var(--s4);
-  padding-top: var(--s3);
-  border-top: var(--line-cream);
-}
+.intro__statement em { font-style: italic; white-space: nowrap; }
+.intro__side { display: grid; gap: var(--s3); align-content: start; max-width: 40ch; }
 .intro__years {
-  max-width: 34ch;
-  font-size: clamp(18px, 1.5vw, 26px);
+  font-size: clamp(17px, 1.3vw, 22px);
   font-weight: 300;
-  line-height: 1.35;
+  line-height: 1.5;
 }
-.intro__em { font-family: var(--display); font-style: italic; font-size: 1.5em; line-height: 1; }
-.intro__win { font-size: clamp(34px, 3.6vw, 64px); line-height: 0.98; max-width: 16ch; }
+.intro__years strong { font-weight: 500; }
+.intro__win { font-size: clamp(28px, 2.4vw, 42px); line-height: 1.05; }
 .intro__win em { font-style: italic; }
 
 /* ============ Challenges ============ */
@@ -326,8 +308,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .header .btn { grid-column: 4; justify-self: end; }
 
 
-  .intro__row { grid-template-columns: 1fr 1fr; align-items: end; }
-  .intro__win { justify-self: end; text-align: right; }
+  .intro { grid-template-columns: 1fr 1fr; gap: 0; }
+  .intro__side { padding-left: var(--g); padding-top: 0.6em; }
 
   .pain__grid { grid-template-columns: 1fr 1fr; gap: 0; }
   .pain__body { border-left: var(--line); padding-left: var(--g); }
@@ -396,9 +378,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
   <!-- What we do -->
   <section class="intro wrap" aria-label="What we do">
-    <h2 class="intro__statement display" data-reveal>Strategy, Creative, and Digital Advertising <em class="intro__for">for</em> <span class="hl">Food &amp; Beverage</span>, <span class="hl">Alcohol</span>, <span class="hl">Tobacco</span>, and <span class="hl">OTC Medicines</span></h2>
-    <div class="intro__row">
-      <p class="intro__years" data-reveal><em class="intro__em">8 years in,</em> we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
+    <h2 class="intro__statement display" data-reveal>Strategy, Creative, and Digital Advertising for <em>Food &amp; Beverage</em>, <em>Alcohol</em>, <em>Tobacco</em>, and <em>OTC Medicines</em></h2>
+    <div class="intro__side">
+      <p class="intro__years" data-reveal><strong>8 years in,</strong> we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
       <p class="intro__win display" data-reveal data-d="1">Wherever you sell, we take the mess – <em>you take the win.</em></p>
     </div>
   </section>
