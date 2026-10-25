@@ -76,10 +76,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 /* ============ Buttons & links ============ */
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6em;
   min-height: 44px;
   padding: 0 var(--s2);
   font-size: var(--t-label);
@@ -88,13 +88,37 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   text-transform: uppercase;
   background: var(--blue);
   color: var(--cream);
-  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.35s var(--ease);
 }
-.btn__arrow { display: inline-block; transition: transform 0.5s var(--ease); }
-.btn:hover { opacity: 0.88; }
-.btn:hover .btn__arrow { transform: translateX(5px); }
-.btn:active { transform: scale(0.98); }
+/* soft fill rising from the bottom */
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--cream);
+  opacity: 0.1;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.6s var(--ease);
+}
+.btn--cream::before { background: var(--blue); opacity: 0.08; }
+/* text roll: label slides up, a copy rolls in from below */
+.btn__roll { position: relative; display: block; overflow: hidden; line-height: 1.3; }
+.btn__roll > span, .btn__roll::after { display: block; transition: transform 0.6s var(--ease); }
+.btn__roll::after { content: attr(data-text); position: absolute; left: 0; right: 0; top: 100%; }
+.btn:hover::before, .btn:focus-visible::before { transform: scaleY(1); }
+.btn:hover .btn__roll > span, .btn:hover .btn__roll::after,
+.btn:focus-visible .btn__roll > span, .btn:focus-visible .btn__roll::after { transform: translateY(-100%); }
+.btn:active { transform: scale(0.98); transition-duration: 0.1s; }
+.btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 .btn--cream { background: var(--cream); color: var(--blue); }
+.btn--cream:focus-visible { outline-color: var(--cream); }
+@media (prefers-reduced-motion: reduce) {
+  .btn::before, .btn__roll > span, .btn__roll::after { transition: none; }
+}
 .btn--block { display: flex; width: 100%; min-height: clamp(56px, 4.4vw, 76px); }
 
 .link { position: relative; display: inline-block; }
@@ -401,7 +425,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       <li><a class="link" href="#clients">Clients</a></li>
     </ul>
   </nav>
-  <a class="btn" href="#audit">Book a free brand audit</a>
+  <a class="btn" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
 </header>
 
 <main id="top">
@@ -476,7 +500,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <p class="pain__answer" data-reveal>We’re ready to identify what's holding your brand back and deliver what's missing to make it <strong>people's first choice.</strong></p>
         <div class="pain__cta" data-reveal>
           <p class="label">Get a 20-min expert audit to reveal what's wrong and what to do next.</p>
-          <a class="btn btn--block" href="#audit">Book a free brand audit</a>
+          <a class="btn btn--block" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
         </div>
       </div>
     </div>
@@ -677,7 +701,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     <div class="footer__cta">
       <h2 class="footer__title display" data-reveal>They are ready to listen. Let’s give them something worth hearing.</h2>
       <!-- TODO: replace with the real booking link (Calendly, form, etc.) -->
-      <a class="btn btn--cream btn--block" href="mailto:hello@bruitbrothers.com?subject=Free%20brand%20audit" data-reveal data-d="1">Book a free brand audit</a>
+      <a class="btn btn--cream btn--block" href="mailto:hello@bruitbrothers.com?subject=Free%20brand%20audit" data-reveal data-d="1"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
     </div>
     <div class="footer__mark" role="img" aria-label="The two Bruit Brothers"></div>
   </div>
