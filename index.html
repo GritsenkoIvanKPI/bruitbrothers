@@ -28,9 +28,9 @@
   --t-body: clamp(15px, 1.05vw, 18px);
   --t-row: clamp(20px, 1.9vw, 34px);
   --t-lead: clamp(28px, 3.4vw, 60px);
-  --t-h3: clamp(44px, 5.4vw, 96px);
+  --t-h3: clamp(36px, 5.4vw, 96px);
   --t-h2: clamp(52px, 7.2vw, 132px);
-  --t-h1: clamp(60px, 10.4vw, 196px);
+  --t-h1: clamp(50px, 10.4vw, 196px);
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --line: 1px solid var(--blue);
@@ -71,6 +71,9 @@ a { color: inherit; text-decoration: none; }
   line-height: 0.88;
 }
 .wrap { padding-left: var(--g); padding-right: var(--g); }
+/* No single-word lines: balance headings, avoid orphans in text */
+h1, h2, h3, .display, .intro__lead { text-wrap: balance; }
+p, li, .label { text-wrap: pretty; }
 
 /* ============ Buttons & links ============ */
 .btn {
@@ -300,11 +303,8 @@ a { color: inherit; text-decoration: none; }
   .service__list { padding-right: var(--s2); }
 
   .gets__wrap { display: grid; grid-template-columns: 1fr 1fr; }
-  .gets__grid { grid-template-columns: 1fr 1fr; margin-top: 0; border-left: var(--line); }
-  .gets__item { padding: var(--s3) var(--g); min-height: 22vw; display: flex; flex-direction: column; }
-  .gets__item:nth-child(odd) { border-right: var(--line); }
-  .gets__item p { margin-top: auto; }
-  .gets__item h3 { margin-bottom: var(--s3); }
+  .gets__grid { margin-top: 0; border-left: var(--line); }
+  .gets__item { padding: var(--s3) var(--g); }
   .gets__item--fill { background: var(--blue); color: var(--cream); }
 
   .footer__grid { grid-template-columns: 1fr 1fr; align-items: center; }
@@ -354,10 +354,10 @@ a { color: inherit; text-decoration: none; }
 
   <!-- Intro -->
   <section class="intro wrap" aria-label="About Bruit Brothers">
-    <p class="intro__lead" data-reveal>At Bruit Brothers, we help FMCG brands become impossible to ignore.<br>Even the highly regulated ones.</p>
+    <p class="intro__lead" data-reveal>At Bruit Brothers, we help FMCG brands become impossible to ignore. Even the highly regulated ones.</p>
     <div class="intro__cols">
       <div data-reveal>
-        <p class="label">Strategy, Creative, and Digital Advertising<br>for<br>Food &amp; Beverage, Alcohol, Tobacco, and OTC Medicines</p>
+        <p class="label">Strategy, Creative, and Digital Advertising for Food &amp; Beverage, Alcohol, Tobacco, and OTC Medicines</p>
       </div>
       <div data-reveal data-d="1">
         <p class="label">8 years in, we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
