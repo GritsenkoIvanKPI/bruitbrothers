@@ -292,7 +292,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 /* ============ What you always get ============ */
 .gets { padding-top: var(--s5); padding-bottom: var(--s5); }
-.gets__title { font-size: var(--t-h2); line-height: 0.95; max-width: 8ch; }
+.gets__title { font-size: var(--t-h2); line-height: 0.95; }
 .gets__grid { display: grid; margin-top: var(--s4); border-top: var(--line); }
 .gets__item {
   position: relative;
@@ -379,9 +379,22 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   -webkit-mask: url("assets/brand/brothers-blue.png") center / contain no-repeat;
   mask: url("assets/brand/brothers-blue.png") center / contain no-repeat;
 }
+.footer__info {
+  display: grid;
+  gap: var(--s4);
+  margin-top: var(--s5);
+  padding-top: var(--s3);
+  border-top: var(--line);
+}
+.footer__logo { display: inline-block; justify-self: start; transition: opacity 0.4s var(--ease); }
+.footer__logo:hover { opacity: 0.75; }
+.footer__logo img { height: clamp(56px, 6vw, 96px); width: auto; }
+.footer__head { margin-bottom: var(--s2); opacity: 0.6; }
+.footer__col ul { display: grid; gap: 0.5em; line-height: 1.4; }
+.footer__col li { max-width: 26ch; }
 .footer__bottom {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s2);
-  margin-top: var(--s5); padding-top: var(--s2);
+  margin-top: var(--s4); padding-top: var(--s2);
   border-top: var(--line);
 }
 .footer__bottom ul { display: flex; flex-wrap: wrap; gap: var(--s3); }
@@ -437,6 +450,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .nos__list li { padding: var(--s4) var(--g) var(--s4) 0; }
   .nos__list li + li { border-top: 0; border-left: var(--line-cream); padding-left: var(--g); }
   .footer__grid { grid-template-columns: 1fr 1fr; align-items: center; }
+  .footer__info { grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .footer__col--contact { grid-column: 3; }
+  .footer__col--nav { grid-column: 4; }
   .footer__mark { justify-self: center; }
 }
 @media (min-width: 900px) and (max-width: 1180px) {
@@ -458,11 +474,11 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   <nav class="header__nav label" aria-label="Main">
     <ul>
       <li><a class="link" href="#solutions">Solutions</a></li>
-      <li><a class="link" href="#always">What you get</a></li>
+      <li><a class="link" href="#always">What you get</a></li>
       <li><a class="link" href="#clients">Clients</a></li>
     </ul>
   </nav>
-  <a class="btn" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
+  <a class="btn" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
 </header>
 
 <main id="top">
@@ -477,18 +493,18 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     </div>
     <div class="hero__text">
       <p class="hero__eyebrow label" data-reveal>Integrated Brand Growth Agency</p>
-      <h1 class="hero__title display" id="hero-title" data-reveal data-d="1">We are here to make your brand the obvious choice on the shelf.</h1>
-      <p class="hero__sub" data-reveal data-d="2">At Bruit Brothers, we help FMCG brands become impossible to ignore.<br>Even the highly regulated ones.</p>
+      <h1 class="hero__title display" id="hero-title" data-reveal data-d="1">We are here to make your brand the obvious choice on the shelf.</h1>
+      <p class="hero__sub" data-reveal data-d="2">At Bruit Brothers, we help FMCG brands become impossible to ignore.<br>Even the highly regulated ones.</p>
     </div>
   </section>
 
   <!-- What we do -->
   <section class="intro wrap" aria-label="What we do">
-    <h2 class="intro__statement display" data-reveal>Strategy, Creative, and Digital Advertising for</h2>
+    <h2 class="intro__statement display" data-reveal>Strategy, Creative, and Digital Advertising for</h2>
     <ul class="intro__cats" aria-label="Food &amp; Beverage, Alcohol, Tobacco, and OTC Medicines">
       <li class="intro__cat" data-reveal>
         <figure class="intro__media"><img src="assets/img/cat-food.jpg" alt="" data-dither loading="lazy" width="896" height="1200"></figure>
-        <span class="intro__name display">Food &amp; Beverage,</span>
+        <span class="intro__name display">Food &amp; Beverage,</span>
       </li>
       <li class="intro__cat" data-reveal data-d="1">
         <figure class="intro__media"><img src="assets/img/cat-alcohol.jpg" alt="" data-dither loading="lazy" width="896" height="1200"></figure>
@@ -500,7 +516,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       </li>
       <li class="intro__cat" data-reveal data-d="3">
         <figure class="intro__media"><img src="assets/img/cat-otc.jpg" alt="" data-dither loading="lazy" width="896" height="1200"></figure>
-        <span class="intro__name display">and OTC Medicines</span>
+        <span class="intro__name display">and OTC Medicines</span>
       </li>
     </ul>
   </section>
@@ -512,12 +528,12 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <video src="assets/video/listen.mp4" data-dither muted loop playsinline autoplay preload="auto" aria-hidden="true"></video>
       </div>
       <div class="listen__layer">
-        <h2 class="listen__title display" id="listen-title">Wherever you sell, we take<br class="br-wide"> the mess – you take the win.</h2>
-        <p class="listen__years">8 years in, we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
+        <h2 class="listen__title display" id="listen-title">Wherever you sell, we take<br class="br-wide"> the mess – you take the win.</h2>
+        <p class="listen__years">8 years in, we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
       </div>
       <div class="listen__layer listen__layer--light" aria-hidden="true">
-        <p class="listen__title display">Wherever you sell, we take<br class="br-wide"> the mess – you take the win.</p>
-        <p class="listen__years">8 years in, we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
+        <p class="listen__title display">Wherever you sell, we take<br class="br-wide"> the mess – you take the win.</p>
+        <p class="listen__years">8 years in, we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
       </div>
     </div>
   </section>
@@ -525,19 +541,19 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   <!-- Challenges -->
   <section class="pain wrap" aria-labelledby="pain-title">
     <div class="pain__grid">
-      <h2 class="pain__title display" id="pain-title" data-reveal>No doubt, your team is working hard to grow the brand.</h2>
+      <h2 class="pain__title display" id="pain-title" data-reveal>No doubt, your team is working hard to grow the brand.</h2>
       <div class="pain__body">
         <p class="label pain__intro" data-reveal>However, you’re probably still facing common challenges:</p>
         <ul class="pain__list">
-          <li class="pain__item" data-reveal><span class="pain__num label">01</span><span>Your products are great but somehow still aren’t in demand.</span></li>
-          <li class="pain__item" data-reveal><span class="pain__num label">02</span><span>People keep choosing competitors that aren’t that good.</span></li>
-          <li class="pain__item" data-reveal><span class="pain__num label">03</span><span>The moment you stop advertising, interest in your brand disappears.</span></li>
-          <li class="pain__item" data-reveal><span class="pain__num label">04</span><span>Every new media campaign feels like another blind guess.</span></li>
+          <li class="pain__item" data-reveal><span class="pain__num label">01</span><span>Your products are great but somehow still aren’t in demand.</span></li>
+          <li class="pain__item" data-reveal><span class="pain__num label">02</span><span>People keep choosing competitors that aren’t that good.</span></li>
+          <li class="pain__item" data-reveal><span class="pain__num label">03</span><span>The moment you stop advertising, interest in your brand disappears.</span></li>
+          <li class="pain__item" data-reveal><span class="pain__num label">04</span><span>Every new media campaign feels like another blind guess.</span></li>
         </ul>
-        <p class="pain__answer" data-reveal>We’re ready to identify what's holding your brand back and deliver what's missing to make it <strong>people's first choice.</strong></p>
+        <p class="pain__answer" data-reveal>We’re ready to identify what's holding your brand back and deliver what's missing to make it <strong>people's first choice.</strong></p>
         <div class="pain__cta" data-reveal>
-          <p class="label">Get a 20-min expert audit to reveal what's wrong and what to do next.</p>
-          <a class="btn btn--block" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
+          <p class="label">Get a 20-min expert audit to reveal what's wrong and what to do next.</p>
+          <a class="btn btn--block" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
         </div>
       </div>
     </div>
@@ -551,7 +567,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
   <!-- Services -->
   <section class="services" id="solutions" aria-labelledby="services-title">
-    <h2 class="services__title display wrap" id="services-title" data-reveal>Five solutions we deliver</h2>
+    <h2 class="services__title display wrap" id="services-title" data-reveal>Five solutions we deliver</h2>
 
     <article class="service" aria-labelledby="s1">
       <figure class="service__media">
@@ -561,11 +577,11 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <div>
           <p class="label">01</p>
           <h3 class="service__title display" id="s1" data-reveal>Brand Strategy</h3>
-          <p class="service__lead" data-reveal>Great brands grow not from making more decisions, but from making better ones. We build a strategy that tells you where to compete, how to be different and what to avoid, so that your brand becomes the one people reach for.</p>
+          <p class="service__lead" data-reveal>Great brands grow not from making more decisions, but from making better ones. We build a strategy that tells you where to compete, how to be different and what to avoid, so that your brand becomes the one people reach for.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
-            <p>It’s all based on real consumer insights verified in your product category, and delivered as a clear, structured document your team can actually use to drive commercial growth.</p>
+            <p>It’s all based on real consumer insights verified in your product category, and delivered as a clear, structured document your team can actually use to drive commercial growth.</p>
           </div>
           <div data-reveal data-d="1">
             <p class="label service__list-title">Includes:</p>
@@ -578,7 +594,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
               <li>Brand Voice</li>
               <li>Brand Feelings</li>
               <li>Brand Mission</li>
-              <li>Growth &amp; Advertising Logic</li>
+              <li>Growth &amp; Advertising Logic</li>
             </ul>
           </div>
         </div>
@@ -593,19 +609,19 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <div>
           <p class="label">02</p>
           <h3 class="service__title display" id="s2" data-reveal>Campaign Development</h3>
-          <p class="service__lead" data-reveal>Your brand has only 1.3 seconds to capture attention, so before a single ad goes live, you need to know exactly what to say and where to do it.</p>
+          <p class="service__lead" data-reveal>Your brand has only 1.3 seconds to capture attention, so before a single ad goes live, you need to know exactly what to say and where to do it.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
-            <p>We develop messages that are instantly clear, identify the highest-potential placements, and create unmissable advertising materials that spark desire.</p>
-            <p>It comes together as a complete campaign kit, ready to launch.</p>
+            <p>We develop messages that are instantly clear, identify the highest-potential placements, and create unmissable advertising materials that spark desire.</p>
+            <p>It comes together as a complete campaign kit, ready to launch.</p>
           </div>
           <div data-reveal data-d="1">
             <p class="label service__list-title">Includes:</p>
             <ul class="service__list">
-              <li>Big Idea</li>
-              <li>Key Messages</li>
-              <li>Media Channels &amp; Budget Split</li>
+              <li>Big Idea</li>
+              <li>Key Messages</li>
+              <li>Media Channels &amp; Budget Split</li>
               <li>Creative Materials</li>
             </ul>
           </div>
@@ -621,21 +637,21 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <div>
           <p class="label">03</p>
           <h3 class="service__title display" id="s3" data-reveal>Media Activation</h3>
-          <p class="service__lead" data-reveal>Being visible online is easy. Being visible in the right place is what most brands still haven’t learned to do.</p>
+          <p class="service__lead" data-reveal>Being visible online is easy. Being visible in the right place is what most brands still haven’t learned to do.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
-            <p>For your brand, we launch multi-channel campaigns across the top-tier placements others miss (or just can’t access ☻).</p>
-            <p>Using real-time intent signals and predictive targeting, we reach the people who matter most to you at the moment they're actually paying attention.</p>
+            <p>For your brand, we launch multi-channel campaigns across the top-tier placements others miss (or just can’t access ☻).</p>
+            <p>Using real-time intent signals and predictive targeting, we reach the people who matter most to you at the moment they're actually paying attention.</p>
           </div>
           <div data-reveal data-d="1">
             <p class="label service__list-title">Advertising channels:</p>
             <ul class="service__list">
-              <li>Mobile Apps &amp; Games</li>
+              <li>Mobile Apps &amp; Games</li>
               <li>Connected TV</li>
               <li>Digital Out-of-Home</li>
               <li>Audio Streaming Platforms</li>
-              <li>TikTok Clipping &amp; Overlay Sticker</li>
+              <li>TikTok Clipping &amp; Overlay Sticker</li>
               <li>ChatGPT</li>
             </ul>
           </div>
@@ -651,11 +667,11 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <div>
           <p class="label">04</p>
           <h3 class="service__title display" id="s4" data-reveal>Brand Measurement</h3>
-          <p class="service__lead" data-reveal>What you spend on marketing rarely bumps sales immediately, but it starts shifting what people think of your brand from day one. Measure that shift, and you’ll know what deserves the next round of budget.</p>
+          <p class="service__lead" data-reveal>What you spend on marketing rarely bumps sales immediately, but it starts shifting what people think of your brand from day one. Measure that shift, and you’ll know what deserves the next round of budget.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
-            <p>We run Brand Lift to isolate the effect of a specific media campaign, or Brand Health Tracking to show how all your marketing activity changes brand perception over months and years.</p>
+            <p>We run Brand Lift to isolate the effect of a specific media campaign, or Brand Health Tracking to show how all your marketing activity changes brand perception over months and years.</p>
           </div>
           <div data-reveal data-d="1">
             <p class="label service__list-title">Metrics:</p>
@@ -680,12 +696,12 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <div>
           <p class="label">05</p>
           <h3 class="service__title display" id="s5" data-reveal>Visual Identity</h3>
-          <p class="service__lead" data-reveal>To win on a crowded shelf, it’s essential to look different, yet still be crystal clear at first sight.</p>
+          <p class="service__lead" data-reveal>To win on a crowded shelf, it’s essential to look different, yet still be crystal clear at first sight.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
-            <p>We develop a complete visual identity with a character that’s unmistakably yours, where every element follows your strategy and helps your products get picked.</p>
-            <p>It works across packaging, print, and digital alike. You get the whole visual system in one guideline, easy for everyone on your team to use right.</p>
+            <p>We develop a complete visual identity with a character that’s unmistakably yours, where every element follows your strategy and helps your products get picked.</p>
+            <p>It works across packaging, print, and digital alike. You get the whole visual system in one guideline, easy for everyone on your team to use right.</p>
           </div>
           <div data-reveal data-d="1">
             <p class="label service__list-title">Includes:</p>
@@ -694,7 +710,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
               <li>Mascot</li>
               <li>Color Palette</li>
               <li>Typography</li>
-              <li>Signature Elements &amp; Patterns</li>
+              <li>Signature Elements &amp; Patterns</li>
               <li>Photography Style</li>
               <li>Packaging Design</li>
               <li>Applications</li>
@@ -708,23 +724,23 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   <!-- What you always get -->
   <section class="gets wrap" id="always" aria-labelledby="gets-title">
     <div class="gets__wrap">
-      <h2 class="gets__title display" id="gets-title" data-reveal>What you always get</h2>
+      <h2 class="gets__title display" id="gets-title" data-reveal>What you always get</h2>
       <div class="gets__grid">
         <article class="gets__item is-active" data-reveal>
           <h3 class="display">High-value channels only.</h3>
-          <p>Valuable attention starts beyond the obvious placements, so we’ll never put you on oversaturated Meta Ads or other default options.</p>
+          <p>Valuable attention starts beyond the obvious placements, so we’ll never put you on oversaturated Meta Ads or other default options.</p>
         </article>
         <article class="gets__item" data-reveal data-d="1">
           <h3 class="display">Regulated industries expertise.</h3>
-          <p>We get your campaign live without the usual drama, covering category restrictions, age assurance, platform policies, and creative compliance.</p>
+          <p>We get your campaign live without the usual drama, covering category restrictions, age assurance, platform policies, and creative compliance.</p>
         </article>
         <article class="gets__item" data-reveal>
           <h3 class="display">Total clarity.</h3>
-          <p>You always know what's going on, what comes next, and why it matters, so nothing ever feels like a black box.</p>
+          <p>You always know what's going on, what comes next, and why it matters, so nothing ever feels like a black box.</p>
         </article>
         <article class="gets__item" data-reveal data-d="1">
           <h3 class="display">Zero guesswork.</h3>
-          <p>Every decision is grounded in proven consumer psychology, behavioral patterns, and purchase motivations.</p>
+          <p>Every decision is grounded in proven consumer psychology, behavioral patterns, and purchase motivations.</p>
         </article>
       </div>
     </div>
@@ -733,9 +749,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   <!-- No-line -->
   <section class="nos wrap" aria-label="How we work">
     <ul class="nos__list">
-      <li data-reveal>No endless briefings</li>
-      <li data-reveal data-d="1">No useless documents</li>
-      <li data-reveal data-d="2">No unexpected delays</li>
+      <li data-reveal>No endless briefings</li>
+      <li data-reveal data-d="1">No useless documents</li>
+      <li data-reveal data-d="2">No unexpected delays</li>
     </ul>
   </section>
 
@@ -744,14 +760,37 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 <footer class="footer wrap" id="audit">
   <div class="footer__grid">
     <div class="footer__cta">
-      <h2 class="footer__title display" data-reveal>They are ready to listen. Let’s give them something worth hearing.</h2>
-      <!-- TODO: replace with the real booking link (Calendly, form, etc.) -->
-      <a class="btn btn--block" href="mailto:hello@bruitbrothers.com?subject=Free%20brand%20audit" data-reveal data-d="1"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
+      <h2 class="footer__title display" data-reveal>They are ready to listen. Let’s give them something worth hearing.</h2>
+      <a class="btn btn--block" href="mailto:office@bruitbrothers.com?subject=Free%20brand%20audit" data-reveal data-d="1"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
     </div>
     <div class="footer__mark" role="img" aria-label="The two Bruit Brothers"></div>
   </div>
+  <div class="footer__info">
+    <a class="footer__logo" href="#top" aria-label="Bruit Brothers — back to top">
+      <img src="assets/brand/wordmark-blue.png" alt="Bruit Brothers" width="3667" height="1569" loading="lazy">
+    </a>
+    <div class="footer__col footer__col--contact">
+      <p class="label footer__head">Contact</p>
+      <ul>
+        <li><a class="link" href="mailto:office@bruitbrothers.com">office@bruitbrothers.com</a></li>
+        <li><a class="link" href="tel:+35799701001">+357 99 701 001</a></li>
+        <li>28 Oktovriou Street, 3041&nbsp;Limassol, Cyprus</li>
+      </ul>
+    </div>
+    <nav class="footer__col footer__col--nav" aria-label="Footer">
+      <p class="label footer__head">Navigation</p>
+      <ul>
+        <li><a class="link" href="#solutions">Solutions</a></li>
+        <li><a class="link" href="#always">What you get</a></li>
+        <li><a class="link" href="#clients">Clients</a></li>
+        <li><a class="link" href="#audit">Free brand audit</a></li>
+      </ul>
+    </nav>
+  </div>
   <div class="footer__bottom label">
-    <span>© 2026 Bruit Brothers</span>
+    <span>© Bruit Brothers 2026 | All rights reserved</span>
+    <!-- TODO: link to the real Privacy Policy page -->
+    <a class="link" href="#privacy">Privacy Policy</a>
   </div>
 </footer>
 
