@@ -332,6 +332,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .gets__item.is-active { color: var(--cream); }
 .gets__item.is-active::before { opacity: 1; }
 .gets__item { padding-left: 0; }
+.gets__num { display: block; margin-bottom: var(--s2); opacity: 0.7; }
 .gets__item h3 { font-size: clamp(30px, 2.6vw, 46px); line-height: 0.95; margin: 0 0 var(--s2); }
 .gets__item p { max-width: 38ch; }
 .nos { background: var(--blue); color: var(--cream); }
@@ -465,7 +466,16 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .gets__grid { margin-top: 0; border-left: var(--line); }
   .gets__wrap { align-items: start; }
   .gets__title { position: sticky; top: calc(var(--header) + var(--s3)); }
-  .gets__item { padding: var(--s4) var(--g); min-height: 42vh; display: flex; flex-direction: column; justify-content: center; }
+  .gets__item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "num num" "title text";
+    column-gap: var(--s3);
+    padding: var(--s3) var(--g) var(--s4);
+  }
+  .gets__num { grid-area: num; margin-bottom: var(--s3); }
+  .gets__item h3 { grid-area: title; margin: 0; }
+  .gets__item p { grid-area: text; margin-top: 0.15em; }
   .gets__item::before { inset: 0; }
 
   .nos__list { grid-template-columns: repeat(3, 1fr); }
@@ -767,18 +777,22 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       <h2 class="gets__title display" id="gets-title" data-reveal>What you always get</h2>
       <div class="gets__grid">
         <article class="gets__item is-active" data-reveal>
+          <span class="gets__num label">01</span>
           <h3 class="display">High-value channels only.</h3>
           <p>Valuable attention starts beyond the obvious placements, so we’ll never put you on oversaturated Meta Ads or other default options.</p>
         </article>
         <article class="gets__item" data-reveal data-d="1">
+          <span class="gets__num label">02</span>
           <h3 class="display">Regulated industries expertise.</h3>
           <p>We get your campaign live without the usual drama, covering category restrictions, age assurance, platform policies, and creative compliance.</p>
         </article>
         <article class="gets__item" data-reveal>
+          <span class="gets__num label">03</span>
           <h3 class="display">Total clarity.</h3>
           <p>You always know what's going on, what comes next, and why it matters, so nothing ever feels like a black box.</p>
         </article>
         <article class="gets__item" data-reveal data-d="1">
+          <span class="gets__num label">04</span>
           <h3 class="display">Zero guesswork.</h3>
           <p>Every decision is grounded in proven consumer psychology, behavioral patterns, and purchase motivations.</p>
         </article>
