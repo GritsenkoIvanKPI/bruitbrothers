@@ -344,6 +344,12 @@ function supportsWebGL2() {
    ===================================================================== */
 export function initDitherHover(options = {}) {
   const opts = { ...DEFAULTS, ...options };
+  // Optional overrides of the effect parameters: initDitherHover({ params: { biasNoiseSpeed: 0.3, trail: { decayRate: 0.08 } } })
+  if (options.params) {
+    const { trail, ...rest } = options.params;
+    Object.assign(PARAMS, rest);
+    if (trail) Object.assign(PARAMS.trail, trail);
+  }
   if (!supportsWebGL2()) return null; // фолбек: звичайні картинки
 
   // Стилі: ховаємо <img> тільки коли WebGL реально працює

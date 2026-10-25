@@ -143,12 +143,12 @@ a { color: inherit; text-decoration: none; }
   z-index: 2;
   left: var(--g);
   right: var(--g);
-  bottom: calc(var(--t-h1) * 0.24);
+  bottom: var(--s3);
   pointer-events: none;
 }
 .hero__caption {
   max-width: 17ch;
-  margin-bottom: var(--s3);
+  margin-top: var(--s2);
   font-size: clamp(17px, 1.5vw, 26px);
   font-weight: 300;
   line-height: 1.15;
@@ -180,7 +180,6 @@ a { color: inherit; text-decoration: none; }
 .pain__list { border-top: var(--line); }
 .pain__item {
   display: grid;
-  grid-template-columns: 48px 1fr;
   gap: var(--s2);
   align-items: baseline;
   padding: var(--s2) 0;
@@ -189,7 +188,6 @@ a { color: inherit; text-decoration: none; }
   font-weight: 300;
   line-height: 1.15;
 }
-.pain__num { font-size: var(--t-label); font-weight: 500; letter-spacing: 0.06em; }
 .pain__answer {
   margin-top: var(--s4);
   max-width: 32ch;
@@ -202,11 +200,13 @@ a { color: inherit; text-decoration: none; }
 
 /* ============ Trusted by ============ */
 .trust { background: var(--blue); color: var(--cream); padding-top: var(--s3); padding-bottom: var(--s3); }
-.trust__list { display: grid; grid-template-columns: 1fr 1fr; margin-top: var(--s3); }
-.trust__list li {
-  padding: var(--s2) var(--s2) var(--s2) 0;
+.trust__line {
+  margin-top: var(--s3);
+  padding-top: var(--s2);
   border-top: var(--line-cream);
   font-size: clamp(26px, 2.6vw, 46px);
+  line-height: 1.1;
+  word-spacing: 0.15em;
 }
 
 /* ============ Services ============ */
@@ -235,9 +235,9 @@ a { color: inherit; text-decoration: none; }
 .gets__title { font-size: var(--t-h2); max-width: 8ch; }
 .gets__grid { display: grid; margin-top: var(--s4); border-top: var(--line); }
 .gets__item { padding: var(--s3) 0; border-bottom: var(--line); }
-.gets__item h3 { font-size: clamp(30px, 2.6vw, 46px); line-height: 0.95; margin: var(--s2) 0 var(--s2); }
+.gets__item h3 { font-size: clamp(30px, 2.6vw, 46px); line-height: 0.95; margin: 0 0 var(--s2); }
 .gets__item p { max-width: 38ch; }
-.gets__no { display: grid; gap: var(--s1); margin-top: var(--s4); }
+.gets__no { margin-top: var(--s4); padding-top: var(--s2); border-top: var(--line); text-align: center; }
 
 /* ============ Footer ============ */
 .footer { background: var(--blue); color: var(--cream); padding-top: var(--s5); padding-bottom: var(--s2); }
@@ -291,8 +291,6 @@ a { color: inherit; text-decoration: none; }
   .pain__body { border-left: var(--line); padding-left: var(--g); }
   .pain__cta { max-width: 75%; }
 
-  .trust__list { grid-template-columns: repeat(4, 1fr); }
-  .trust__list li + li { padding-left: var(--g); border-left: var(--line-cream); }
 
   .service { grid-template-columns: 1fr 1fr; min-height: 75vh; min-height: 75svh; }
   .service__media { margin: var(--g) var(--g) var(--g) 0; height: auto; max-height: none; min-height: 60svh; }
@@ -308,8 +306,6 @@ a { color: inherit; text-decoration: none; }
   .gets__item p { margin-top: auto; }
   .gets__item h3 { margin-bottom: var(--s3); }
   .gets__item--fill { background: var(--blue); color: var(--cream); }
-  .gets__no { grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: var(--s3); }
-  .gets__no li:first-child { grid-column: 2; }
 
   .footer__grid { grid-template-columns: 1fr 1fr; align-items: center; }
   .footer__mark { justify-self: center; }
@@ -319,7 +315,8 @@ a { color: inherit; text-decoration: none; }
   .header__nav { grid-column: 2 / 4; justify-self: center; }
 }
 @media (max-width: 899px) {
-  .header .btn__long { display: none; }
+  .header .btn { padding: 0 var(--s1); }
+  .header__logo img { height: 32px; }
 }
 </style>
 </head>
@@ -336,7 +333,7 @@ a { color: inherit; text-decoration: none; }
       <li><a class="link" href="#clients">Clients</a></li>
     </ul>
   </nav>
-  <a class="btn" href="#audit"><span><span class="btn__long">Book a free </span>brand audit</span><span class="btn__arrow" aria-hidden="true">→</span></a>
+  <a class="btn" href="#audit">[ Book a free brand audit → ]</a>
 </header>
 
 <main id="top">
@@ -350,17 +347,17 @@ a { color: inherit; text-decoration: none; }
       </picture>
     </div>
     <div class="hero__text">
-      <p class="hero__caption" data-reveal data-d="2">We are here to make your brand the obvious choice on the shelf.</p>
       <h1 class="hero__title display" id="hero-title" data-reveal data-d="1">Integrated Brand<br>Growth Agency</h1>
+      <p class="hero__caption" data-reveal data-d="2">We are here to make your brand the obvious choice on the shelf.</p>
     </div>
   </section>
 
   <!-- Intro -->
   <section class="intro wrap" aria-label="About Bruit Brothers">
-    <p class="intro__lead" data-reveal>At Bruit Brothers, we help FMCG brands become impossible to ignore. Even the highly regulated ones.</p>
+    <p class="intro__lead" data-reveal>At Bruit Brothers, we help FMCG brands become impossible to ignore.<br>Even the highly regulated ones.</p>
     <div class="intro__cols">
       <div data-reveal>
-        <p class="label">Strategy, Creative, and Digital Advertising for Food &amp; Beverage, Alcohol, Tobacco, and OTC Medicines</p>
+        <p class="label">Strategy, Creative, and Digital Advertising<br>for<br>Food &amp; Beverage, Alcohol, Tobacco, and OTC Medicines</p>
       </div>
       <div data-reveal data-d="1">
         <p class="label">8 years in, we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
@@ -376,15 +373,15 @@ a { color: inherit; text-decoration: none; }
       <div class="pain__body">
         <p class="label pain__intro" data-reveal>However, you’re probably still facing common challenges:</p>
         <ul class="pain__list">
-          <li class="pain__item" data-reveal><span class="pain__num">01</span><span>Your products are great but somehow still aren’t in demand.</span></li>
-          <li class="pain__item" data-reveal><span class="pain__num">02</span><span>People keep choosing competitors that aren’t that good.</span></li>
-          <li class="pain__item" data-reveal><span class="pain__num">03</span><span>The moment you stop advertising, interest in your brand disappears.</span></li>
-          <li class="pain__item" data-reveal><span class="pain__num">04</span><span>Every new media campaign feels like another blind guess.</span></li>
+          <li class="pain__item" data-reveal><span>Your products are great but somehow still aren’t in demand.</span></li>
+          <li class="pain__item" data-reveal><span>People keep choosing competitors that aren’t that good.</span></li>
+          <li class="pain__item" data-reveal><span>The moment you stop advertising, interest in your brand disappears.</span></li>
+          <li class="pain__item" data-reveal><span>Every new media campaign feels like another blind guess.</span></li>
         </ul>
         <p class="pain__answer" data-reveal>We’re ready to identify what's holding your brand back and deliver what's missing to make it people's first choice.</p>
         <div class="pain__cta" data-reveal>
           <p class="label">Get a 20-min expert audit to reveal what's wrong and what to do next.</p>
-          <a class="btn btn--block" href="#audit">Book a free brand audit <span class="btn__arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn--block" href="#audit">[ Book a free brand audit → ]</a>
         </div>
       </div>
     </div>
@@ -393,12 +390,7 @@ a { color: inherit; text-decoration: none; }
   <!-- Trusted by -->
   <section class="trust wrap" id="clients" aria-labelledby="trust-title">
     <h2 class="label" id="trust-title">Trusted by</h2>
-    <ul class="trust__list">
-      <li class="display" data-reveal>Swedish Smokeless</li>
-      <li class="display" data-reveal data-d="1">Swedish Smokeless</li>
-      <li class="display" data-reveal data-d="2">Swedish Smokeless</li>
-      <li class="display" data-reveal data-d="3">Swedish Smokeless</li>
-    </ul>
+    <p class="trust__line display" data-reveal>Swedish Smokeless / Swedish Smokeless / Swedish Smokeless / Swedish Smokeless</p>
   </section>
 
   <!-- Services -->
@@ -411,7 +403,7 @@ a { color: inherit; text-decoration: none; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="label">01 / 05</p>
+          <p class="label">01</p>
           <h3 class="service__title display" id="s1" data-reveal>Brand Strategy</h3>
         </div>
         <div class="service__cols">
@@ -443,7 +435,7 @@ a { color: inherit; text-decoration: none; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="label">02 / 05</p>
+          <p class="label">02</p>
           <h3 class="service__title display" id="s2" data-reveal>Campaign Development</h3>
         </div>
         <div class="service__cols">
@@ -471,7 +463,7 @@ a { color: inherit; text-decoration: none; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="label">03 / 05</p>
+          <p class="label">03</p>
           <h3 class="service__title display" id="s3" data-reveal>Media Activation</h3>
         </div>
         <div class="service__cols">
@@ -501,7 +493,7 @@ a { color: inherit; text-decoration: none; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="label">04 / 05</p>
+          <p class="label">04</p>
           <h3 class="service__title display" id="s4" data-reveal>Brand Measurement</h3>
         </div>
         <div class="service__cols">
@@ -530,7 +522,7 @@ a { color: inherit; text-decoration: none; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="label">05 / 05</p>
+          <p class="label">05</p>
           <h3 class="service__title display" id="s5" data-reveal>Visual Identity</h3>
         </div>
         <div class="service__cols">
@@ -563,32 +555,24 @@ a { color: inherit; text-decoration: none; }
       <h2 class="gets__title display" id="gets-title" data-reveal>What you always get</h2>
       <div class="gets__grid">
         <article class="gets__item gets__item--fill" data-reveal>
-          <span class="label">01</span>
           <h3 class="display">High-value channels only.</h3>
           <p>Valuable attention starts beyond the obvious placements, so we’ll never put you on oversaturated Meta Ads or other default options.</p>
         </article>
         <article class="gets__item" data-reveal data-d="1">
-          <span class="label">02</span>
           <h3 class="display">Regulated industries expertise.</h3>
           <p>We get your campaign live without the usual drama, covering category restrictions, age assurance, platform policies, and creative compliance.</p>
         </article>
         <article class="gets__item" data-reveal>
-          <span class="label">03</span>
           <h3 class="display">Total clarity.</h3>
           <p>You always know what's going on, what comes next, and why it matters, so nothing ever feels like a black box.</p>
         </article>
         <article class="gets__item" data-reveal data-d="1">
-          <span class="label">04</span>
           <h3 class="display">Zero guesswork.</h3>
           <p>Every decision is grounded in proven consumer psychology, behavioral patterns, and purchase motivations.</p>
         </article>
       </div>
     </div>
-    <ul class="gets__no label" data-reveal>
-      <li>No endless briefings</li>
-      <li>No useless documents</li>
-      <li>No unexpected delays</li>
-    </ul>
+    <p class="gets__no label" data-reveal>NO ENDLESS BRIEFINGS&emsp;&emsp;NO USELESS DOCUMENTS&emsp;&emsp;NO UNEXPECTED DELAYS</p>
   </section>
 </main>
 
@@ -597,18 +581,12 @@ a { color: inherit; text-decoration: none; }
     <div class="footer__cta">
       <h2 class="footer__title display" data-reveal>They are ready to listen. Let’s give them something worth hearing.</h2>
       <!-- TODO: replace with the real booking link (Calendly, form, etc.) -->
-      <a class="btn btn--cream btn--block" href="mailto:hello@bruitbrothers.com?subject=Free%20brand%20audit" data-reveal data-d="1">Book a free brand audit <span class="btn__arrow" aria-hidden="true">→</span></a>
+      <a class="btn btn--cream btn--block" href="mailto:hello@bruitbrothers.com?subject=Free%20brand%20audit" data-reveal data-d="1">[ Book a free brand audit → ]</a>
     </div>
     <div class="footer__mark" role="img" aria-label="The two Bruit Brothers"></div>
   </div>
   <div class="footer__bottom label">
     <span>© 2026 Bruit Brothers</span>
-    <ul>
-      <li><a class="link" href="#solutions">Solutions</a></li>
-      <li><a class="link" href="#always">What you get</a></li>
-      <li><a class="link" href="#clients">Clients</a></li>
-      <li><a class="link" href="#top">Back to top ↑</a></li>
-    </ul>
   </div>
 </footer>
 
@@ -624,7 +602,21 @@ a { color: inherit; text-decoration: none; }
 </script>
 <script type="module">
   import { initDitherHover } from './dither-hover.js';
-  initDitherHover({ colorDark: '#15209f', colorLight: '#f0ede5', zIndex: 1 });
+  initDitherHover({
+    colorDark: '#15209f',
+    colorLight: '#f0ede5',
+    zIndex: 1,
+    // Calmer than the defaults: slow, subtle shimmer and a softer cursor trail
+    params: {
+      biasNoiseSpeed: 0.25,        // default 94 (main source of flicker)
+      biasPulseSpeed: 0.5,         // default 3.1
+      biasAnimationStrength: 0.06, // default 0.29
+      pixelSizeMultiplier: 3,      // default 7.7 (dot size under the cursor)
+      trailIntensityMultiplier: 0.7,
+      enterDuration: 1.4,
+      trail: { decayRate: 0.08 },
+    },
+  });
 </script>
 </body>
 </html>
