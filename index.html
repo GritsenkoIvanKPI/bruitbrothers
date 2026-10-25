@@ -349,6 +349,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   font-size: var(--t-h1);
   line-height: 0.95;
 }
+.br-wide { display: none; }
+@media (min-width: 900px) { .br-wide { display: inline; } }
 .listen__years {
   position: absolute;
   left: var(--g);
@@ -361,7 +363,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 @media (min-width: 900px) {
   .listen__title { max-width: calc(50% - var(--g) * 2); }
-  .listen__years { left: 50%; top: var(--s4); padding-top: 0.4em; }
+  .listen__years { left: 50%; top: var(--s4); margin-top: -0.15em; }
 }
 
 /* ============ Footer ============ */
@@ -509,11 +511,11 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <video src="assets/video/listen.mp4" data-dither muted loop playsinline autoplay preload="auto" aria-hidden="true"></video>
       </div>
       <div class="listen__layer">
-        <h2 class="listen__title display" id="listen-title">Wherever you sell, we take the mess – you take the win.</h2>
+        <h2 class="listen__title display" id="listen-title">Wherever you sell, we take<br class="br-wide"> the mess – you take the win.</h2>
         <p class="listen__years">8 years in, we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
       </div>
       <div class="listen__layer listen__layer--light" aria-hidden="true">
-        <p class="listen__title display">Wherever you sell, we take the mess – you take the win.</p>
+        <p class="listen__title display">Wherever you sell, we take<br class="br-wide"> the mess – you take the win.</p>
         <p class="listen__years">8 years in, we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
       </div>
     </div>
