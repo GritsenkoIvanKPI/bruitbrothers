@@ -316,8 +316,16 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .gets__item { padding-left: 0; }
 .gets__item h3 { font-size: clamp(30px, 2.6vw, 46px); line-height: 0.95; margin: 0 0 var(--s2); }
 .gets__item p { max-width: 38ch; }
-.gets__no { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s1) var(--s3); margin-top: var(--s4); padding-top: var(--s2); border-top: var(--line); }
-.gets__no span { white-space: nowrap; }
+.nos { background: var(--blue); color: var(--cream); }
+.nos__list { display: grid; }
+.nos__list li {
+  padding: var(--s3) 0;
+  font-size: clamp(22px, 2.3vw, 42px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+.nos__list li + li { border-top: var(--line-cream); }
 
 /* ============ Closing line + video ============ */
 .listen { position: relative; height: 280vh; }
@@ -357,21 +365,21 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 
 /* ============ Footer ============ */
-.footer { background: var(--blue); color: var(--cream); padding-top: var(--s5); padding-bottom: var(--s2); }
+.footer { background: var(--cream); color: var(--blue); border-top: var(--line); padding-top: var(--s5); padding-bottom: var(--s2); }
 .footer__grid { display: grid; gap: var(--s4); }
 .footer__title { font-size: var(--t-h1); line-height: 0.95; max-width: 18ch; }
 .footer__cta .btn { margin-top: var(--s4); max-width: 520px; }
 .footer__mark {
   width: min(70%, 380px);
   aspect-ratio: 1;
-  background: var(--cream);
+  background: var(--blue);
   -webkit-mask: url("assets/brand/brothers-blue.png") center / contain no-repeat;
   mask: url("assets/brand/brothers-blue.png") center / contain no-repeat;
 }
 .footer__bottom {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s2);
   margin-top: var(--s5); padding-top: var(--s2);
-  border-top: var(--line-cream);
+  border-top: var(--line);
 }
 .footer__bottom ul { display: flex; flex-wrap: wrap; gap: var(--s3); }
 
@@ -422,6 +430,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .gets__item { padding: var(--s4) var(--g); min-height: 42vh; display: flex; flex-direction: column; justify-content: center; }
   .gets__item::before { inset: 0; }
 
+  .nos__list { grid-template-columns: repeat(3, 1fr); }
+  .nos__list li { padding: var(--s4) var(--g) var(--s4) 0; }
+  .nos__list li + li { border-top: 0; border-left: var(--line-cream); padding-left: var(--g); }
   .footer__grid { grid-template-columns: 1fr 1fr; align-items: center; }
   .footer__mark { justify-self: center; }
 }
@@ -714,7 +725,15 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         </article>
       </div>
     </div>
-    <p class="gets__no label" data-reveal><span>NO ENDLESS BRIEFINGS</span> <span>NO USELESS DOCUMENTS</span> <span>NO UNEXPECTED DELAYS</span></p>
+  </section>
+
+  <!-- No-line -->
+  <section class="nos wrap" aria-label="How we work">
+    <ul class="nos__list">
+      <li data-reveal>NO ENDLESS BRIEFINGS</li>
+      <li data-reveal data-d="1">NO USELESS DOCUMENTS</li>
+      <li data-reveal data-d="2">NO UNEXPECTED DELAYS</li>
+    </ul>
   </section>
 
 </main>
@@ -724,7 +743,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     <div class="footer__cta">
       <h2 class="footer__title display" data-reveal>They are ready to listen. Let’s give them something worth hearing.</h2>
       <!-- TODO: replace with the real booking link (Calendly, form, etc.) -->
-      <a class="btn btn--cream btn--block" href="mailto:hello@bruitbrothers.com?subject=Free%20brand%20audit" data-reveal data-d="1"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
+      <a class="btn btn--block" href="mailto:hello@bruitbrothers.com?subject=Free%20brand%20audit" data-reveal data-d="1"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
     </div>
     <div class="footer__mark" role="img" aria-label="The two Bruit Brothers"></div>
   </div>
