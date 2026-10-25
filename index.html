@@ -402,15 +402,6 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .footer__nav, .footer__contact { font-size: clamp(17px, 1.4vw, 24px); line-height: 1.4; }
 .footer__nav ul, .footer__contact ul { gap: 0.6em; }
 .footer__contact { display: flex; flex-direction: column; }
-/* BB monogram: two letters, two brothers */
-.footer__bb {
-  width: min(100%, 220px);
-  aspect-ratio: 1354 / 826;
-  margin-top: var(--s4);
-  background: var(--blue);
-  -webkit-mask: url("assets/brand/bb-blue.png") left bottom / contain no-repeat;
-  mask: url("assets/brand/bb-blue.png") left bottom / contain no-repeat;
-}
 .footer__title { font-size: var(--t-h1); line-height: 0.95; max-width: 18ch; }
 .footer__cta .btn { margin-top: var(--s3); max-width: 420px; }
 .footer__cell--bottom { opacity: 0.75; }
@@ -498,7 +489,6 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .footer__mark { height: 112%; width: auto; max-width: 90%; margin-bottom: -10%; }
   .footer__cell { padding: var(--s3) var(--g); border-left: var(--line); }
   .footer__nav { grid-area: nav; }
-  .footer__bb { width: 100%; max-width: none; margin-top: auto; }
   .footer__cell--top:not(.footer__nav) { grid-area: contact; }
   p.footer__cell--bottom { grid-area: legal; }
   div.footer__cell--bottom { grid-area: privacy; }
@@ -826,7 +816,6 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <li><a class="link" href="tel:+35799701001">+357 99 701 001</a></li>
         <li>28 Oktovriou Street,<br>3041 Limassol, Cyprus</li>
       </ul>
-      <div class="footer__bb" role="img" aria-label="Bruit Brothers"></div>
     </div>
 
     <div class="footer__cta">
