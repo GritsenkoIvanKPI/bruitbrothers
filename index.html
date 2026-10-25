@@ -261,14 +261,14 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .pain__cta p { margin-bottom: var(--s2); }
 
 /* ============ Trusted by ============ */
-.trust { background: var(--blue); color: var(--cream); padding-top: var(--s3); padding-bottom: var(--s3); }
-.trust__list { display: grid; grid-template-columns: 1fr 1fr; margin-top: var(--s3); }
-.trust__item { display: flex; align-items: center; justify-content: center; height: clamp(110px, 11vw, 180px); }
-.trust__item:nth-child(even) { border-left: var(--line-cream); }
-.trust__item:nth-child(n+3) { border-top: var(--line-cream); }
+.trust { background: var(--blue); color: var(--cream); }
+.trust__grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.trust__head { grid-column: 1 / -1; display: flex; align-items: center; padding: var(--s3) var(--g) var(--s1); margin: 0; }
+.trust__item { display: flex; align-items: center; justify-content: center; height: clamp(96px, 10vw, 180px); }
+.trust__item + .trust__item { border-left: var(--line-cream); }
 /* client logo, recoloured to the brand cream */
 .trust__logo {
-  width: min(76%, 240px);
+  width: min(74%, 240px);
   aspect-ratio: 417 / 120;
   background: var(--cream);
   -webkit-mask: url("assets/brand/client-swedish-smokeless.webp") center / contain no-repeat;
@@ -450,9 +450,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .intro__cat, .intro__cat:nth-child(even) { padding: var(--g) var(--g) 0; border-left: var(--line); border-top: var(--line); }
   .intro__cat:first-child { border-left: 0; }
 
-  .trust__list { grid-template-columns: repeat(4, 1fr); margin-left: calc(-1 * var(--g)); margin-right: calc(-1 * var(--g)); }
-  .trust__item:nth-child(n+3) { border-top: 0; }
-  .trust__item + .trust__item { border-left: var(--line-cream); }
+  .trust__grid { grid-template-columns: repeat(4, 1fr); }
+  .trust__head { grid-column: auto; padding: 0 var(--g); }
+  .trust__item { border-left: var(--line-cream); }
   .pain__grid { grid-template-columns: 1fr 1fr; gap: 0; }
   .pain__grid { align-items: start; }
   .pain__title { position: sticky; top: calc(var(--header) + var(--s3)); padding-right: var(--s3); }
@@ -628,14 +628,13 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   </section>
 
   <!-- Trusted by -->
-  <section class="trust wrap" id="clients" aria-labelledby="trust-title">
-    <h2 class="label" id="trust-title">Trusted by</h2>
-    <ul class="trust__list">
-        <li class="trust__item" data-reveal><span class="trust__logo" role="img" aria-label="Swedish Smokeless"></span></li>
-        <li class="trust__item" data-reveal data-d="1"><span class="trust__logo" role="img" aria-label="Swedish Smokeless"></span></li>
-        <li class="trust__item" data-reveal data-d="2"><span class="trust__logo" role="img" aria-label="Swedish Smokeless"></span></li>
-        <li class="trust__item" data-reveal data-d="3"><span class="trust__logo" role="img" aria-label="Swedish Smokeless"></span></li>
-    </ul>
+  <section class="trust" id="clients" aria-labelledby="trust-title">
+    <div class="trust__grid">
+      <h2 class="trust__head label" id="trust-title">Trusted by</h2>
+      <div class="trust__item" data-reveal><span class="trust__logo" role="img" aria-label="Swedish Smokeless"></span></div>
+      <div class="trust__item" data-reveal data-d="1"><span class="trust__logo" role="img" aria-label="Swedish Smokeless"></span></div>
+      <div class="trust__item" data-reveal data-d="2"><span class="trust__logo" role="img" aria-label="Swedish Smokeless"></span></div>
+    </div>
   </section>
 
   <!-- Services -->
