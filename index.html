@@ -160,28 +160,40 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 /* ============ Intro ============ */
 .intro {
-  display: grid;
-  gap: var(--s4);
   background: var(--cream);
   color: var(--blue);
   padding-top: var(--s5);
-  padding-bottom: var(--s3);
+  padding-bottom: var(--s5);
 }
 .intro__statement {
-  max-width: 22ch;
-  font-size: clamp(34px, 3.9vw, 70px);
-  line-height: 1.04;
+  max-width: 16ch;
+  font-size: var(--t-h2);
+  line-height: 0.95;
 }
-.intro__statement em { font-style: italic; white-space: nowrap; }
-.intro__side { display: grid; gap: var(--s3); align-content: start; max-width: 40ch; }
+.intro__cats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: var(--s4);
+  border-top: var(--line);
+}
+.intro__cat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding: var(--g) var(--g) var(--s3) 0;
+}
+.intro__cat:nth-child(even) { padding-left: var(--g); padding-right: 0; border-left: var(--line); }
+.intro__media { aspect-ratio: 3 / 4; }
+.intro__media img { width: 100%; height: 100%; object-fit: cover; }
+.intro__name { font-size: clamp(21px, 2.6vw, 48px); line-height: 1; }
+.intro__bottom { display: grid; gap: var(--s3); margin-top: var(--s4); }
 .intro__years {
-  font-size: clamp(17px, 1.3vw, 22px);
+  max-width: 34ch;
+  font-size: clamp(20px, 1.9vw, 34px);
   font-weight: 300;
-  line-height: 1.5;
+  line-height: 1.3;
 }
-.intro__years strong { font-weight: 500; }
-.intro__win { font-size: clamp(28px, 2.4vw, 42px); line-height: 1.05; }
-.intro__win em { font-style: italic; }
+.intro__win { max-width: 18ch; font-size: clamp(34px, 3.6vw, 66px); line-height: 1; }
 
 /* ============ Challenges ============ */
 .pain { padding-top: var(--s5); padding-bottom: var(--s5); }
@@ -308,8 +320,11 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .header .btn { grid-column: 4; justify-self: end; }
 
 
-  .intro { grid-template-columns: 1fr 1fr; gap: 0; }
-  .intro__side { padding-left: var(--g); padding-top: 0.6em; }
+  .intro__cats { grid-template-columns: repeat(4, 1fr); margin-left: calc(-1 * var(--g)); margin-right: calc(-1 * var(--g)); border-top: 0; }
+  .intro__cat, .intro__cat:nth-child(even) { padding: var(--g) var(--g) 0; border-left: var(--line); border-top: var(--line); }
+  .intro__cat:first-child { border-left: 0; }
+  .intro__bottom { grid-template-columns: 1fr 1fr; gap: 0; margin-top: var(--s5); align-items: start; }
+  .intro__win { padding-left: var(--g); }
 
   .pain__grid { grid-template-columns: 1fr 1fr; gap: 0; }
   .pain__body { border-left: var(--line); padding-left: var(--g); }
@@ -377,10 +392,28 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
   <!-- What we do -->
   <section class="intro wrap" aria-label="What we do">
-    <h2 class="intro__statement display" data-reveal>Strategy, Creative, and Digital Advertising for <em>Food &amp; Beverage</em>, <em>Alcohol</em>, <em>Tobacco</em>, and <em>OTC Medicines</em></h2>
-    <div class="intro__side">
-      <p class="intro__years" data-reveal><strong>8 years in,</strong> we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
-      <p class="intro__win display" data-reveal data-d="1">Wherever you sell, we take the mess – <em>you take the win.</em></p>
+    <h2 class="intro__statement display" data-reveal>Strategy, Creative, and Digital Advertising for</h2>
+    <ul class="intro__cats" aria-label="Food &amp; Beverage, Alcohol, Tobacco, and OTC Medicines">
+      <li class="intro__cat" data-reveal>
+        <figure class="intro__media"><img src="assets/img/cat-food.jpg" alt="" data-dither loading="lazy" width="896" height="1200"></figure>
+        <span class="intro__name display">Food &amp; Beverage,</span>
+      </li>
+      <li class="intro__cat" data-reveal data-d="1">
+        <figure class="intro__media"><img src="assets/img/cat-alcohol.jpg" alt="" data-dither loading="lazy" width="896" height="1200"></figure>
+        <span class="intro__name display">Alcohol,</span>
+      </li>
+      <li class="intro__cat" data-reveal data-d="2">
+        <figure class="intro__media"><img src="assets/img/cat-tobacco.jpg" alt="" data-dither loading="lazy" width="896" height="1200"></figure>
+        <span class="intro__name display">Tobacco,</span>
+      </li>
+      <li class="intro__cat" data-reveal data-d="3">
+        <figure class="intro__media"><img src="assets/img/cat-otc.jpg" alt="" data-dither loading="lazy" width="896" height="1200"></figure>
+        <span class="intro__name display">and OTC Medicines</span>
+      </li>
+    </ul>
+    <div class="intro__bottom">
+      <p class="intro__years" data-reveal>8 years in, we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
+      <p class="intro__win display" data-reveal data-d="1">Wherever you sell, we take the mess – you take the win.</p>
     </div>
   </section>
 
