@@ -278,11 +278,33 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .gets__item p { max-width: 38ch; }
 .gets__no { margin-top: var(--s4); padding-top: var(--s2); border-top: var(--line); text-align: center; }
 
+/* ============ Closing line + video ============ */
+.listen { position: relative; height: 280vh; }
+.listen__stage {
+  position: sticky;
+  top: var(--header);
+  height: calc(100vh - var(--header));
+  height: calc(100svh - var(--header));
+  overflow: hidden;
+  z-index: 2; /* sticky creates its own layer: lift the text above the dither canvas */
+}
+.listen__box { position: absolute; inset: 0; transform-origin: 0 0; will-change: transform; }
+.listen__box video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.listen__layer { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.listen__layer--light { z-index: 3; color: var(--cream); }
+.listen__title {
+  position: absolute;
+  left: var(--g);
+  top: var(--s4);
+  max-width: 15ch;
+  font-size: var(--t-h1);
+  line-height: 0.95;
+}
+
 /* ============ Footer ============ */
 .footer { background: var(--blue); color: var(--cream); padding-top: var(--s5); padding-bottom: var(--s2); }
 .footer__grid { display: grid; gap: var(--s4); }
-.footer__title { font-size: var(--t-h2); line-height: 0.95; max-width: 12ch; }
-.footer__cta .btn { margin-top: var(--s4); max-width: 520px; }
+.footer__cta .btn { max-width: 520px; }
 .footer__mark {
   width: min(70%, 380px);
   aspect-ratio: 1;
@@ -625,12 +647,26 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     </div>
     <p class="gets__no label" data-reveal>NO ENDLESS BRIEFINGS&emsp;&emsp;NO USELESS DOCUMENTS&emsp;&emsp;NO UNEXPECTED DELAYS</p>
   </section>
+
+  <!-- Closing line with growing video -->
+  <section class="listen" aria-labelledby="listen-title">
+    <div class="listen__stage">
+      <div class="listen__box">
+        <video src="assets/video/listen.mp4" data-dither muted loop playsinline autoplay preload="auto" aria-hidden="true"></video>
+      </div>
+      <div class="listen__layer">
+        <h2 class="listen__title display" id="listen-title">They are ready to listen. Let’s give them something worth hearing.</h2>
+      </div>
+      <div class="listen__layer listen__layer--light" aria-hidden="true">
+        <p class="listen__title display">They are ready to listen. Let’s give them something worth hearing.</p>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="footer wrap" id="audit">
   <div class="footer__grid">
     <div class="footer__cta">
-      <h2 class="footer__title display" data-reveal>They are ready to listen. Let’s give them something worth hearing.</h2>
       <!-- TODO: replace with the real booking link (Calendly, form, etc.) -->
       <a class="btn btn--cream btn--block" href="mailto:hello@bruitbrothers.com?subject=Free%20brand%20audit" data-reveal data-d="1">Book a free brand audit</a>
     </div>
@@ -653,12 +689,48 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   targets.forEach(el => io.observe(el));
 })();
 </script>
+<script>
+/* Closing line: the video frame grows from the lower-right grid cell to full screen while scrolling.
+   Text over the video switches to cream via a clipped copy. */
+(() => {
+  const section = document.querySelector('.listen');
+  if (!section) return;
+  const stage = section.querySelector('.listen__stage');
+  const box = section.querySelector('.listen__box');
+  const light = section.querySelector('.listen__layer--light');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ease = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const lerp = (a, b, t) => a + (b - a) * t;
+  let ticking = false;
+
+  function update() {
+    ticking = false;
+    const W = stage.clientWidth, H = stage.clientHeight;
+    const g = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--g')) || 16;
+    const wide = W >= 900;
+    const start = wide
+      ? { x: W / 2, y: H * 0.42, w: W / 2 - g, h: H * 0.58 - g }
+      : { x: g, y: H * 0.56, w: W - 2 * g, h: H * 0.44 - g };
+    const scrolled = stage.getBoundingClientRect().top - section.getBoundingClientRect().top;
+    const range = section.offsetHeight - stage.offsetHeight;
+    const p = reduce ? 1 : ease(Math.min(1, Math.max(0, scrolled / (range * 0.75))));
+    const x = lerp(start.x, 0, p), y = lerp(start.y, 0, p), w = lerp(start.w, W, p), h = lerp(start.h, H, p);
+    box.style.transform = `translate(${x}px, ${y}px) scale(${w / W}, ${h / H})`;
+    light.style.clipPath = `inset(${y}px ${W - x - w}px ${H - y - h}px ${x}px)`;
+  }
+  const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  addEventListener('scroll', request, { passive: true });
+  addEventListener('resize', request);
+  update();
+})();
+</script>
 <script type="module">
   import { initDitherHover } from './dither-hover.js';
   initDitherHover({
     colorDark: '#15209f',
     colorLight: '#f0ede5',
     zIndex: 1,
+    selector: '[data-dither]',
     // Calmer than the defaults: slow, subtle shimmer and a softer cursor trail
     params: {
       biasNoiseSpeed: 0.25,        // default 94 (main source of flicker)

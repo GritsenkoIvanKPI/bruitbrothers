@@ -498,18 +498,33 @@ export function initDitherHover(options = {}) {
     const m = { img, mesh, material, entered: false, loaded: false, inView: false, handlers: null };
     medias.set(img, m);
 
-    loader.load(img.currentSrc || img.src, tex => {
+    if (img.tagName === 'VIDEO') {
+      // <video data-dither>: live texture, updated every frame
+      const tex = new THREE.VideoTexture(img);
       tex.minFilter = THREE.LinearFilter;
       tex.generateMipmaps = false;
-      material.uniforms.tMap.value = tex;
-      material.uniforms.uTextureSize.value.set(tex.image.naturalWidth || tex.image.width, tex.image.naturalHeight || tex.image.height);
-      m.loaded = true;
-      if (m.inView && !m.entered) enter(m);
-    }, undefined, () => {
-      // не вдалося завантажити (наприклад, CORS) — повертаємо звичайну картинку
-      removeImage(img);
-      img.style.setProperty('opacity', '1', 'important');
-    });
+      const onReady = () => {
+        material.uniforms.tMap.value = tex;
+        material.uniforms.uTextureSize.value.set(img.videoWidth, img.videoHeight);
+        m.loaded = true;
+        if (m.inView && !m.entered) enter(m);
+        img.play?.().catch(() => {});
+      };
+      if (img.readyState >= 2) onReady(); else img.addEventListener('loadeddata', onReady, { once: true });
+    } else {
+      loader.load(img.currentSrc || img.src, tex => {
+        tex.minFilter = THREE.LinearFilter;
+        tex.generateMipmaps = false;
+        material.uniforms.tMap.value = tex;
+        material.uniforms.uTextureSize.value.set(tex.image.naturalWidth || tex.image.width, tex.image.naturalHeight || tex.image.height);
+        m.loaded = true;
+        if (m.inView && !m.entered) enter(m);
+      }, undefined, () => {
+        // не вдалося завантажити (наприклад, CORS) — повертаємо звичайну картинку
+        removeImage(img);
+        img.style.setProperty('opacity', '1', 'important');
+      });
+    }
 
     if (img.hasAttribute('data-hover-original')) {
       const target = img.closest('a, [data-dither-hover-target]') || img.parentElement;
