@@ -218,12 +218,20 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .service:last-child { border-bottom: var(--line); }
 .service__media { position: relative; margin-top: var(--g); height: 82vw; max-height: 70svh; }
 .service__media img { width: 100%; height: 100%; object-fit: cover; }
-.service__body { display: grid; align-content: start; gap: var(--s3); padding: var(--s3) 0 var(--s4); }
+.service__body { display: grid; align-content: start; gap: var(--s4); padding: var(--s3) 0 var(--s4); }
 .service__title { font-size: var(--t-h3); margin-top: var(--s1); }
+.service__lead {
+  max-width: 30ch;
+  margin-top: var(--s3);
+  font-size: clamp(20px, 1.75vw, 30px);
+  font-weight: 300;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
 .service__cols { display: grid; gap: var(--s3); }
 .service__text p + p { margin-top: 1em; }
 .service__list-title { margin-bottom: var(--s1); }
-.service__list li { padding: 0.5em 0; border-bottom: var(--line); line-height: 1.35; }
+.service__list li { padding: 0.6em 0; border-bottom: var(--line); line-height: 1.35; }
 .service__list li:first-child { border-top: var(--line); }
 
 /* ============ What you always get ============ */
@@ -287,12 +295,12 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .pain__cta { max-width: 75%; }
 
 
-  .service { grid-template-columns: 1fr 1fr; min-height: 75vh; min-height: 75svh; }
-  .service__media { margin: var(--g) var(--g) var(--g) 0; height: auto; max-height: none; min-height: 60svh; }
+  .service { grid-template-columns: 2fr 3fr; min-height: 75vh; min-height: 75svh; }
+  .service__media { margin: var(--g) var(--s3) var(--g) 0; height: auto; max-height: none; aspect-ratio: 1; align-self: start; }
   .service__media img { position: absolute; inset: 0; }
-  .service__body { border-left: var(--line); padding: var(--g) 0 var(--s3) var(--g); align-content: space-between; }
-  .service__cols { grid-template-columns: 1fr 1fr; gap: var(--g); align-items: end; }
-  .service__list { padding-right: var(--s2); }
+  .service__body { border-left: var(--line); padding: var(--g) var(--s2) var(--s4) var(--s3); align-content: space-between; gap: var(--s4); }
+  .service__cols { grid-template-columns: 1fr 1fr; gap: var(--s4); align-items: start; }
+  .service__text { max-width: 44ch; }
 
   .gets__wrap { display: grid; grid-template-columns: 1fr 1fr; }
   .gets__grid { margin-top: 0; border-left: var(--line); }
@@ -398,10 +406,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <div>
           <p class="label">01</p>
           <h3 class="service__title display" id="s1" data-reveal>Brand Strategy</h3>
+          <p class="service__lead" data-reveal>Great brands grow not from making more decisions, but from making better ones. We build a strategy that tells you where to compete, how to be different and what to avoid, so that your brand becomes the one people reach for.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
-            <p>Great brands grow not from making more decisions, but from making better ones. We build a strategy that tells you where to compete, how to be different and what to avoid, so that your brand becomes the one people reach for.</p>
             <p>It’s all based on real consumer insights verified in your product category, and delivered as a clear, structured document your team can actually use to drive commercial growth.</p>
           </div>
           <div data-reveal data-d="1">
@@ -430,10 +438,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <div>
           <p class="label">02</p>
           <h3 class="service__title display" id="s2" data-reveal>Campaign Development</h3>
+          <p class="service__lead" data-reveal>Your brand has only 1.3 seconds to capture attention, so before a single ad goes live, you need to know exactly what to say and where to do it.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
-            <p>Your brand has only 1.3 seconds to capture attention, so before a single ad goes live, you need to know exactly what to say and where to do it.</p>
             <p>We develop messages that are instantly clear, identify the highest-potential placements, and create unmissable advertising materials that spark desire.</p>
             <p>It comes together as a complete campaign kit, ready to launch.</p>
           </div>
@@ -458,10 +466,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <div>
           <p class="label">03</p>
           <h3 class="service__title display" id="s3" data-reveal>Media Activation</h3>
+          <p class="service__lead" data-reveal>Being visible online is easy. Being visible in the right place is what most brands still haven’t learned to do.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
-            <p>Being visible online is easy. Being visible in the right place is what most brands still haven’t learned to do.</p>
             <p>For your brand, we launch multi-channel campaigns across the top-tier placements others miss (or just can’t access ☻).</p>
             <p>Using real-time intent signals and predictive targeting, we reach the people who matter most to you at the moment they're actually paying attention.</p>
           </div>
@@ -488,10 +496,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <div>
           <p class="label">04</p>
           <h3 class="service__title display" id="s4" data-reveal>Brand Measurement</h3>
+          <p class="service__lead" data-reveal>What you spend on marketing rarely bumps sales immediately, but it starts shifting what people think of your brand from day one. Measure that shift, and you’ll know what deserves the next round of budget.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
-            <p>What you spend on marketing rarely bumps sales immediately, but it starts shifting what people think of your brand from day one. Measure that shift, and you’ll know what deserves the next round of budget.</p>
             <p>We run Brand Lift to isolate the effect of a specific media campaign, or Brand Health Tracking to show how all your marketing activity changes brand perception over months and years.</p>
           </div>
           <div data-reveal data-d="1">
@@ -517,10 +525,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <div>
           <p class="label">05</p>
           <h3 class="service__title display" id="s5" data-reveal>Visual Identity</h3>
+          <p class="service__lead" data-reveal>To win on a crowded shelf, it’s essential to look different, yet still be crystal clear at first sight.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
-            <p>To win on a crowded shelf, it’s essential to look different, yet still be crystal clear at first sight.</p>
             <p>We develop a complete visual identity with a character that’s unmistakably yours, where every element follows your strategy and helps your products get picked.</p>
             <p>It works across packaging, print, and digital alike. You get the whole visual system in one guideline, easy for everyone on your team to use right.</p>
           </div>
