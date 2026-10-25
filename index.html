@@ -30,7 +30,7 @@
   --t-lead: clamp(28px, 3.4vw, 60px);
   --t-h3: clamp(36px, 5.4vw, 96px);
   --t-h2: clamp(44px, 7.2vw, 132px);
-  --t-h1: clamp(40px, 6.6vw, 108px);
+  --t-h1: clamp(36px, 4.4vw, 84px);
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --line: 1px solid var(--blue);
@@ -149,9 +149,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   pointer-events: none;
 }
 .hero__eyebrow { margin-bottom: var(--s2); }
-.hero__title { max-width: min(15ch, 39vw); font-size: var(--t-h1); line-height: 0.9; }
+.hero__title { max-width: 18ch; font-size: var(--t-h1); line-height: 0.95; }
 .hero__sub {
-  max-width: 40ch;
+  max-width: 60ch;
   margin-top: var(--s3);
   font-size: clamp(16px, 1.35vw, 24px);
   font-weight: 300;
@@ -337,7 +337,6 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .header__nav { grid-column: 2 / 4; justify-self: center; }
 }
 @media (max-width: 899px) {
-  .hero__title { max-width: 15ch; }
   .header .btn { padding: 0 var(--s1); }
   .header__logo img { height: 32px; }
 }
@@ -611,6 +610,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 <script>
 (() => {
+  // First screen reveals on load, not on scroll
+  document.querySelectorAll('.hero [data-reveal]').forEach(el => requestAnimationFrame(() => el.classList.add('is-in')));
   const targets = document.querySelectorAll('[data-reveal]');
   if (!('IntersectionObserver' in window)) { targets.forEach(el => el.classList.add('is-in')); return; }
   const io = new IntersectionObserver(entries => {
