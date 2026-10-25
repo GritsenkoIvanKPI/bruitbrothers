@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bruit Brothers — Integrated Brand Growth Agency</title>
+<meta name="description" content="Strategy, Creative, and Digital Advertising for Food & Beverage, Alcohol, Tobacco, and OTC Medicines. We help FMCG brands become impossible to ignore.">
+<link rel="icon" type="image/png" href="assets/brand/bb-blue.png">
+<link rel="stylesheet" href="https://use.typekit.net/rix1cmb.css">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+/* ============ Tokens ============ */
+:root {
+  --blue: #15209f;
+  --cream: #f0ede5;
+  --display: "meno-display-condensed", Georgia, serif;
+  --text: "host-grotesk", "Helvetica Neue", Arial, sans-serif;
+
+  --g: clamp(16px, 1.25vw, 24px);      /* gutter */
+  --s1: calc(var(--g) * 0.5);
+  --s2: var(--g);
+  --s3: calc(var(--g) * 2);
+  --s4: calc(var(--g) * 4);
+  --s5: calc(var(--g) * 6);
+  --header: 64px;
+
+  --t-label: clamp(11px, 0.78vw, 13px);
+  --t-body: clamp(15px, 1.05vw, 18px);
+  --t-row: clamp(20px, 1.9vw, 34px);
+  --t-lead: clamp(28px, 3.4vw, 60px);
+  --t-h3: clamp(44px, 5.4vw, 96px);
+  --t-h2: clamp(52px, 7.2vw, 132px);
+  --t-h1: clamp(60px, 10.4vw, 196px);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --line: 1px solid var(--blue);
+  --line-cream: 1px solid rgba(240, 237, 229, 0.4);
+}
+
+/* ============ Base ============ */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: var(--header); }
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--blue);
+  font-family: var(--text);
+  font-size: var(--t-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+h1, h2, h3, p, ul, figure { margin: 0; }
+ul { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--blue); color: var(--cream); }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+.label {
+  font-size: var(--t-label);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.display {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.88;
+}
+.wrap { padding-left: var(--g); padding-right: var(--g); }
+
+/* ============ Buttons & links ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  min-height: 44px;
+  padding: 0 var(--s2);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--blue);
+  color: var(--cream);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.btn__arrow { display: inline-block; transition: transform 0.5s var(--ease); }
+.btn:hover { opacity: 0.88; }
+.btn:hover .btn__arrow { transform: translateX(5px); }
+.btn:active { transform: scale(0.98); }
+.btn--cream { background: var(--cream); color: var(--blue); }
+.btn--block { display: flex; width: 100%; min-height: clamp(56px, 4.4vw, 76px); }
+
+.link { position: relative; display: inline-block; }
+.link::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: -2px;
+  height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: right;
+  transition: transform 0.5s var(--ease);
+}
+.link:hover::after, .link:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+.link:active { opacity: 0.6; }
+
+/* ============ Header ============ */
+.header {
+  position: fixed;
+  z-index: 50;
+  inset: 0 0 auto 0;
+  height: var(--header);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--s2);
+  padding: 0 var(--g);
+  background: var(--cream);
+  border-bottom: var(--line);
+}
+.header__logo { display: inline-flex; align-items: center; justify-self: start; transition: opacity 0.4s var(--ease); }
+.header__logo img { height: 38px; width: auto; }
+.header__logo:hover { opacity: 0.75; }
+.header__nav { display: none; }
+.header__nav ul { display: flex; gap: var(--s3); }
+
+/* ============ Hero ============ */
+.hero {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 560px;
+  padding-top: var(--header);
+  color: var(--cream);
+}
+.hero__media { position: relative; height: 100%; background: var(--blue); }
+.hero__media picture, .hero__media img { width: 100%; height: 100%; }
+.hero__media img { object-fit: cover; }
+.hero__text {
+  position: absolute;
+  z-index: 2;
+  left: var(--g);
+  right: var(--g);
+  bottom: calc(var(--t-h1) * 0.24);
+  pointer-events: none;
+}
+.hero__caption {
+  max-width: 17ch;
+  margin-bottom: var(--s3);
+  font-size: clamp(17px, 1.5vw, 26px);
+  font-weight: 300;
+  line-height: 1.15;
+}
+.hero__title { font-size: var(--t-h1); line-height: 0.86; }
+
+/* ============ Intro ============ */
+.intro {
+  background: var(--blue);
+  color: var(--cream);
+  padding-top: var(--s5);
+  padding-bottom: var(--s4);
+}
+.intro__lead {
+  max-width: 24ch;
+  font-size: var(--t-lead);
+  font-weight: 300;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+.intro__cols { display: grid; gap: var(--s3); margin-top: var(--s5); }
+.intro__cols p + p { margin-top: var(--s2); }
+
+/* ============ Challenges ============ */
+.pain { padding-top: var(--s5); padding-bottom: var(--s5); }
+.pain__grid { display: grid; gap: var(--s4); }
+.pain__title { font-size: var(--t-h2); max-width: 9ch; }
+.pain__intro { margin-bottom: var(--s2); }
+.pain__list { border-top: var(--line); }
+.pain__item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: var(--s2);
+  align-items: baseline;
+  padding: var(--s2) 0;
+  border-bottom: var(--line);
+  font-size: var(--t-row);
+  font-weight: 300;
+  line-height: 1.15;
+}
+.pain__num { font-size: var(--t-label); font-weight: 500; letter-spacing: 0.06em; }
+.pain__answer {
+  margin-top: var(--s4);
+  max-width: 32ch;
+  font-size: clamp(18px, 1.5vw, 26px);
+  font-weight: 300;
+  line-height: 1.3;
+}
+.pain__cta { margin-top: var(--s4); }
+.pain__cta p { margin-bottom: var(--s2); }
+
+/* ============ Trusted by ============ */
+.trust { background: var(--blue); color: var(--cream); padding-top: var(--s3); padding-bottom: var(--s3); }
+.trust__list { display: grid; grid-template-columns: 1fr 1fr; margin-top: var(--s3); }
+.trust__list li {
+  padding: var(--s2) var(--s2) var(--s2) 0;
+  border-top: var(--line-cream);
+  font-size: clamp(26px, 2.6vw, 46px);
+}
+
+/* ============ Services ============ */
+.services { padding-top: var(--s5); }
+.services__title { font-size: var(--t-h2); padding-bottom: var(--s4); }
+.service {
+  display: grid;
+  min-height: 67vh;
+  min-height: 67svh;
+  margin: 0 var(--g);
+  border-top: var(--line);
+}
+.service:last-child { border-bottom: var(--line); }
+.service__media { position: relative; margin-top: var(--g); height: 82vw; max-height: 70svh; }
+.service__media img { width: 100%; height: 100%; object-fit: cover; }
+.service__body { display: grid; align-content: start; gap: var(--s3); padding: var(--s3) 0 var(--s4); }
+.service__title { font-size: var(--t-h3); margin-top: var(--s1); }
+.service__cols { display: grid; gap: var(--s3); }
+.service__text p + p { margin-top: 1em; }
+.service__list-title { margin-bottom: var(--s1); }
+.service__list li { padding: 0.5em 0; border-bottom: var(--line); line-height: 1.35; }
+.service__list li:first-child { border-top: var(--line); }
+
+/* ============ What you always get ============ */
+.gets { padding-top: var(--s5); padding-bottom: var(--s5); }
+.gets__title { font-size: var(--t-h2); max-width: 8ch; }
+.gets__grid { display: grid; margin-top: var(--s4); border-top: var(--line); }
+.gets__item { padding: var(--s3) 0; border-bottom: var(--line); }
+.gets__item h3 { font-size: clamp(30px, 2.6vw, 46px); line-height: 0.95; margin: var(--s2) 0 var(--s2); }
+.gets__item p { max-width: 38ch; }
+.gets__no { display: grid; gap: var(--s1); margin-top: var(--s4); }
+
+/* ============ Footer ============ */
+.footer { background: var(--blue); color: var(--cream); padding-top: var(--s5); padding-bottom: var(--s2); }
+.footer__grid { display: grid; gap: var(--s4); }
+.footer__title { font-size: var(--t-h2); max-width: 12ch; }
+.footer__cta .btn { margin-top: var(--s4); max-width: 520px; }
+.footer__mark {
+  width: min(70%, 380px);
+  aspect-ratio: 1;
+  background: var(--cream);
+  -webkit-mask: url("assets/brand/brothers-blue.png") center / contain no-repeat;
+  mask: url("assets/brand/brothers-blue.png") center / contain no-repeat;
+}
+.footer__bottom {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s2);
+  margin-top: var(--s5); padding-top: var(--s2);
+  border-top: var(--line-cream);
+}
+.footer__bottom ul { display: flex; flex-wrap: wrap; gap: var(--s3); }
+
+/* ============ Reveal (transform + opacity only) ============ */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+.js [data-reveal][data-d="1"] { transition-delay: 0.1s; }
+.js [data-reveal][data-d="2"] { transition-delay: 0.2s; }
+.js [data-reveal][data-d="3"] { transition-delay: 0.3s; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+
+/* ============ Desktop ============ */
+@media (min-width: 900px) {
+  :root { --header: 72px; }
+  .header { grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .header__nav { display: block; grid-column: 3; }
+  .header .btn { grid-column: 4; justify-self: end; }
+
+  .hero__caption { max-width: 18ch; }
+
+  .intro__cols { grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .intro__cols > div { padding-right: var(--s3); }
+  .intro__cols > div:nth-child(1) { grid-column: 3; }
+  .intro__cols > div:nth-child(2) { grid-column: 4; }
+
+  .pain__grid { grid-template-columns: 1fr 1fr; gap: 0; }
+  .pain__body { border-left: var(--line); padding-left: var(--g); }
+  .pain__cta { max-width: 75%; }
+
+  .trust__list { grid-template-columns: repeat(4, 1fr); }
+  .trust__list li + li { padding-left: var(--g); border-left: var(--line-cream); }
+
+  .service { grid-template-columns: 1fr 1fr; min-height: 75vh; min-height: 75svh; }
+  .service__media { margin: var(--g) var(--g) var(--g) 0; height: auto; max-height: none; min-height: 60svh; }
+  .service__media img { position: absolute; inset: 0; }
+  .service__body { border-left: var(--line); padding: var(--g) 0 var(--s3) var(--g); align-content: space-between; }
+  .service__cols { grid-template-columns: 1fr 1fr; gap: var(--g); align-items: end; }
+  .service__list { padding-right: var(--s2); }
+
+  .gets__wrap { display: grid; grid-template-columns: 1fr 1fr; }
+  .gets__grid { grid-template-columns: 1fr 1fr; margin-top: 0; border-left: var(--line); }
+  .gets__item { padding: var(--s3) var(--g); min-height: 22vw; display: flex; flex-direction: column; }
+  .gets__item:nth-child(odd) { border-right: var(--line); }
+  .gets__item p { margin-top: auto; }
+  .gets__item h3 { margin-bottom: var(--s3); }
+  .gets__item--fill { background: var(--blue); color: var(--cream); }
+  .gets__no { grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: var(--s3); }
+  .gets__no li:first-child { grid-column: 2; }
+
+  .footer__grid { grid-template-columns: 1fr 1fr; align-items: center; }
+  .footer__mark { justify-self: center; }
+}
+@media (min-width: 900px) and (max-width: 1180px) {
+  .service__cols { grid-template-columns: 1fr; }
+  .header__nav { grid-column: 2 / 4; justify-self: center; }
+}
+@media (max-width: 899px) {
+  .header .btn__long { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a class="header__logo" href="#top" aria-label="Bruit Brothers — back to top">
+    <img src="assets/brand/wordmark-blue.png" alt="Bruit Brothers" width="3667" height="1569">
+  </a>
+  <nav class="header__nav label" aria-label="Main">
+    <ul>
+      <li><a class="link" href="#solutions">Solutions</a></li>
+      <li><a class="link" href="#always">What you get</a></li>
+      <li><a class="link" href="#clients">Clients</a></li>
+    </ul>
+  </nav>
+  <a class="btn" href="#audit"><span><span class="btn__long">Book a free </span>brand audit</span><span class="btn__arrow" aria-hidden="true">→</span></a>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__media">
+      <picture>
+        <source media="(max-width: 899px)" srcset="assets/img/hero-mobile.jpg">
+        <img src="assets/img/hero.jpg" alt="A shopper's eyes in sharp focus while the rest of her face is blurred" data-dither width="1376" height="768" fetchpriority="high">
+      </picture>
+    </div>
+    <div class="hero__text">
+      <p class="hero__caption" data-reveal data-d="2">We are here to make your brand the obvious choice on the shelf.</p>
+      <h1 class="hero__title display" id="hero-title" data-reveal data-d="1">Integrated Brand<br>Growth Agency</h1>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="intro wrap" aria-label="About Bruit Brothers">
+    <p class="intro__lead" data-reveal>At Bruit Brothers, we help FMCG brands become impossible to ignore. Even the highly regulated ones.</p>
+    <div class="intro__cols">
+      <div data-reveal>
+        <p class="label">Strategy, Creative, and Digital Advertising for Food &amp; Beverage, Alcohol, Tobacco, and OTC Medicines</p>
+      </div>
+      <div data-reveal data-d="1">
+        <p class="label">8 years in, we absolutely know what grows, what gets bought, what brings money, and what will never work.</p>
+        <p class="label">Wherever you sell, we take the mess – you take the win.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenges -->
+  <section class="pain wrap" aria-labelledby="pain-title">
+    <div class="pain__grid">
+      <h2 class="pain__title display" id="pain-title" data-reveal>No doubt, your team is working hard to grow the brand.</h2>
+      <div class="pain__body">
+        <p class="label pain__intro" data-reveal>However, you’re probably still facing common challenges:</p>
+        <ul class="pain__list">
+          <li class="pain__item" data-reveal><span class="pain__num">01</span><span>Your products are great but somehow still aren’t in demand.</span></li>
+          <li class="pain__item" data-reveal><span class="pain__num">02</span><span>People keep choosing competitors that aren’t that good.</span></li>
+          <li class="pain__item" data-reveal><span class="pain__num">03</span><span>The moment you stop advertising, interest in your brand disappears.</span></li>
+          <li class="pain__item" data-reveal><span class="pain__num">04</span><span>Every new media campaign feels like another blind guess.</span></li>
+        </ul>
+        <p class="pain__answer" data-reveal>We’re ready to identify what's holding your brand back and deliver what's missing to make it people's first choice.</p>
+        <div class="pain__cta" data-reveal>
+          <p class="label">Get a 20-min expert audit to reveal what's wrong and what to do next.</p>
+          <a class="btn btn--block" href="#audit">Book a free brand audit <span class="btn__arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trusted by -->
+  <section class="trust wrap" id="clients" aria-labelledby="trust-title">
+    <h2 class="label" id="trust-title">Trusted by</h2>
+    <ul class="trust__list">
+      <li class="display" data-reveal>Swedish Smokeless</li>
+      <li class="display" data-reveal data-d="1">Swedish Smokeless</li>
+      <li class="display" data-reveal data-d="2">Swedish Smokeless</li>
+      <li class="display" data-reveal data-d="3">Swedish Smokeless</li>
+    </ul>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="solutions" aria-labelledby="services-title">
+    <h2 class="services__title display wrap" id="services-title" data-reveal>Five solutions we deliver</h2>
+
+    <article class="service" aria-labelledby="s1">
+      <figure class="service__media">
+        <img src="assets/img/brand-strategy.jpg" alt="Printed brand strategy book with a blue cover lying open on a mirror" data-dither loading="lazy" width="864" height="1210">
+      </figure>
+      <div class="service__body">
+        <div>
+          <p class="label">01 / 05</p>
+          <h3 class="service__title display" id="s1" data-reveal>Brand Strategy</h3>
+        </div>
+        <div class="service__cols">
+          <div class="service__text" data-reveal>
+            <p>Great brands grow not from making more decisions, but from making better ones. We build a strategy that tells you where to compete, how to be different and what to avoid, so that your brand becomes the one people reach for.</p>
+            <p>It’s all based on real consumer insights verified in your product category, and delivered as a clear, structured document your team can actually use to drive commercial growth.</p>
+          </div>
+          <div data-reveal data-d="1">
+            <p class="label service__list-title">Includes:</p>
+            <ul class="service__list">
+              <li>Consumer Understanding</li>
+              <li>Competitive Space</li>
+              <li>Brand Positioning</li>
+              <li>Brand Essence</li>
+              <li>Value Proposition</li>
+              <li>Brand Voice</li>
+              <li>Brand Feelings</li>
+              <li>Brand Mission</li>
+              <li>Growth &amp; Advertising Logic</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="service" aria-labelledby="s2">
+      <figure class="service__media">
+        <img src="assets/img/campaign.jpg" alt="A blue jigsaw piece about to complete a puzzle next to a stack of building blocks" data-dither loading="lazy" width="1024" height="1024">
+      </figure>
+      <div class="service__body">
+        <div>
+          <p class="label">02 / 05</p>
+          <h3 class="service__title display" id="s2" data-reveal>Campaign Development</h3>
+        </div>
+        <div class="service__cols">
+          <div class="service__text" data-reveal>
+            <p>Your brand has only 1.3 seconds to capture attention, so before a single ad goes live, you need to know exactly what to say and where to do it.</p>
+            <p>We develop messages that are instantly clear, identify the highest-potential placements, and create unmissable advertising materials that spark desire.</p>
+            <p>It comes together as a complete campaign kit, ready to launch.</p>
+          </div>
+          <div data-reveal data-d="1">
+            <p class="label service__list-title">Includes:</p>
+            <ul class="service__list">
+              <li>Big Idea</li>
+              <li>Key Messages</li>
+              <li>Media Channels &amp; Budget Split</li>
+              <li>Creative Materials</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="service" aria-labelledby="s3">
+      <figure class="service__media">
+        <img src="assets/img/media.jpg" alt="Hands holding a tablet showing an ad with a cursor over it" data-dither loading="lazy" width="1024" height="1024">
+      </figure>
+      <div class="service__body">
+        <div>
+          <p class="label">03 / 05</p>
+          <h3 class="service__title display" id="s3" data-reveal>Media Activation</h3>
+        </div>
+        <div class="service__cols">
+          <div class="service__text" data-reveal>
+            <p>Being visible online is easy. Being visible in the right place is what most brands still haven’t learned to do.</p>
+            <p>For your brand, we launch multi-channel campaigns across the top-tier placements others miss (or just can’t access ☻).</p>
+            <p>Using real-time intent signals and predictive targeting, we reach the people who matter most to you at the moment they're actually paying attention.</p>
+          </div>
+          <div data-reveal data-d="1">
+            <p class="label service__list-title">Advertising channels:</p>
+            <ul class="service__list">
+              <li>Mobile Apps &amp; Games</li>
+              <li>Connected TV</li>
+              <li>Digital Out-of-Home</li>
+              <li>Audio Streaming Platforms</li>
+              <li>TikTok Clipping &amp; Overlay Sticker</li>
+              <li>ChatGPT</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="service" aria-labelledby="s4">
+      <figure class="service__media">
+        <img src="assets/img/measurement.jpg" alt="Printed analytics report with bar, line and funnel charts" data-dither loading="lazy" width="1024" height="1024">
+      </figure>
+      <div class="service__body">
+        <div>
+          <p class="label">04 / 05</p>
+          <h3 class="service__title display" id="s4" data-reveal>Brand Measurement</h3>
+        </div>
+        <div class="service__cols">
+          <div class="service__text" data-reveal>
+            <p>What you spend on marketing rarely bumps sales immediately, but it starts shifting what people think of your brand from day one. Measure that shift, and you’ll know what deserves the next round of budget.</p>
+            <p>We run Brand Lift to isolate the effect of a specific media campaign, or Brand Health Tracking to show how all your marketing activity changes brand perception over months and years.</p>
+          </div>
+          <div data-reveal data-d="1">
+            <p class="label service__list-title">Metrics:</p>
+            <ul class="service__list">
+              <li>Brand Awareness</li>
+              <li>Brand Consideration</li>
+              <li>Brand Favorability</li>
+              <li>Purchase Intent</li>
+              <li>Mental Penetration</li>
+              <li>Brand Penetration</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="service" aria-labelledby="s5">
+      <figure class="service__media">
+        <img src="assets/img/visual-identity.jpg" alt="Premium cigarette packaging design: Saint Brion Gold box, closed and open" data-dither loading="lazy" width="1800" height="1800">
+      </figure>
+      <div class="service__body">
+        <div>
+          <p class="label">05 / 05</p>
+          <h3 class="service__title display" id="s5" data-reveal>Visual Identity</h3>
+        </div>
+        <div class="service__cols">
+          <div class="service__text" data-reveal>
+            <p>To win on a crowded shelf, it’s essential to look different, yet still be crystal clear at first sight.</p>
+            <p>We develop a complete visual identity with a character that’s unmistakably yours, where every element follows your strategy and helps your products get picked.</p>
+            <p>It works across packaging, print, and digital alike. You get the whole visual system in one guideline, easy for everyone on your team to use right.</p>
+          </div>
+          <div data-reveal data-d="1">
+            <p class="label service__list-title">Includes:</p>
+            <ul class="service__list">
+              <li>Logo</li>
+              <li>Mascot</li>
+              <li>Color Palette</li>
+              <li>Typography</li>
+              <li>Signature Elements &amp; Patterns</li>
+              <li>Photography Style</li>
+              <li>Packaging Design</li>
+              <li>Applications</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- What you always get -->
+  <section class="gets wrap" id="always" aria-labelledby="gets-title">
+    <div class="gets__wrap">
+      <h2 class="gets__title display" id="gets-title" data-reveal>What you always get</h2>
+      <div class="gets__grid">
+        <article class="gets__item gets__item--fill" data-reveal>
+          <span class="label">01</span>
+          <h3 class="display">High-value channels only.</h3>
+          <p>Valuable attention starts beyond the obvious placements, so we’ll never put you on oversaturated Meta Ads or other default options.</p>
+        </article>
+        <article class="gets__item" data-reveal data-d="1">
+          <span class="label">02</span>
+          <h3 class="display">Regulated industries expertise.</h3>
+          <p>We get your campaign live without the usual drama, covering category restrictions, age assurance, platform policies, and creative compliance.</p>
+        </article>
+        <article class="gets__item" data-reveal>
+          <span class="label">03</span>
+          <h3 class="display">Total clarity.</h3>
+          <p>You always know what's going on, what comes next, and why it matters, so nothing ever feels like a black box.</p>
+        </article>
+        <article class="gets__item" data-reveal data-d="1">
+          <span class="label">04</span>
+          <h3 class="display">Zero guesswork.</h3>
+          <p>Every decision is grounded in proven consumer psychology, behavioral patterns, and purchase motivations.</p>
+        </article>
+      </div>
+    </div>
+    <ul class="gets__no label" data-reveal>
+      <li>No endless briefings</li>
+      <li>No useless documents</li>
+      <li>No unexpected delays</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="footer wrap" id="audit">
+  <div class="footer__grid">
+    <div class="footer__cta">
+      <h2 class="footer__title display" data-reveal>They are ready to listen. Let’s give them something worth hearing.</h2>
+      <!-- TODO: replace with the real booking link (Calendly, form, etc.) -->
+      <a class="btn btn--cream btn--block" href="mailto:hello@bruitbrothers.com?subject=Free%20brand%20audit" data-reveal data-d="1">Book a free brand audit <span class="btn__arrow" aria-hidden="true">→</span></a>
+    </div>
+    <div class="footer__mark" role="img" aria-label="The two Bruit Brothers"></div>
+  </div>
+  <div class="footer__bottom label">
+    <span>© 2026 Bruit Brothers</span>
+    <ul>
+      <li><a class="link" href="#solutions">Solutions</a></li>
+      <li><a class="link" href="#always">What you get</a></li>
+      <li><a class="link" href="#clients">Clients</a></li>
+      <li><a class="link" href="#top">Back to top ↑</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const targets = document.querySelectorAll('[data-reveal]');
+  if (!('IntersectionObserver' in window)) { targets.forEach(el => el.classList.add('is-in')); return; }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+  targets.forEach(el => io.observe(el));
+})();
+</script>
+<script type="module">
+  import { initDitherHover } from './dither-hover.js';
+  initDitherHover({ colorDark: '#15209f', colorLight: '#f0ede5', zIndex: 1 });
+</script>
+</body>
+</html>
