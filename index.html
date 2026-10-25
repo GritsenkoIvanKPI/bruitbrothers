@@ -29,8 +29,8 @@
   --t-row: clamp(20px, 1.9vw, 34px);
   --t-lead: clamp(28px, 3.4vw, 60px);
   --t-h3: clamp(36px, 5.4vw, 96px);
-  --t-h2: clamp(52px, 7.2vw, 132px);
-  --t-h1: clamp(50px, 10.4vw, 196px);
+  --t-h2: clamp(44px, 7.2vw, 132px);
+  --t-h1: clamp(40px, 6.6vw, 108px);
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --line: 1px solid var(--blue);
@@ -72,8 +72,7 @@ a { color: inherit; text-decoration: none; }
 }
 .wrap { padding-left: var(--g); padding-right: var(--g); }
 /* No single-word lines: balance headings, avoid orphans in text */
-h1, h2, h3, .display, .intro__lead { text-wrap: balance; }
-p, li, .label { text-wrap: pretty; }
+h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 /* ============ Buttons & links ============ */
 .btn {
@@ -149,36 +148,30 @@ p, li, .label { text-wrap: pretty; }
   bottom: var(--s3);
   pointer-events: none;
 }
-.hero__caption {
-  max-width: 17ch;
-  margin-top: var(--s2);
-  font-size: clamp(17px, 1.5vw, 26px);
+.hero__eyebrow { margin-bottom: var(--s2); }
+.hero__title { max-width: min(15ch, 39vw); font-size: var(--t-h1); line-height: 0.9; }
+.hero__sub {
+  max-width: 40ch;
+  margin-top: var(--s3);
+  font-size: clamp(16px, 1.35vw, 24px);
   font-weight: 300;
-  line-height: 1.15;
+  line-height: 1.3;
 }
-.hero__title { font-size: var(--t-h1); line-height: 0.86; }
 
 /* ============ Intro ============ */
 .intro {
   background: var(--blue);
   color: var(--cream);
-  padding-top: var(--s5);
+  padding-top: var(--s4);
   padding-bottom: var(--s4);
 }
-.intro__lead {
-  max-width: 24ch;
-  font-size: var(--t-lead);
-  font-weight: 300;
-  line-height: 1.06;
-  letter-spacing: -0.02em;
-}
-.intro__cols { display: grid; gap: var(--s3); margin-top: var(--s5); }
+.intro__cols { display: grid; gap: var(--s3); }
 .intro__cols p + p { margin-top: var(--s2); }
 
 /* ============ Challenges ============ */
 .pain { padding-top: var(--s5); padding-bottom: var(--s5); }
 .pain__grid { display: grid; gap: var(--s4); }
-.pain__title { font-size: var(--t-h2); max-width: 9ch; }
+.pain__title { font-size: var(--t-h2); max-width: 11ch; }
 .pain__intro { margin-bottom: var(--s2); }
 .pain__list { border-top: var(--line); }
 .pain__item {
@@ -283,7 +276,6 @@ p, li, .label { text-wrap: pretty; }
   .header__nav { display: block; grid-column: 3; }
   .header .btn { grid-column: 4; justify-self: end; }
 
-  .hero__caption { max-width: 18ch; }
 
   .intro__cols { grid-template-columns: repeat(4, 1fr); gap: 0; }
   .intro__cols > div { padding-right: var(--s3); }
@@ -315,6 +307,7 @@ p, li, .label { text-wrap: pretty; }
   .header__nav { grid-column: 2 / 4; justify-self: center; }
 }
 @media (max-width: 899px) {
+  .hero__title { max-width: 15ch; }
   .header .btn { padding: 0 var(--s1); }
   .header__logo img { height: 32px; }
 }
@@ -347,14 +340,14 @@ p, li, .label { text-wrap: pretty; }
       </picture>
     </div>
     <div class="hero__text">
-      <h1 class="hero__title display" id="hero-title" data-reveal data-d="1">Integrated Brand<br>Growth Agency</h1>
-      <p class="hero__caption" data-reveal data-d="2">We are here to make your brand the obvious choice on the shelf.</p>
+      <p class="hero__eyebrow label" data-reveal>Integrated Brand Growth Agency</p>
+      <h1 class="hero__title display" id="hero-title" data-reveal data-d="1">We are here to make your brand the obvious choice on the shelf.</h1>
+      <p class="hero__sub" data-reveal data-d="2">At Bruit Brothers, we help FMCG brands become impossible to ignore.<br>Even the highly regulated ones.</p>
     </div>
   </section>
 
   <!-- Intro -->
   <section class="intro wrap" aria-label="About Bruit Brothers">
-    <p class="intro__lead" data-reveal>At Bruit Brothers, we help FMCG brands become impossible to ignore. Even the highly regulated ones.</p>
     <div class="intro__cols">
       <div data-reveal>
         <p class="label">Strategy, Creative, and Digital Advertising for Food &amp; Beverage, Alcohol, Tobacco, and OTC Medicines</p>
