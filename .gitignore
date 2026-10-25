@@ -3,3 +3,4 @@ node_modules/
 temporary screenshots/
 *.mp4
 *.zip
+!assets/video/*.mp4
