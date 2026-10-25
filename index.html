@@ -382,10 +382,13 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   mask: url("assets/brand/brothers-crop.png") center / contain no-repeat;
 }
 .footer__cell ul { display: grid; gap: 0.35em; }
-.footer__nav ul { gap: 0.15em; }
-.footer__nav a { font-family: var(--display); font-size: var(--t-h3); line-height: 1.05; letter-spacing: -0.02em; }
-.footer__contact { font-size: clamp(16px, 1.25vw, 21px); line-height: 1.4; }
-.footer__contact ul { gap: 0.6em; }
+.footer__nav, .footer__contact { font-size: clamp(17px, 1.4vw, 24px); line-height: 1.4; }
+.footer__nav ul, .footer__contact ul { gap: 0.6em; }
+.footer__logo { display: flex; justify-content: center; align-items: flex-end; padding: var(--s3) var(--g); }
+.footer__logo a { display: inline-block; transition: opacity 0.4s var(--ease); }
+.footer__logo a:hover { opacity: 0.75; }
+.footer__logo a:active { opacity: 0.6; }
+.footer__logo img { width: clamp(160px, 16vw, 300px); height: auto; }
 .footer__title { font-size: var(--t-h1); line-height: 0.95; max-width: 18ch; }
 .footer__cta .btn { margin-top: var(--s3); max-width: 420px; }
 .footer__cell--bottom { opacity: 0.75; }
@@ -451,7 +454,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     grid-template-rows: auto 1fr auto;
     grid-template-areas:
       "cta  nav   contact"
-      "art  nav   contact"
+      "art  logo  logo"
       "art  legal privacy";
     gap: 0;
     height: calc(100vh - var(--header));
@@ -465,6 +468,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .footer__mark { height: 112%; width: auto; max-width: 90%; margin-bottom: -10%; }
   .footer__cell { padding: var(--s3) var(--g); border-left: var(--line); }
   .footer__nav { grid-area: nav; }
+  .footer__logo { grid-area: logo; border-left: var(--line); }
   .footer__cell--top:not(.footer__nav) { grid-area: contact; }
   p.footer__cell--bottom { grid-area: legal; }
   div.footer__cell--bottom { grid-area: privacy; }
@@ -797,6 +801,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     <div class="footer__cta">
       <h2 class="footer__title display" data-reveal>They are ready to listen. Let’s give them something worth hearing.</h2>
       <a class="btn btn--block" href="mailto:office@bruitbrothers.com?subject=Free%20brand%20audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
+    </div>
+
+    <div class="footer__logo">
+      <a href="#top" aria-label="Bruit Brothers — back to top"><img src="assets/brand/wordmark-blue.png" alt="Bruit Brothers" width="3667" height="1569" loading="lazy"></a>
     </div>
 
     <p class="footer__cell footer__cell--bottom label"><span class="nowrap">© Bruit Brothers 2026</span><span class="footer__sep">|</span><span class="nowrap">All rights reserved</span></p>
