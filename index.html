@@ -28,9 +28,9 @@
   --t-body: clamp(15px, 1.05vw, 18px);
   --t-row: clamp(20px, 1.9vw, 34px);
   --t-lead: clamp(28px, 3.4vw, 60px);
-  --t-h3: clamp(36px, 5.4vw, 96px);
-  --t-h2: clamp(44px, 7.2vw, 132px);
-  --t-h1: clamp(36px, 4.4vw, 84px);
+  --t-h1: clamp(36px, 4.4vw, 84px);   /* all section headings use the first-screen size */
+  --t-h2: var(--t-h1);
+  --t-h3: clamp(30px, 3.2vw, 60px);   /* service names, one step below */
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --line: 1px solid var(--blue);
@@ -198,7 +198,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 /* ============ Challenges ============ */
 .pain { padding-top: var(--s5); padding-bottom: var(--s5); }
 .pain__grid { display: grid; gap: var(--s4); }
-.pain__title { font-size: var(--t-h2); max-width: 11ch; }
+.pain__title { font-size: var(--t-h2); line-height: 0.95; max-width: 11ch; }
 .pain__intro { margin-bottom: var(--s2); }
 .pain__list { border-top: var(--line); }
 .pain__item {
@@ -234,7 +234,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 /* ============ Services ============ */
 .services { padding-top: var(--s5); }
-.services__title { font-size: var(--t-h2); padding-bottom: var(--s4); }
+.services__title { font-size: var(--t-h2); line-height: 0.95; padding-bottom: var(--s4); }
 .service {
   display: grid;
   min-height: 67vh;
@@ -271,7 +271,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 /* ============ What you always get ============ */
 .gets { padding-top: var(--s5); padding-bottom: var(--s5); }
-.gets__title { font-size: var(--t-h2); max-width: 8ch; }
+.gets__title { font-size: var(--t-h2); line-height: 0.95; max-width: 8ch; }
 .gets__grid { display: grid; margin-top: var(--s4); border-top: var(--line); }
 .gets__item { padding: var(--s3) 0; border-bottom: var(--line); }
 .gets__item h3 { font-size: clamp(30px, 2.6vw, 46px); line-height: 0.95; margin: 0 0 var(--s2); }
@@ -281,7 +281,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 /* ============ Footer ============ */
 .footer { background: var(--blue); color: var(--cream); padding-top: var(--s5); padding-bottom: var(--s2); }
 .footer__grid { display: grid; gap: var(--s4); }
-.footer__title { font-size: var(--t-h2); max-width: 12ch; }
+.footer__title { font-size: var(--t-h2); line-height: 0.95; max-width: 12ch; }
 .footer__cta .btn { margin-top: var(--s4); max-width: 520px; }
 .footer__mark {
   width: min(70%, 380px);
