@@ -228,7 +228,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   justify-content: space-between;
   gap: var(--s4);
   min-height: 240px;
-  padding: var(--g);
+  padding: var(--s3);
   border-bottom: var(--line);
   font-size: clamp(19px, 1.6vw, 28px);
   font-weight: 300;
@@ -454,9 +454,11 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .pain__body { border-left: var(--line); padding-left: var(--g); }
   .pain__cta { max-width: 75%; }
   .pain__list { grid-template-columns: 1fr 1fr; margin-left: calc(-1 * var(--g)); margin-right: calc(-1 * var(--g)); }
-  .pain__item { aspect-ratio: 1; min-height: 0; padding: var(--g) var(--s3) var(--s3) var(--g); }
+  /* label + two rows of cards fit one screen under the header */
+  .pain__item { min-height: 0; height: calc((100vh - var(--header) - var(--pain-label)) / 2); height: calc((100svh - var(--header) - var(--pain-label)) / 2); padding: var(--s3); }
+  .pain { --pain-label: calc(var(--s3) * 2 + 1.5em); }
+  .pain__intro { height: var(--pain-label); margin: 0; display: flex; align-items: center; }
   .pain__item:nth-child(odd) { border-right: var(--line); }
-  .pain__intro { margin-bottom: var(--s3); }
 
 
   .service { grid-template-columns: 2fr 3fr; min-height: 75vh; min-height: 75svh; }
@@ -593,7 +595,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <p class="label pain__intro" data-reveal>However, you’re probably still facing common challenges:</p>
         <ul class="pain__list">
           <li class="pain__item" data-reveal><span class="pain__num">01</span><span>Your products are great but somehow still aren’t in demand.</span></li>
-          <li class="pain__item" data-reveal><span class="pain__num">02</span><span>People keep choosing competitors that aren’t that good.</span></li>
+          <li class="pain__item" data-reveal><span class="pain__num">02</span><span>People keep choosing competitors that aren’t that good.</span></li>
           <li class="pain__item" data-reveal><span class="pain__num">03</span><span>The moment you stop advertising, interest in your brand disappears.</span></li>
           <li class="pain__item" data-reveal><span class="pain__num">04</span><span>Every new media campaign feels like another blind guess.</span></li>
         </ul>
