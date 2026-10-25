@@ -368,21 +368,25 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 
 /* ============ Footer (CTA + info) ============ */
-.footer { background: var(--cream); color: var(--blue); border-top: var(--line); }
-.footer__grid { display: grid; gap: var(--s3); padding: var(--s4) 0 var(--s2); }
-.footer__art { display: grid; place-items: center; }
+.footer { position: relative; overflow: hidden; background: var(--cream); color: var(--blue); border-top: var(--line); }
+.footer__grid { display: grid; gap: var(--s3); padding: var(--s4) 0 0; }
+.footer__cta { order: -1; }
+.footer__art { order: 9; display: flex; justify-content: center; align-items: flex-end; margin-bottom: calc(-1 * var(--s2)); }
+/* the brothers stand at the bottom edge and are cut off by it */
 .footer__mark {
-  width: min(62%, 300px);
-  aspect-ratio: 1;
+  width: min(86%, 380px);
+  aspect-ratio: 870 / 734;
+  margin-bottom: -16%;
   background: var(--blue);
-  -webkit-mask: url("assets/brand/brothers-blue.png") center / contain no-repeat;
-  mask: url("assets/brand/brothers-blue.png") center / contain no-repeat;
+  -webkit-mask: url("assets/brand/brothers-crop.png") center / contain no-repeat;
+  mask: url("assets/brand/brothers-crop.png") center / contain no-repeat;
 }
 .footer__cell ul { display: grid; gap: 0.35em; }
 .footer__title { font-size: var(--t-h1); line-height: 0.95; max-width: 18ch; }
 .footer__cta .btn { margin-top: var(--s3); max-width: 420px; }
 .footer__cell--bottom { opacity: 0.75; }
 .nowrap { white-space: nowrap; }
+.footer__sep { padding: 0 0.6em; }
 @media (min-width: 900px) and (max-width: 1360px) {
   .footer__sep { display: none; }
   p.footer__cell--bottom { flex-direction: column; justify-content: flex-end; align-items: flex-start; }
@@ -446,8 +450,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     min-height: calc(100svh - var(--header));
     padding: 0;
   }
-  .footer__art { grid-column: 1; grid-row: 1 / 4; }
-  .footer__mark { width: min(56%, 460px); }
+  .footer__art { order: 0; grid-column: 1; grid-row: 1 / 4; justify-content: flex-start; margin-bottom: 0; }
+  .footer__mark { width: min(80%, 680px); margin-bottom: -12%; }
+  .footer__cta { order: 0; }
   .footer__cell { padding: var(--s3) var(--g); border-left: var(--line); }
   .footer__cell--top { grid-row: 1; }
   .footer__cell--bottom { grid-row: 3; display: flex; align-items: flex-end; margin: 0; }
@@ -784,7 +789,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       <a class="btn btn--block" href="mailto:office@bruitbrothers.com?subject=Free%20brand%20audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
     </div>
 
-    <p class="footer__cell footer__cell--bottom label"><span class="nowrap">© Bruit Brothers 2026</span><span class="footer__sep"> | </span><span class="nowrap">All rights reserved</span></p>
+    <p class="footer__cell footer__cell--bottom label"><span class="nowrap">© Bruit Brothers 2026</span><span class="footer__sep">|</span><span class="nowrap">All rights reserved</span></p>
     <div class="footer__cell footer__cell--bottom label">
       <!-- TODO: link to the real Privacy Policy page -->
       <a class="link" href="#privacy">Privacy Policy</a>
