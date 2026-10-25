@@ -468,13 +468,14 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .gets__title { position: sticky; top: calc(var(--header) + var(--s3)); }
   .gets__item {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.15fr 1fr;
     grid-template-areas: "num num" "title text";
     column-gap: var(--s3);
     padding: var(--s3) var(--g) var(--s4);
   }
   .gets__num { grid-area: num; margin-bottom: var(--s3); }
-  .gets__item h3 { grid-area: title; margin: 0; }
+  .gets__item h3 { grid-area: title; margin: 0; font-size: clamp(26px, 2.2vw, 40px); }
+  .gets__item p { text-wrap: pretty; }
   .gets__item p { grid-area: text; margin-top: 0.15em; }
   .gets__item::before { inset: 0; }
 
@@ -504,6 +505,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   p.footer__cell--bottom { grid-area: legal; }
   div.footer__cell--bottom { grid-area: privacy; }
   .footer__cell--bottom { display: flex; align-items: flex-end; margin: 0; }
+}
+@media (min-width: 900px) and (max-width: 1279px) {
+  .gets__item { grid-template-columns: 1fr; grid-template-areas: "num" "title" "text"; }
+  .gets__item p { margin-top: var(--s2); }
 }
 @media (min-width: 900px) and (max-width: 1180px) {
   .header__nav ul { gap: var(--s2); }
@@ -789,7 +794,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <article class="gets__item" data-reveal>
           <span class="gets__num label">03</span>
           <h3 class="display">Total clarity.</h3>
-          <p>You always know what's going on, what comes next, and why it matters, so nothing ever feels like a black box.</p>
+          <p>You always know what's going on, what comes next, and why it matters, so nothing ever feels like a black box.</p>
         </article>
         <article class="gets__item" data-reveal data-d="1">
           <span class="gets__num label">04</span>
