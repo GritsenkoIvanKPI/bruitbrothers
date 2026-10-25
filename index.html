@@ -262,14 +262,21 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 /* ============ Trusted by ============ */
 .trust { background: var(--blue); color: var(--cream); padding-top: var(--s3); padding-bottom: var(--s3); }
-.trust__line {
-  margin-top: var(--s3);
-  padding-top: var(--s2);
-  border-top: var(--line-cream);
-  font-size: clamp(26px, 2.6vw, 46px);
-  line-height: 1.1;
-  word-spacing: 0.15em;
+.trust__list { display: grid; grid-template-columns: 1fr 1fr; margin-top: var(--s3); }
+.trust__item { display: flex; align-items: center; justify-content: center; height: clamp(110px, 11vw, 180px); }
+.trust__item:nth-child(even) { border-left: var(--line-cream); }
+.trust__item:nth-child(n+3) { border-top: var(--line-cream); }
+/* client logo, recoloured to the brand cream */
+.trust__logo {
+  width: min(76%, 240px);
+  aspect-ratio: 417 / 120;
+  background: var(--cream);
+  -webkit-mask: url("assets/brand/client-swedish-smokeless.webp") center / contain no-repeat;
+  mask: url("assets/brand/client-swedish-smokeless.webp") center / contain no-repeat;
+  opacity: 0.85;
+  transition: opacity 0.4s var(--ease);
 }
+.trust__item:hover .trust__logo { opacity: 1; }
 
 /* ============ Services ============ */
 .services { padding-top: var(--s5); }
@@ -442,6 +449,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .intro__cat, .intro__cat:nth-child(even) { padding: var(--g) var(--g) 0; border-left: var(--line); border-top: var(--line); }
   .intro__cat:first-child { border-left: 0; }
 
+  .trust__list { grid-template-columns: repeat(4, 1fr); margin-left: calc(-1 * var(--g)); margin-right: calc(-1 * var(--g)); }
+  .trust__item:nth-child(n+3) { border-top: 0; }
+  .trust__item + .trust__item { border-left: var(--line-cream); }
   .pain__grid { grid-template-columns: 1fr 1fr; gap: 0; }
   .pain__grid { align-items: start; }
   .pain__title { position: sticky; top: calc(var(--header) + var(--s3)); padding-right: var(--s3); }
@@ -619,7 +629,12 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   <!-- Trusted by -->
   <section class="trust wrap" id="clients" aria-labelledby="trust-title">
     <h2 class="label" id="trust-title">Trusted by</h2>
-    <p class="trust__line display" data-reveal>Swedish Smokeless / Swedish Smokeless / Swedish Smokeless / Swedish Smokeless</p>
+    <ul class="trust__list">
+        <li class="trust__item" data-reveal><span class="trust__logo" role="img" aria-label="Swedish Smokeless"></span></li>
+        <li class="trust__item" data-reveal data-d="1"><span class="trust__logo" role="img" aria-label="Swedish Smokeless"></span></li>
+        <li class="trust__item" data-reveal data-d="2"><span class="trust__logo" role="img" aria-label="Swedish Smokeless"></span></li>
+        <li class="trust__item" data-reveal data-d="3"><span class="trust__logo" role="img" aria-label="Swedish Smokeless"></span></li>
+    </ul>
   </section>
 
   <!-- Services -->
