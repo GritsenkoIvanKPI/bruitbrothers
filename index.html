@@ -48,7 +48,7 @@ body {
   font-size: var(--t-body);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 img { display: block; max-width: 100%; }
 h1, h2, h3, p, ul, figure { margin: 0; }
@@ -297,6 +297,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
   .service { grid-template-columns: 2fr 3fr; min-height: 75vh; min-height: 75svh; }
   .service__media { margin: var(--g) var(--s3) var(--g) 0; height: auto; max-height: none; aspect-ratio: 1; align-self: start; }
+  .service__media { position: sticky; top: calc(var(--header) + var(--g)); }
   .service__media img { position: absolute; inset: 0; }
   .service__body { border-left: var(--line); padding: var(--g) var(--s2) var(--s4) var(--s3); align-content: space-between; gap: var(--s4); }
   .service__cols { grid-template-columns: 1fr 1fr; gap: var(--s4); align-items: start; }
