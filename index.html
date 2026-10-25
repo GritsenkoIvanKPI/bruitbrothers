@@ -382,6 +382,11 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .footer__title { font-size: var(--t-h1); line-height: 0.95; max-width: 18ch; }
 .footer__cta .btn { margin-top: var(--s3); max-width: 420px; }
 .footer__cell--bottom { opacity: 0.75; }
+.nowrap { white-space: nowrap; }
+@media (min-width: 900px) and (max-width: 1360px) {
+  .footer__sep { display: none; }
+  p.footer__cell--bottom { flex-direction: column; justify-content: flex-end; align-items: flex-start; }
+}
 
 /* ============ Reveal (transform + opacity only) ============ */
 .js [data-reveal] {
@@ -779,7 +784,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       <a class="btn btn--block" href="mailto:office@bruitbrothers.com?subject=Free%20brand%20audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
     </div>
 
-    <p class="footer__cell footer__cell--bottom label">© Bruit Brothers 2026 | All rights reserved</p>
+    <p class="footer__cell footer__cell--bottom label"><span class="nowrap">© Bruit Brothers 2026</span><span class="footer__sep"> | </span><span class="nowrap">All rights reserved</span></p>
     <div class="footer__cell footer__cell--bottom label">
       <!-- TODO: link to the real Privacy Policy page -->
       <a class="link" href="#privacy">Privacy Policy</a>
