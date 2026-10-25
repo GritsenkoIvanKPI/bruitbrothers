@@ -293,10 +293,30 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .gets { padding-top: var(--s5); padding-bottom: var(--s5); }
 .gets__title { font-size: var(--t-h2); line-height: 0.95; max-width: 8ch; }
 .gets__grid { display: grid; margin-top: var(--s4); border-top: var(--line); }
-.gets__item { padding: var(--s3) 0; border-bottom: var(--line); }
+.gets__item {
+  position: relative;
+  isolation: isolate;
+  padding: var(--s3) 0;
+  border-bottom: var(--line);
+  transition: color 0.5s var(--ease);
+}
+/* blue highlight for the item currently in view */
+.gets__item::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(-1 * var(--g));
+  z-index: -1;
+  background: var(--blue);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+}
+.gets__item.is-active { color: var(--cream); }
+.gets__item.is-active::before { opacity: 1; }
+.gets__item { padding-left: 0; }
 .gets__item h3 { font-size: clamp(30px, 2.6vw, 46px); line-height: 0.95; margin: 0 0 var(--s2); }
 .gets__item p { max-width: 38ch; }
-.gets__no { margin-top: var(--s4); padding-top: var(--s2); border-top: var(--line); text-align: center; }
+.gets__no { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s1) var(--s3); margin-top: var(--s4); padding-top: var(--s2); border-top: var(--line); }
+.gets__no span { white-space: nowrap; }
 
 /* ============ Closing line + video ============ */
 .listen { position: relative; height: 280vh; }
@@ -396,8 +416,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
   .gets__wrap { display: grid; grid-template-columns: 1fr 1fr; }
   .gets__grid { margin-top: 0; border-left: var(--line); }
-  .gets__item { padding: var(--s3) var(--g); }
-  .gets__item--fill { background: var(--blue); color: var(--cream); }
+  .gets__wrap { align-items: start; }
+  .gets__title { position: sticky; top: calc(var(--header) + var(--s3)); }
+  .gets__item { padding: var(--s4) var(--g); min-height: 42vh; display: flex; flex-direction: column; justify-content: center; }
+  .gets__item::before { inset: 0; }
 
   .footer__grid { grid-template-columns: 1fr 1fr; align-items: center; }
   .footer__mark { justify-self: center; }
@@ -673,7 +695,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     <div class="gets__wrap">
       <h2 class="gets__title display" id="gets-title" data-reveal>What you always get</h2>
       <div class="gets__grid">
-        <article class="gets__item gets__item--fill" data-reveal>
+        <article class="gets__item is-active" data-reveal>
           <h3 class="display">High-value channels only.</h3>
           <p>Valuable attention starts beyond the obvious placements, so we’ll never put you on oversaturated Meta Ads or other default options.</p>
         </article>
@@ -691,7 +713,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         </article>
       </div>
     </div>
-    <p class="gets__no label" data-reveal>NO ENDLESS BRIEFINGS&emsp;&emsp;NO USELESS DOCUMENTS&emsp;&emsp;NO UNEXPECTED DELAYS</p>
+    <p class="gets__no label" data-reveal><span>NO ENDLESS BRIEFINGS</span> <span>NO USELESS DOCUMENTS</span> <span>NO UNEXPECTED DELAYS</span></p>
   </section>
 
 </main>
@@ -754,6 +776,28 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
   addEventListener('scroll', request, { passive: true });
   addEventListener('resize', request);
+  update();
+})();
+</script>
+<script>
+/* What you always get: highlight the promise closest to the middle of the screen */
+(() => {
+  const items = [...document.querySelectorAll('.gets__item')];
+  if (!items.length) return;
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const mid = innerHeight * 0.5;
+    let best = null, bestDist = Infinity;
+    for (const el of items) {
+      const r = el.getBoundingClientRect();
+      const d = r.top <= mid && r.bottom >= mid ? 0 : Math.min(Math.abs(r.top - mid), Math.abs(r.bottom - mid));
+      if (d < bestDist) { bestDist = d; best = el; }
+    }
+    items.forEach(el => el.classList.toggle('is-active', el === best));
+  }
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', update);
   update();
 })();
 </script>
