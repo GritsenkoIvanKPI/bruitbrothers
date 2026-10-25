@@ -150,7 +150,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .header__logo img { height: 38px; width: auto; }
 .header__logo:hover { opacity: 0.75; }
 .header__nav { display: none; }
-.header__nav ul { display: flex; gap: var(--s3); }
+.header__nav ul { display: flex; gap: var(--s3); white-space: nowrap; }
+.header__nav li { flex: none; }
 
 /* ============ Hero ============ */
 .hero {
@@ -352,7 +353,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 @media (min-width: 900px) {
   .listen__title { max-width: calc(50% - var(--g) * 2); }
-  .listen__years { left: calc(50% + var(--g)); top: var(--s4); padding-top: 0.4em; }
+  .listen__years { left: 50%; top: var(--s4); padding-top: 0.4em; }
 }
 
 /* ============ Footer ============ */
@@ -425,8 +426,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .footer__mark { justify-self: center; }
 }
 @media (min-width: 900px) and (max-width: 1180px) {
+  .header__nav ul { gap: var(--s2); }
   .service__cols { grid-template-columns: 1fr; }
-  .header__nav { grid-column: 2 / 4; justify-self: center; }
 }
 @media (max-width: 899px) {
   .header .btn { padding: 0 var(--s1); }
