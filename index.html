@@ -8,7 +8,15 @@
 <link rel="icon" type="image/png" href="assets/brand/bb-blue.png">
 <link rel="preload" as="image" href="assets/brand/wordmark-cream-sm.png">
 <link rel="stylesheet" href="https://use.typekit.net/rix1cmb.css">
-<script>document.documentElement.classList.add('js', 'is-loading');</script>
+<script>
+document.documentElement.classList.add('js', 'is-loading');
+/* Fallback for browsers without svh (iOS < 15.4): first screen = visible height */
+if (!(window.CSS && CSS.supports('height', '100svh'))) {
+  const setVh = () => document.documentElement.style.setProperty('--vh-visible', innerHeight + 'px');
+  setVh(); addEventListener('resize', setVh);
+  document.documentElement.classList.add('no-svh');
+}
+</script>
 <style>
 /* ============ Tokens ============ */
 :root {
@@ -163,6 +171,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   height: 100svh;
   min-height: 560px;
   padding-top: var(--header);
+}
+.no-svh .hero { height: var(--vh-visible, 100vh);
   color: var(--cream);
 }
 .hero__media { position: relative; height: 100%; background: var(--blue); }
@@ -173,7 +183,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   z-index: 2;
   left: var(--g);
   right: var(--g);
-  bottom: var(--s3);
+  bottom: calc(var(--s3) + env(safe-area-inset-bottom, 0px));
   pointer-events: none;
 }
 .hero__eyebrow { margin-bottom: var(--s2); }
