@@ -10,7 +10,7 @@
  */
 
 const MAX_POINTS = 24;       // remembered touch points per image
-const TRAIL_LIFE = 0.9;      // s
+const TRAIL_LIFE = 1.4;      // s
 const ENTER = 1.4;           // s
 const ENTER_PIXEL = 18;      // starting pixel size (device px)
 const DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -37,12 +37,14 @@ void main(){
     float age = now - q.z;
     if (q.z > 0.0 && age < ${TRAIL_LIFE.toFixed(2)}) {
       vec2 d = (st - q.xy) * vec2(aspect, 1.0);
-      float r = 0.07 + q.w * 0.05;
-      trail += smoothstep(r + 0.12, r - 0.04, length(d)) * (1.0 - age / ${TRAIL_LIFE.toFixed(2)});
+      float r = 0.035 + q.w * 0.03;
+      float life = 1.0 - age / ${TRAIL_LIFE.toFixed(2)};
+      // soft round falloff, eased fade-out
+      trail += smoothstep(r + 0.16, r, length(d)) * life * life * 0.55;
     }
   }
-  trail = clamp(trail, 0.0, 1.0);
-  float px = mix(pixel, pixel * 6.0, trail);
+  trail = clamp(trail, 0.0, 0.85);
+  float px = mix(pixel, pixel * 3.5, trail);
   vec2 cell = px / res;
   vec2 suv = (floor(st / cell) + 0.5) * cell;
   vec3 c = texture2D(tex, suv * scale + offset).rgb;
@@ -50,7 +52,7 @@ void main(){
   float n = noise(st * 1.4 + time * 0.25) - 0.5;
   float pulse = sin(time * 0.5) * 0.5 + 0.5;
   float b = bias + (n * 0.77 + pulse * 0.87) * 0.06;
-  float t = b8(floor(gl_FragCoord.xy / max(1.0, floor(px * 0.5 + 0.5)))) + b * (1.0 + 2.0 * trail);
+  float t = b8(floor(gl_FragCoord.xy / max(1.0, floor(px * 0.5 + 0.5)))) + b * (1.0 + 0.5 * trail);
   gl_FragColor = vec4(lum > t ? light : dark, 1.0);
 }`;
 
@@ -81,7 +83,7 @@ export function initTouchDither({ colorDark = '#15209f', colorLight = '#f0ede5',
       const i = item.ptIndex++ % MAX_POINTS;
       item.pts.set([x, y, performance.now() / 1000, vel], i * 4);
     };
-    touchTarget.addEventListener('pointerdown', e => { last = e; addPoint(e, 1); }, { passive: true });
+    touchTarget.addEventListener('pointerdown', e => { last = e; addPoint(e, 0.3); }, { passive: true });
     touchTarget.addEventListener('pointermove', e => {
       if (e.pointerType === 'mouse' && !e.buttons) return;
       const v = last ? Math.min(Math.hypot(e.clientX - last.clientX, e.clientY - last.clientY) / 30, 1) : 0.5;
