@@ -943,7 +943,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         pre.classList.add('is-done');
         document.documentElement.classList.remove('is-loading');
         setTimeout(revealHero, 250);
-        pre.addEventListener('transitionend', () => pre.classList.add('is-gone'), { once: true });
+        setTimeout(() => pre.classList.add('is-gone'), 1000);
       }, 250);
     };
     requestAnimationFrame(tick);
