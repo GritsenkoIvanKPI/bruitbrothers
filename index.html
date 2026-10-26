@@ -11,21 +11,6 @@
 <script>
 document.documentElement.classList.add('js', 'is-loading');
 window.__touchDither = matchMedia('(hover: none), (pointer: coarse)').matches;
-/* First screen height in px, fixed at load. Mobile browsers change the visible height while
-   their toolbars slide away during scroll; a fixed value keeps the hero text from moving.
-   Recalculated only when the width changes (rotation). */
-(() => {
-  if (!window.__touchDither) return;
-  const root = document.documentElement;
-  let lastW = 0;
-  const set = () => {
-    if (innerWidth === lastW) return;
-    lastW = innerWidth;
-    root.style.setProperty('--hero-h', innerHeight + 'px');
-  };
-  set(); addEventListener('resize', set);
-  root.classList.add('hero-locked');
-})();
 </script>
 <style>
 /* ============ Tokens ============ */
@@ -188,7 +173,6 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   padding-top: var(--header);
   color: var(--cream);
 }
-.hero-locked .hero { height: var(--hero-h, 100svh); }
 .hero__media { position: relative; height: 100%; background: var(--blue); }
 .hero__media picture, .hero__media img { width: 100%; height: 100%; }
 .hero__media img { object-fit: cover; }
@@ -197,7 +181,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   z-index: 2;
   left: var(--g);
   right: var(--g);
-  bottom: calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+  bottom: var(--s3);
   pointer-events: none;
 }
 .hero__eyebrow { margin-bottom: var(--s2); }
