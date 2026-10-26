@@ -1067,11 +1067,11 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 })();
 </script>
 <script type="module">
-  // Touch devices: dither baked into each image (no cursor trail, nothing can drift while scrolling).
+  // Touch devices: per-image WebGL canvas inside each image box (enter animation, shimmer, finger trail).
   // Mouse devices: live WebGL effect with cursor trail.
   if (window.__touchDither) {
-    const { initStaticDither } = await import('./dither-static.js');
-    initStaticDither({ colorDark: '#15209f', colorLight: '#f0ede5' });
+    const { initTouchDither } = await import('./dither-touch.js');
+    initTouchDither({ colorDark: '#15209f', colorLight: '#f0ede5' });
   } else {
     const { initDitherHover } = await import('./dither-hover.js');
     initDitherHover({
