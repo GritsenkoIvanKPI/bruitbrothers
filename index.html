@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://use.typekit.net/rix1cmb.css">
 <script>
 document.documentElement.classList.add('js', 'is-loading');
+window.__touchDither = matchMedia('(hover: none), (pointer: coarse)').matches;
 /* Fallback for browsers without svh (iOS < 15.4): first screen = visible height */
 if (!(window.CSS && CSS.supports('height', '100svh'))) {
   const setVh = () => document.documentElement.style.setProperty('--vh-visible', innerHeight + 'px');
@@ -380,6 +381,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 .listen__box { position: absolute; inset: 0; transform-origin: 0 0; will-change: transform; }
 .listen__box video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.dither-video { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
 .listen__layer { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .listen__layer--light { z-index: 3; color: var(--cream); }
 .listen__title {
@@ -1022,7 +1024,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     const range = section.offsetHeight - stage.offsetHeight;
     const p = reduce ? 1 : ease(Math.min(1, Math.max(0, scrolled / (range * 0.75))));
     const x = lerp(start.x, 0, p), y = lerp(start.y, 0, p), w = lerp(start.w, W, p), h = lerp(start.h, H, p);
-    box.style.transform = `translate(${x}px, ${y}px) scale(${w / W}, ${h / H})`;
+    if (window.__touchDither) box.style.clipPath = `inset(${y}px ${W - x - w}px ${H - y - h}px ${x}px)`;
+    else box.style.transform = `translate(${x}px, ${y}px) scale(${w / W}, ${h / H})`;
     light.style.clipPath = `inset(${y}px ${W - x - w}px ${H - y - h}px ${x}px)`;
   }
   const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
@@ -1054,8 +1057,14 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 })();
 </script>
 <script type="module">
-  import { initDitherHover } from './dither-hover.js';
-  initDitherHover({
+  // Touch devices: dither baked into each image (no cursor trail, nothing can drift while scrolling).
+  // Mouse devices: live WebGL effect with cursor trail.
+  if (window.__touchDither) {
+    const { initStaticDither } = await import('./dither-static.js');
+    initStaticDither({ colorDark: '#15209f', colorLight: '#f0ede5' });
+  } else {
+    const { initDitherHover } = await import('./dither-hover.js');
+    initDitherHover({
     colorDark: '#15209f',
     colorLight: '#f0ede5',
     zIndex: 1,
@@ -1070,7 +1079,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       enterDuration: 1.4,
       trail: { decayRate: 0.08 },
     },
-  });
+    });
+  }
 </script>
 </body>
 </html>
