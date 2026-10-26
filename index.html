@@ -436,23 +436,22 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   transition: transform 0.9s var(--ease);
 }
 .js .preloader { display: grid; }
-.preloader__inner { display: grid; justify-items: center; gap: var(--s3); }
-.preloader__logo {
-  width: clamp(160px, 16vw, 260px);
-  height: auto;
-  opacity: 0;
-  transform: translateY(12px);
-  animation: preloader-in 0.7s var(--ease) forwards;
-}
-.preloader__bar { width: clamp(120px, 12vw, 200px); height: 1px; background: rgba(240, 237, 229, 0.25); overflow: hidden; }
-.preloader__bar span { display: block; height: 100%; background: var(--cream); transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease); }
+.preloader__inner { --pl-w: clamp(180px, 18vw, 300px); display: grid; width: var(--pl-w); opacity: 0; transform: translateY(12px); animation: preloader-in 0.7s var(--ease) forwards; }
+.preloader__logo { position: relative; width: 100%; }
+.preloader__img { display: block; width: 100%; height: auto; }
+.preloader__img--base { opacity: 0.18; }
+/* solid copy revealed left to right with the progress value */
+.preloader__img--fill { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--p, 0) * 100%) 0 0); }
+.preloader__bar { width: 100%; height: 1px; margin-top: var(--s3); background: rgba(240, 237, 229, 0.25); overflow: hidden; }
+.preloader__bar span { display: block; height: 100%; background: var(--cream); transform: scaleX(var(--p, 0)); transform-origin: left; }
+.preloader__count { justify-self: end; margin-top: var(--s1); color: var(--cream); font-variant-numeric: tabular-nums; }
 .preloader.is-done { transform: translateY(-100%); }
 .preloader.is-gone { display: none; }
 @keyframes preloader-in { to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
   .preloader { transition: opacity 0.3s linear; }
   .preloader.is-done { transform: none; opacity: 0; }
-  .preloader__logo { animation: none; opacity: 1; transform: none; }
+  .preloader__inner { animation: none; opacity: 1; transform: none; }
 }
 
 /* ============ Reveal (transform + opacity only) ============ */
@@ -569,8 +568,12 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 <div class="preloader" aria-hidden="true">
   <div class="preloader__inner">
-    <img class="preloader__logo" src="assets/brand/wordmark-cream-sm.png" alt="" width="600" height="256">
+    <div class="preloader__logo">
+      <img class="preloader__img preloader__img--base" src="assets/brand/wordmark-cream-sm.png" alt="" width="600" height="256">
+      <img class="preloader__img preloader__img--fill" src="assets/brand/wordmark-cream-sm.png" alt="" width="600" height="256">
+    </div>
     <div class="preloader__bar"><span></span></div>
+    <span class="preloader__count label">0</span>
   </div>
 </div>
 
@@ -915,25 +918,35 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   const bar = pre && pre.querySelector('.preloader__bar span');
   const revealHero = () => document.querySelectorAll('.hero [data-reveal]').forEach(el => el.classList.add('is-in'));
   if (pre) {
-    const start = performance.now();
+    const count = pre.querySelector('.preloader__count');
     const imgs = [...document.images].filter(i => i.loading !== 'lazy');
-    let done = 0; const total = imgs.length + 1;
-    const step = () => { done++; bar.style.transform = `scaleX(${Math.min(done / total, 1)})`; };
+    let done = 0; const total = imgs.length + 2; // + fonts + window load
+    const step = () => { done++; };
     imgs.forEach(i => i.complete ? step() : (i.addEventListener('load', step, { once: true }), i.addEventListener('error', step, { once: true })));
     document.fonts.ready.then(step);
-    let finished = false;
-    const finish = () => {
+    addEventListener('load', step, { once: true });
+    const t0 = performance.now();
+    const MIN = 1100, MAX = 4000;
+    let shown = 0, finished = false;
+    const tick = now => {
+      const elapsed = now - t0;
+      let target = Math.min(done / total, 1);
+      if (elapsed > MAX) target = 1;
+      const cap = Math.min(elapsed / MIN, 1);       // never faster than MIN ms to 100
+      shown += (Math.min(target, cap) - shown) * 0.12;
+      if (target >= 1 && cap >= 1 && shown > 0.995) shown = 1;
+      pre.style.setProperty('--p', shown.toFixed(4));
+      count.textContent = Math.round(shown * 100);
+      if (shown < 1) return requestAnimationFrame(tick);
       if (finished) return; finished = true;
-      bar.style.transform = 'scaleX(1)';
       setTimeout(() => {
         pre.classList.add('is-done');
         document.documentElement.classList.remove('is-loading');
         setTimeout(revealHero, 250);
         pre.addEventListener('transitionend', () => pre.classList.add('is-gone'), { once: true });
-      }, Math.max(0, 900 - (performance.now() - start)));
+      }, 250);
     };
-    Promise.all([new Promise(r => addEventListener('load', r, { once: true })), document.fonts.ready]).then(finish);
-    setTimeout(finish, 4000);
+    requestAnimationFrame(tick);
   } else {
     requestAnimationFrame(revealHero);
   }
