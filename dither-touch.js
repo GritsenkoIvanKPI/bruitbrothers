@@ -82,6 +82,7 @@ export function initTouchDither({ colorDark = '#15209f', colorLight = '#f0ede5',
       if (x < -0.1 || x > 1.1 || y < -0.1 || y > 1.1) return;
       const i = item.ptIndex++ % MAX_POINTS;
       item.pts.set([x, y, performance.now() / 1000, vel], i * 4);
+      item.activeUntil = performance.now() / 1000 + TRAIL_LIFE;
     };
     touchTarget.addEventListener('pointerdown', e => { last = e; addPoint(e, 0.3); }, { passive: true });
     touchTarget.addEventListener('pointermove', e => {
@@ -128,7 +129,7 @@ export function initTouchDither({ colorDark = '#15209f', colorLight = '#f0ede5',
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
     const u = {}; ['scale', 'offset', 'res', 'dark', 'light', 'pixel', 'bias', 'time', 'now', 'aspect', 'pts'].forEach(n => u[n] = gl.getUniformLocation(prog, n));
     gl.uniform3fv(u.dark, dark); gl.uniform3fv(u.light, light);
-    Object.assign(item, { canvas, gl, u, uploaded: false, w: 0, h: 0 });
+    Object.assign(item, { canvas, gl, u, uploaded: false, w: 0, h: 0, drawnOnce: false });
     if (item.ready && !item.isVideo) upload(item);
     return true;
   }
@@ -191,9 +192,20 @@ export function initTouchDither({ colorDark = '#15209f', colorLight = '#f0ede5',
   }));
   items.forEach(it => { nearIO.observe(it.el); visIO.observe(it.el); });
 
+  // Render on demand: during the reveal, while a finger trail is fading, for video frames (max 30 fps),
+  // and once after any size change. A still image costs nothing after it has been drawn.
   (function loop() {
     requestAnimationFrame(loop);
     const t = performance.now() / 1000;
-    for (const it of items) if (it.visible && it.gl) draw(it, t);
+    for (const it of items) {
+      if (!it.visible || !it.gl) continue;
+      const sizeChanged = Math.round(it.host.clientWidth * DPR) !== it.w || Math.round(it.host.clientHeight * DPR) !== it.h;
+      const entering = !it.entered || t - it.enterStart < ENTER + 0.05;
+      const trailing = (it.activeUntil || 0) > t;
+      const videoDue = it.isVideo && !it.el.paused && t - (it.lastDraw || 0) > 1 / 30;
+      if (entering || trailing || videoDue || sizeChanged || !it.drawnOnce) {
+        draw(it, t); it.lastDraw = t; if (it.uploaded) it.drawnOnce = true;
+      }
+    }
   })();
 }
