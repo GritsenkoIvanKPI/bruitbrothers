@@ -579,6 +579,15 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .service__cols { grid-template-columns: 1fr; }
 }
 @media (max-width: 899px) {
+  /* services on phones: number + title, image, then text; one clean divider between blocks */
+  .service { min-height: 0; padding: var(--s3) 0 var(--s4); }
+  .service__body, .service__body > div:first-child { display: contents; }
+  .service__body > div:first-child .label { order: 1; }
+  .service__title { order: 2; margin: var(--s1) 0 0; }
+  .service__media { order: 3; margin: var(--s3) 0 0; }
+  .service__lead { order: 4; margin-top: var(--s3); }
+  .service__cols { order: 5; margin-top: var(--s4); }
+  .service__list li:last-child { border-bottom: 0; }
   .header .btn { padding: 0 var(--s1); }
   .header__logo img { height: 32px; }
 }
