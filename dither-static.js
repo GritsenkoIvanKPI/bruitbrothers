@@ -90,26 +90,65 @@ export function initStaticDither({ colorDark = '#15209f', colorLight = '#f0ede5'
     t = setTimeout(() => images.filter(i => i.dataset.ditherSize).forEach(renderImage), 250);
   });
 
-  /* ---------- video ---------- */
+  /* ---------- video ----------
+     WebGL canvas inside the video's own box: the GPU does the dither, and the canvas
+     scrolls with the page like any element (no global overlay to keep in sync). */
   document.querySelectorAll(`video${selector}`).forEach(video => {
     const host = video.parentElement;
     const canvas = document.createElement('canvas');
     canvas.className = 'dither-video';
     canvas.setAttribute('aria-hidden', 'true');
     host.appendChild(canvas);
+    const gl = canvas.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: false });
+    if (!gl) { canvas.remove(); return; } // no WebGL: plain video stays visible
     video.style.opacity = '0';
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
-    const SCALE = 1; // one dot per CSS pixel
-    let visible = false, last = 0;
+
+    const vs = 'attribute vec2 p; varying vec2 uv; void main(){ uv = p * 0.5 + 0.5; uv.y = 1.0 - uv.y; gl_Position = vec4(p, 0.0, 1.0); }';
+    const fs = `precision mediump float;
+      varying vec2 uv; uniform sampler2D tex; uniform vec2 scale; uniform vec2 offset;
+      uniform vec3 dark; uniform vec3 light; uniform float bias;
+      float b2(vec2 a){ a = floor(a); return fract(dot(a, vec2(0.5, a.y * 0.75))); }
+      float b4(vec2 a){ return b2(0.5 * a) * 0.25 + b2(a); }
+      float b8(vec2 a){ return b4(0.5 * a) * 0.25 + b2(a); }
+      void main(){
+        vec3 c = texture2D(tex, uv * scale + offset).rgb;
+        float lum = dot(c, vec3(0.2126, 0.7152, 0.0722));
+        gl_FragColor = vec4(lum > b8(gl_FragCoord.xy) + bias ? light : dark, 1.0);
+      }`;
+    const sh = (type, src) => { const o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return o; };
+    const prog = gl.createProgram();
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(prog); gl.useProgram(prog);
+    const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    const u = n => gl.getUniformLocation(prog, n);
+    gl.uniform3f(u('dark'), dark[0] / 255, dark[1] / 255, dark[2] / 255);
+    gl.uniform3f(u('light'), light[0] / 255, light[1] / 255, light[2] / 255);
+    gl.uniform1f(u('bias'), bias);
+
+    let visible = false, w = 0, h = 0;
     new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) video.play().catch(() => {}); else video.pause(); }).observe(host);
-    function frame(now) {
+    function size() {
+      const nw = Math.round(host.clientWidth * dpr), nh = Math.round(host.clientHeight * dpr);
+      if (nw === w && nh === h) return;
+      w = canvas.width = nw; h = canvas.height = nh; gl.viewport(0, 0, w, h);
+    }
+    function frame() {
       requestAnimationFrame(frame);
-      if (!visible || video.readyState < 2 || now - last < 40) return; // ~25 fps
-      last = now;
-      const w = Math.max(1, Math.round(host.clientWidth * SCALE)), h = Math.max(1, Math.round(host.clientHeight * SCALE));
-      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
-      drawCover(ctx, video, video.videoWidth, video.videoHeight, w, h);
-      ditherPixels(ctx, w, h, dark, light, bias);
+      if (!visible || video.readyState < 2 || !video.videoWidth) return;
+      size();
+      // object-fit: cover
+      const ta = video.videoWidth / video.videoHeight, pa = w / h;
+      if (ta > pa) { gl.uniform2f(u('scale'), pa / ta, 1); gl.uniform2f(u('offset'), (1 - pa / ta) / 2, 0); }
+      else { gl.uniform2f(u('scale'), 1, ta / pa); gl.uniform2f(u('offset'), 0, (1 - ta / pa) / 2); }
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, video);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }
     requestAnimationFrame(frame);
   });

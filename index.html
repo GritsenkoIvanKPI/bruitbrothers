@@ -381,7 +381,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 .listen__box { position: absolute; inset: 0; transform-origin: 0 0; will-change: transform; }
 .listen__box video { display: block; width: 100%; height: 100%; object-fit: cover; }
-.dither-video { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+.dither-video { position: absolute; inset: 0; width: 100%; height: 100%; }
 .listen__layer { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .listen__layer--light { z-index: 3; color: var(--cream); }
 .listen__title {
@@ -675,7 +675,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   <section class="listen" aria-labelledby="listen-title">
     <div class="listen__stage">
       <div class="listen__box">
-        <video src="assets/video/listen.mp4" data-dither muted loop playsinline autoplay preload="auto" aria-hidden="true"></video>
+        <video data-dither muted loop playsinline autoplay preload="auto" aria-hidden="true"></video>
+        <script>document.currentScript.previousElementSibling.src = window.__touchDither ? 'assets/video/listen-mobile.mp4' : 'assets/video/listen.mp4';</script>
       </div>
       <div class="listen__layer">
         <h2 class="listen__title display" id="listen-title">Wherever you sell, we take<br class="br-wide"> the mess – you take the win.</h2>
