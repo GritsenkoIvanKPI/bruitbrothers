@@ -25,7 +25,7 @@
   --s5: calc(var(--g) * 6);
   --header: 64px;
 
-  --t-label: clamp(11px, 0.78vw, 13px);
+  --t-label: clamp(12px, 0.8vw, 13px);
   --t-body: clamp(15px, 1.05vw, 18px);
   --t-row: clamp(20px, 1.9vw, 34px);
   --t-lead: clamp(28px, 3.4vw, 60px);
@@ -148,11 +148,12 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   background: var(--cream);
   border-bottom: var(--line);
 }
-.header__logo { display: inline-flex; align-items: center; justify-self: start; transition: opacity 0.4s var(--ease); }
+.header__logo { display: inline-flex; align-items: center; min-height: 44px; justify-self: start; transition: opacity 0.4s var(--ease); }
 .header__logo img { height: 38px; width: auto; }
 .header__logo:hover { opacity: 0.75; }
 .header__nav { display: none; }
 .header__nav ul { display: flex; gap: var(--s3); white-space: nowrap; }
+.header__nav a { display: inline-flex; align-items: center; min-height: 44px; }
 .header__nav li { flex: none; }
 
 /* ============ Hero ============ */
@@ -343,7 +344,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .gets__item.is-active::before { opacity: 1; }
 .gets__item { padding-left: 0; }
 .gets__num { display: block; margin-bottom: var(--s2); opacity: 0.7; }
-.gets__item h3 { font-size: clamp(30px, 2.6vw, 46px); line-height: 0.95; margin: 0 0 var(--s2); }
+.gets__item h3 { font-size: clamp(26px, 2.6vw, 46px); line-height: 0.95; margin: 0 0 var(--s2); }
 .gets__item p { max-width: 38ch; }
 .nos { background: var(--blue); color: var(--cream); margin: var(--s4) 0; }
 .nos__list { display: grid; }
@@ -399,7 +400,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 /* ============ Footer (CTA + info) ============ */
 .footer { position: relative; overflow: hidden; background: var(--cream); color: var(--blue); border-top: var(--line); }
-.footer__grid { display: grid; gap: var(--s3); padding: var(--s4) 0 0; }
+.footer__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s3); padding: var(--s4) 0 0; }
 .footer__cta { order: -1; }
 .footer__art { order: 9; display: flex; justify-content: center; align-items: flex-end; margin-bottom: calc(-1 * var(--s2)); }
 /* the brothers stand at the bottom edge and are cut off by it */
@@ -413,13 +414,28 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 .footer__cell ul { display: grid; gap: 0.35em; }
 .footer__nav, .footer__contact { font-size: clamp(17px, 1.4vw, 24px); line-height: 1.4; }
-.footer__nav ul, .footer__contact ul { gap: 0.6em; }
+.footer__nav ul, .footer__contact ul { gap: 0; }
+/* comfortable tap targets without changing the visual rhythm */
+.footer__cell a { display: inline-flex; align-items: center; min-height: 44px; }
+.footer__contact li:not(:has(a)) { padding: 10px 0; }
 .footer__contact { display: flex; flex-direction: column; }
 .footer__title { font-size: var(--t-h1); line-height: 0.95; max-width: 18ch; }
 .footer__cta .btn { margin-top: var(--s3); max-width: 420px; }
 .footer__cell--bottom { opacity: 0.75; }
 .nowrap { white-space: nowrap; }
 .footer__sep { padding: 0 0.6em; }
+@media (min-width: 600px) and (max-width: 899px) {
+  .pain__list { grid-template-columns: 1fr 1fr; }
+  .pain__item { min-height: 300px; }
+  .pain__item:nth-child(odd) { border-right: var(--line); }
+}
+@media (max-width: 379px) {
+  .footer__title { font-size: 32px; }
+}
+@media (max-width: 479px) {
+  .footer__sep { display: none; }
+  p.footer__cell--bottom .nowrap { display: block; }
+}
 @media (min-width: 900px) and (max-width: 1360px) {
   .footer__sep { display: none; }
   p.footer__cell--bottom { flex-direction: column; justify-content: flex-end; align-items: flex-start; }
@@ -549,6 +565,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   p.footer__cell--bottom { grid-area: legal; }
   div.footer__cell--bottom { grid-area: privacy; }
   .footer__cell--bottom { display: flex; align-items: flex-end; margin: 0; }
+}
+@media (min-width: 900px) and (max-width: 1023px) {
+  .header__nav { display: none; }
 }
 @media (min-width: 900px) and (max-width: 1279px) {
   .gets__item { grid-template-columns: 1fr; grid-template-areas: "num" "title" "text"; }
@@ -898,7 +917,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     </div>
 
     <div class="footer__cta">
-      <h2 class="footer__title display" data-reveal>They are ready to listen. Let’s give them something worth hearing.</h2>
+      <h2 class="footer__title display" data-reveal>They are ready to listen. Let’s give them something worth hearing.</h2>
       <a class="btn btn--block" href="mailto:office@bruitbrothers.com?subject=Free%20brand%20audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
     </div>
 
