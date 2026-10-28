@@ -185,7 +185,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .header__logo:focus-visible { outline: 2px solid #f0ede5; outline-offset: 3px; }
 .header .header__cta { height: 52px; min-height: 0; background: #f0ede5; color: #15209f; }
 .header .header__cta::before { background: #15209f; }
-.header__cols { display: none; }
+.header__menu { display: none; }
 
 /* ============ Hero ============ */
 .hero {
@@ -522,29 +522,29 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .header__logo, .header .header__cta { height: 60px; }
 }
 @media (min-width: 900px) and (max-width: 1023px) {
-  .header__cols { display: none !important; }
+  .header__menu { display: none !important; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .header .header__menu { padding: 0 var(--s1); }
+  .header .header__menu ul { gap: var(--s2); }
+  .header .header__cta { padding: 0 var(--s1); }
 }
 @media (min-width: 900px) {
   .header__logo img { height: 34px; }
-  .header__cols { display: block; position: absolute; inset: 0 0 auto 0; pointer-events: none; transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
-  .header__col {
+  /* menu panel: same height as the logo and CTA boxes, left edge on the 50% grid line */
+  .header__menu {
+    display: flex;
+    align-items: center;
     position: absolute;
-    top: 0;
-    height: 38vh;
-    padding: calc(var(--s1) + 16px) var(--g) 0;
-    border-left: 1px solid rgba(240, 237, 229, 0.55);
-    color: #f0ede5;
-    pointer-events: auto;
+    top: var(--s1);
+    left: 50%;
+    height: 60px;
+    padding: 0 var(--s2);
+    background: #f0ede5;
+    color: #15209f;
   }
-  .header__col:first-child { left: 50%; }
-  .header__col:last-child { left: 66.666%; }
-  .header__col li { line-height: 1.5; }
-  /* 44px tall tap area; the blue chip is a 22px band behind the text */
-  .header__col a { display: inline-block; padding: 11px 6px; margin: -11px 0 -11px -6px; background: linear-gradient(#15209f, #15209f) center / 100% 22px no-repeat; }
-  .header__col li + li { margin-top: 20px; }
-  /* after leaving the top of the page only the two solid boxes stay */
-  .header.is-scrolled .header__cols { opacity: 0; transform: translateY(-8px); pointer-events: none; }
-  .header.is-scrolled .header__col { pointer-events: none; }
+  .header__menu ul { display: flex; gap: var(--s3); white-space: nowrap; }
+  .header__menu a { display: inline-flex; align-items: center; min-height: 44px; }
 
 
   .intro__copy { margin-left: 50%; }
@@ -611,13 +611,11 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   <a class="header__logo" href="#top" aria-label="Bruit Brothers — back to top">
     <img src="assets/brand/wordmark-blue-sm.png" alt="Bruit Brothers" width="600" height="256">
   </a>
-  <nav class="header__cols label" aria-label="Main">
-    <ul class="header__col">
+  <nav class="header__menu label" aria-label="Main">
+    <ul>
       <li><a class="link" href="#solutions">Solutions</a></li>
       <li><a class="link" href="#always">What you get</a></li>
       <!-- <li><a class="link" href="#clients">Clients</a></li> -->
-    </ul>
-    <ul class="header__col">
       <li><a class="link" href="mailto:office@bruitbrothers.com">Contact</a></li>
     </ul>
   </nav>
