@@ -235,6 +235,11 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   line-height: 1.1;
   letter-spacing: 0;
 }
+.intro__bottom { display: grid; gap: var(--s4); }
+/* video grows from its bottom-left corner as the section scrolls into view (uniform scale: no distortion) */
+.intro__media { margin: 0; aspect-ratio: 16 / 10; }
+.intro__box { position: relative; width: 100%; height: 100%; background: #f0ede5; transform-origin: 0 100%; transform: scale(var(--grow, 1)); will-change: transform; }
+.intro__box video { display: block; width: 100%; height: 100%; object-fit: cover; }
 .intro__copy { display: grid; gap: 1.3em; max-width: 44ch; font-size: clamp(18px, 1.5vw, 28px); line-height: 1.4; }
 
 /* ============ Challenges ============ */
@@ -497,7 +502,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .header .btn { grid-column: 4; justify-self: end; }
 
 
-  .intro__copy { margin-left: 50%; }
+  .intro__bottom { grid-template-columns: 1fr 1fr; align-items: end; gap: 0; }
+  .intro__media { margin-right: var(--s4); }
   .intro__line { max-width: none; }
   .intro { gap: var(--s5); min-height: calc(100vh - var(--header)); min-height: calc(100svh - var(--header)); }
 
@@ -533,6 +539,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .service__cols { grid-template-columns: 1fr; }
 }
 @media (max-width: 899px) {
+  .intro__media { aspect-ratio: 4 / 5; order: 2; }
   /* services on phones: number + title, image, then text; one clean divider between blocks */
   .service { min-height: 0; padding: var(--s3) 0 var(--s4); }
   .service__body, .service__body > div:first-child { display: contents; }
@@ -596,9 +603,17 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       <span class="intro__for">for</span>
       <span class="intro__line">Food &amp; Beverages, Alcohol, Tobacco, and OTC Medicines</span>
     </h2>
+    <div class="intro__bottom">
+      <figure class="intro__media">
+        <div class="intro__box">
+          <video data-dither muted loop playsinline autoplay preload="auto" aria-hidden="true"></video>
+          <script>document.currentScript.previousElementSibling.src = window.__touchDither ? 'assets/video/elder-mobile.mp4' : 'assets/video/elder.mp4';</script>
+        </div>
+      </figure>
     <div class="intro__copy">
       <p data-reveal>8 years in, we absolutely know what sells, what grows, what makes money, and what will never work.</p>
       <p data-reveal data-d="1">Wherever you sell, we take the mess – <span class="nowrap">you take the win.</span></p>
+    </div>
     </div>
   </section>
 
@@ -902,6 +917,25 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
   targets.forEach(el => io.observe(el));
+})();
+</script>
+<script>
+/* Intro video: grows from a small frame to full size while the section scrolls into view */
+(() => {
+  const box = document.querySelector('.intro__box');
+  if (!box || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const fig = box.parentElement;
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const r = fig.getBoundingClientRect(), vh = innerHeight;
+    const p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.8 + r.height * 0.4)));
+    const e = 1 - Math.pow(1 - p, 3);
+    box.style.setProperty('--grow', (0.35 + 0.65 * e).toFixed(4));
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', update);
+  update();
 })();
 </script>
 <script>
