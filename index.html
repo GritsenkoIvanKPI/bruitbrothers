@@ -308,7 +308,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   min-height: 67svh;
   margin: 0 var(--g);
 }
-.service + .service { margin-top: var(--s4); }
+.service + .service { margin-top: var(--s5); }
 .service__media { position: relative; margin-top: var(--g); height: 82vw; max-height: 70svh; }
 .service__media img { width: 100%; height: 100%; object-fit: cover; }
 .service__body { display: grid; align-content: start; gap: var(--s4); padding: var(--s3) 0 var(--s4); }
@@ -316,16 +316,20 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .service__cols { display: grid; gap: var(--s3); }
 .service__text { font-size: clamp(16px, 1.3vw, 22px); line-height: 1.5; }
 .service__text p + p { margin-top: 1em; }
-.service__list-title { margin-bottom: var(--s1); }
-.service__list li { padding: 0.35em 0; line-height: 1.35; }
-.service__list li { display: flex; align-items: center; gap: 0.75em; }
-.service__list li::before {
-  content: "";
-  flex: none;
-  width: 0.55em;
-  height: 0.55em;
+.service__num { font-size: clamp(26px, 2.4vw, 44px); line-height: 1; opacity: 0.55; letter-spacing: 0; }
+/* list label: cream bar running to the right edge, like the 'What you always get' titles */
+.service__list-title {
+  margin: 0 calc(-1 * var(--g)) var(--s1) 0;
+  padding: 0.3em var(--g) 0.3em 0.6em;
   background: var(--blue);
+  color: var(--cream);
+  font-size: clamp(18px, 1.5vw, 28px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
+.service__list { padding-left: 1.4em; }
+.service__list li { padding: 0.12em 0; line-height: 1.3; font-size: clamp(16px, 1.3vw, 22px); }
 
 /* ============ What you always get ============ */
 /* What you always get: cream section, blue title bars sweep in from the right edge */
@@ -519,7 +523,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   /* services on phones: number + title, image, then text; one clean divider between blocks */
   .service { min-height: 0; padding: var(--s3) 0 var(--s4); }
   .service__body, .service__body > div:first-child { display: contents; }
-  .service__body > div:first-child .label { order: 1; }
+  .service__num { order: 1; }
   .service__title { order: 2; margin: var(--s1) 0 0; }
   .service__media { order: 3; margin: var(--s3) 0 0; }
   .service__cols { order: 4; margin-top: var(--s3); }
@@ -627,7 +631,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="label">01</p>
+          <p class="service__num display">01</p>
           <h3 class="service__title display" id="s1" data-reveal>Brand Strategy</h3>
         </div>
         <div class="service__cols">
@@ -636,7 +640,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
             <p>It’s all based on real consumer insights verified in your product category, and delivered as a clear, structured document your team can actually use to drive commercial growth.</p>
           </div>
           <div data-reveal data-d="1">
-            <p class="label service__list-title">Includes:</p>
+            <p class="service__list-title">Includes:</p>
             <ul class="service__list">
               <li>Consumer Understanding</li>
               <li>Competitive Space</li>
@@ -659,7 +663,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="label">02</p>
+          <p class="service__num display">02</p>
           <h3 class="service__title display" id="s2" data-reveal>Campaign Development</h3>
         </div>
         <div class="service__cols">
@@ -669,7 +673,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
             <p>It comes together as a complete campaign kit, ready to launch.</p>
           </div>
           <div data-reveal data-d="1">
-            <p class="label service__list-title">Includes:</p>
+            <p class="service__list-title">Includes:</p>
             <ul class="service__list">
               <li>Big Idea</li>
               <li>Key Messages</li>
@@ -687,7 +691,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="label">03</p>
+          <p class="service__num display">03</p>
           <h3 class="service__title display" id="s3" data-reveal>Media Activation</h3>
         </div>
         <div class="service__cols">
@@ -697,7 +701,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
             <p>Using real-time intent signals and predictive targeting, we reach the people who matter most to you at the moment they're actually paying attention.</p>
           </div>
           <div data-reveal data-d="1">
-            <p class="label service__list-title">Advertising channels:</p>
+            <p class="service__list-title">Advertising channels:</p>
             <ul class="service__list">
               <li>Mobile Apps &amp; Games</li>
               <li>Connected TV</li>
@@ -717,7 +721,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="label">04</p>
+          <p class="service__num display">04</p>
           <h3 class="service__title display" id="s4" data-reveal>Brand Measurement</h3>
         </div>
         <div class="service__cols">
@@ -726,7 +730,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
             <p>We run Brand Lift to isolate the effect of a specific media campaign, or Brand Health Tracking to show how all your marketing activity changes brand perception over months and years.</p>
           </div>
           <div data-reveal data-d="1">
-            <p class="label service__list-title">Metrics:</p>
+            <p class="service__list-title">Metrics:</p>
             <ul class="service__list">
               <li>Brand Awareness</li>
               <li>Brand Consideration</li>
@@ -746,7 +750,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="label">05</p>
+          <p class="service__num display">05</p>
           <h3 class="service__title display" id="s5" data-reveal>Visual Identity</h3>
         </div>
         <div class="service__cols">
@@ -756,7 +760,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
             <p>It works across packaging, print, and digital alike. You get the whole visual system in one guideline, easy for everyone on your team to use right.</p>
           </div>
           <div data-reveal data-d="1">
-            <p class="label service__list-title">Includes:</p>
+            <p class="service__list-title">Includes:</p>
             <ul class="service__list">
               <li>Logo</li>
               <li>Mascot</li>
