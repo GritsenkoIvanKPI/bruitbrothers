@@ -501,6 +501,15 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .variant-switch button:focus-visible { outline: 2px solid #f0ede5; outline-offset: 2px; }
 @media (pointer: coarse) { .variant-switch button { width: 40px; height: 40px; } }
 
+/* Header hover: decrypted-text effect (letters scramble, then resolve left to right) */
+.dc-word { white-space: nowrap; }
+.dc-cell { position: relative; display: inline-block; }
+.dc-cell.is-scrambled > .dc-char { visibility: hidden; }
+.dc-glyph { position: absolute; top: 0; left: 50%; transform: translateX(-50%) scaleX(var(--sq, 1)); opacity: 0.55; }
+.dc-cell:not(.is-scrambled) > .dc-glyph { display: none; }
+.header__menu a:active, .header .header__cta:active { opacity: 0.7; }
+.header__menu a:focus-visible { outline: 2px solid #15209f; outline-offset: 4px; }
+
 /* ============ Reveal (transform + opacity only) ============ */
 .js [data-reveal] {
   opacity: 0;
@@ -613,13 +622,13 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   </a>
   <nav class="header__menu label" aria-label="Main">
     <ul>
-      <li><a class="link" href="#solutions">Solutions</a></li>
-      <li><a class="link" href="#always">What you get</a></li>
-      <!-- <li><a class="link" href="#clients">Clients</a></li> -->
-      <li><a class="link" href="mailto:office@bruitbrothers.com">Contact</a></li>
+      <li><a href="#solutions" data-decrypt>Solutions</a></li>
+      <li><a href="#always" data-decrypt>What you get</a></li>
+      <!-- <li><a href="#clients" data-decrypt>Clients</a></li> -->
+      <li><a href="mailto:office@bruitbrothers.com" data-decrypt>Contact</a></li>
     </ul>
   </nav>
-  <a class="btn header__cta" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
+  <a class="btn header__cta" href="#audit" data-decrypt>Book a free brand audit</a>
 </header>
 
 <main id="top">
@@ -1029,6 +1038,51 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     ui.innerHTML = `<button type="button" aria-label="Previous photo" title="${key}: ${list[i]}">‹</button><button type="button" aria-label="Next photo" title="${key}: ${list[i]}">›</button>`;
     ui.children[0].onclick = () => go(-1); ui.children[1].onclick = () => go(1);
     img.closest('figure').appendChild(ui);
+  });
+})();
+</script>
+<script>
+/* Decrypted-text hover for [data-decrypt]: sequential reveal from the start, fixed glyph widths. */
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+';
+  const SPEED = 60;
+  document.querySelectorAll('[data-decrypt]').forEach(el => {
+    const text = el.textContent.trim();
+    el.setAttribute('aria-label', text);
+    el.textContent = '';
+    const wrap = document.createElement('span'); wrap.setAttribute('aria-hidden', 'true');
+    const cells = [];
+    let word = null;
+    [...text].forEach(ch => {
+      if (/\s/.test(ch)) { wrap.append(ch); word = null; return; }
+      if (!word) { word = document.createElement('span'); word.className = 'dc-word'; wrap.append(word); }
+      const cell = document.createElement('span'); cell.className = 'dc-cell';
+      const c = document.createElement('span'); c.className = 'dc-char'; c.textContent = ch;
+      const g = document.createElement('span'); g.className = 'dc-glyph';
+      cell.append(c, g); word.append(cell); cells.push({ cell, c, g });
+    });
+    el.append(wrap);
+    let timer = null, queue = [];
+    const scramble = item => {
+      item.g.textContent = POOL[Math.floor(Math.random() * POOL.length)];
+      const need = item.g.offsetWidth, room = item.c.offsetWidth;
+      item.g.style.setProperty('--sq', need > room ? (room / need).toFixed(3) : 1);
+    };
+    const stop = () => { clearInterval(timer); timer = null; cells.forEach(i => i.cell.classList.remove('is-scrambled')); };
+    const tick = () => {
+      const next = queue.shift();
+      if (next) next.cell.classList.remove('is-scrambled');
+      cells.forEach(i => { if (i.cell.classList.contains('is-scrambled')) scramble(i); });
+      if (!queue.length) stop();
+    };
+    el.addEventListener('mouseenter', () => {
+      if (timer) return;
+      cells.forEach(i => { i.cell.classList.add('is-scrambled'); scramble(i); });
+      queue = [null, ...cells];          // one beat fully scrambled, then reveal from the start
+      timer = setInterval(tick, SPEED);
+    });
+    el.addEventListener('mouseleave', stop);
   });
 })();
 </script>
