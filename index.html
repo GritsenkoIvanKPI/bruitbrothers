@@ -349,7 +349,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 /* ============ What you always get ============ */
 /* What you always get: cream section, blue title bars sweep in from the right edge */
-.gets { background: #f0ede5; color: #15209f; padding-top: var(--s5); }
+.gets { background: #f0ede5; color: #15209f; padding-top: var(--s5); padding-bottom: var(--s5); }
 .gets__title { font-size: clamp(56px, 7.8vw, 156px); line-height: 0.9; }
 .gets__list { display: grid; gap: var(--s3); margin-top: var(--s4); margin-right: calc(-1 * var(--g)); padding-bottom: var(--s5); }
 .gets__bar {
@@ -384,7 +384,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .gets__nos {
   display: grid;
   gap: var(--s1);
-  padding: var(--s2) var(--g);
+  margin: 0 var(--g);
+  padding: var(--s3) var(--g);
   background: #15209f;
   color: #f0ede5;
   font-size: clamp(13px, 1.1vw, 20px);
@@ -536,7 +537,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .gets__wrap { display: grid; grid-template-columns: 9fr 11fr; align-items: start; }
   .gets__title { position: sticky; top: calc(var(--header) + var(--s3)); padding-bottom: var(--s5); }
   .gets__list { margin-top: calc(var(--s3) + 0.2em); }
-  .gets__nos { grid-template-columns: repeat(3, 1fr); padding: var(--s2) var(--g); }
+  .gets__nos { grid-template-columns: repeat(3, 1fr); padding: var(--s3) var(--g); }
 }
 @media (min-width: 900px) and (max-width: 1023px) {
   .header__nav { display: none; }
