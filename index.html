@@ -316,7 +316,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .service__cols { display: grid; gap: var(--s3); }
 .service__text { font-size: clamp(16px, 1.3vw, 22px); line-height: 1.5; }
 .service__text p + p { margin-top: 1em; }
-.service__num { font-size: clamp(26px, 2.4vw, 44px); line-height: 1; opacity: 0.55; letter-spacing: 0; }
+.service__num { font-family: var(--text); font-weight: 500; font-size: clamp(15px, 1.1vw, 19px); line-height: 1; letter-spacing: 0.04em; opacity: 0.6; }
 /* list label: cream bar running to the right edge, like the 'What you always get' titles */
 .service__list-title {
   margin: 0 calc(-1 * var(--g)) var(--s1) 0;
@@ -501,7 +501,6 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 @media (min-width: 900px) {
   .service { grid-template-columns: 7fr 18fr; min-height: 0; }
   .service__media { margin: var(--g) var(--s3) var(--g) 0; height: auto; max-height: none; aspect-ratio: 1; align-self: start; }
-  .service__media { position: sticky; top: calc(var(--header) + var(--g)); }
   .service__media img { position: absolute; inset: 0; }
   .service__body { padding: var(--g) var(--s2) var(--s4) var(--s3); align-content: start; gap: var(--s3); }
   .service__cols { grid-template-columns: 3fr 2fr; gap: var(--s4); align-items: start; }
@@ -631,7 +630,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="service__num display">01</p>
+          <p class="service__num">01</p>
           <h3 class="service__title display" id="s1" data-reveal>Brand Strategy</h3>
         </div>
         <div class="service__cols">
@@ -663,7 +662,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="service__num display">02</p>
+          <p class="service__num">02</p>
           <h3 class="service__title display" id="s2" data-reveal>Campaign Development</h3>
         </div>
         <div class="service__cols">
@@ -691,7 +690,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="service__num display">03</p>
+          <p class="service__num">03</p>
           <h3 class="service__title display" id="s3" data-reveal>Media Activation</h3>
         </div>
         <div class="service__cols">
@@ -721,7 +720,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="service__num display">04</p>
+          <p class="service__num">04</p>
           <h3 class="service__title display" id="s4" data-reveal>Brand Measurement</h3>
         </div>
         <div class="service__cols">
@@ -750,7 +749,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       </figure>
       <div class="service__body">
         <div>
-          <p class="service__num display">05</p>
+          <p class="service__num">05</p>
           <h3 class="service__title display" id="s5" data-reveal>Visual Identity</h3>
         </div>
         <div class="service__cols">
