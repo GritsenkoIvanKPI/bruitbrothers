@@ -942,7 +942,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     ticking = false;
     const r = fig.getBoundingClientRect(), vh = innerHeight;
     const p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height * 0.6)));
-    const e = 1 - Math.pow(1 - p, 3);
+    const e = p * p * (3 - 2 * p); // smooth, even pace
     box.style.setProperty('--zoom', (1.6 - 0.6 * e).toFixed(4));
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
