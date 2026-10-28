@@ -480,11 +480,12 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 
 /* TEMP: Campaign visual variant switcher (only with ?campaign=…) */
-.variant-switch { position: absolute; z-index: 5; left: 8px; bottom: 8px; display: flex; align-items: center; gap: 8px; padding: 6px; background: #f0ede5; color: #15209f; font: 500 13px/1 var(--text); box-shadow: 0 6px 24px rgba(21, 32, 159, 0.25); }
-.variant-switch button { width: 36px; height: 36px; border: 0; background: #15209f; color: #f0ede5; font-size: 20px; cursor: pointer; }
-.variant-switch button:hover { opacity: 0.85; }
-.variant-switch button:active { transform: scale(0.95); }
-.variant-switch span { min-width: 130px; text-align: center; white-space: nowrap; }
+.variant-switch { position: absolute; z-index: 5; right: 8px; bottom: 8px; display: flex; gap: 4px; opacity: 0.8; transition: opacity 0.3s var(--ease); }
+.variant-switch:hover, .variant-switch:focus-within { opacity: 1; }
+.variant-switch button { width: 26px; height: 26px; padding: 0; border: 0; background: #15209f; color: #f0ede5; font: 400 16px/1 var(--text); cursor: pointer; }
+.variant-switch button:hover { background: #f0ede5; color: #15209f; }
+.variant-switch button:active { transform: scale(0.94); }
+.variant-switch button:focus-visible { outline: 2px solid #f0ede5; outline-offset: 2px; }
 
 /* ============ Reveal (transform + opacity only) ============ */
 .js [data-reveal] {
@@ -961,7 +962,6 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
    To finish: set the chosen file as the img src, then delete this script, the data-variant* attributes and the .variant-switch CSS. */
 (() => {
   const params = new URLSearchParams(location.search);
-  if (!params.has('variants') && !params.has('campaign') && !params.has('media')) return;
   document.querySelectorAll('img[data-variants]').forEach(img => {
     const key = img.dataset.variantKey;
     const list = ['current', ...img.dataset.variants.split(',')];
@@ -972,14 +972,16 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
       img.loading = 'eager';
     }
     const go = d => {
-      const p = new URLSearchParams(location.search); p.set('variants', '');
-      p.set(key, list[(i + d + list.length) % list.length]);
-      location.href = '?' + p.toString().replace('variants=&', 'variants&').replace(/variants=$/, 'variants') + '#' + img.closest('.service').querySelector('h3').id;
+      const p = new URLSearchParams(location.search); p.delete('variants');
+      const next = list[(i + d + list.length) % list.length];
+      if (next === 'current') p.delete(key); else p.set(key, next);
+      const qs = p.toString();
+      location.href = (qs ? '?' + qs : location.pathname) + '#' + img.closest('.service').querySelector('h3').id;
     };
     const ui = document.createElement('div');
     ui.className = 'variant-switch';
-    ui.innerHTML = `<button type="button" aria-label="Previous variant">‹</button><span>${key}: ${list[i]} · ${i + 1}/${list.length}</span><button type="button" aria-label="Next variant">›</button>`;
-    ui.children[0].onclick = () => go(-1); ui.children[2].onclick = () => go(1);
+    ui.innerHTML = `<button type="button" aria-label="Previous photo" title="${key}: ${list[i]}">‹</button><button type="button" aria-label="Next photo" title="${key}: ${list[i]}">›</button>`;
+    ui.children[0].onclick = () => go(-1); ui.children[1].onclick = () => go(1);
     img.closest('figure').appendChild(ui);
   });
 })();
