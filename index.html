@@ -458,6 +458,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .pain__list { grid-template-columns: 1fr 1fr; }
   .pain__item { min-height: 300px; }
   .pain__item:nth-child(odd) { border-right: var(--line); }
+  .pain__item:last-child:nth-child(odd) { grid-column: 1 / -1; border-right: 0; }
 }
 @media (max-width: 379px) {
   :root { --t-h1: 34px; --t-h3: 30px; }
@@ -538,10 +539,11 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .pain__cta { max-width: 75%; }
   .pain__list { grid-template-columns: 1fr 1fr; margin-left: calc(-1 * var(--g)); margin-right: calc(-1 * var(--g)); }
   /* label + two rows of cards fit one screen under the header */
-  .pain__item { min-height: 0; height: calc((100vh - var(--header) - var(--pain-label)) / 2); height: calc((100svh - var(--header) - var(--pain-label)) / 2); padding: var(--s3); }
+  .pain__item { min-height: 0; height: calc((100vh - var(--header) - var(--pain-label)) / 3); height: calc((100svh - var(--header) - var(--pain-label)) / 3); padding: var(--s3); }
   .pain { --pain-label: calc(var(--s3) * 2 + 1.5em); }
   .pain__intro { height: var(--pain-label); margin: 0; display: flex; align-items: center; }
   .pain__item:nth-child(odd) { border-right: var(--line); }
+  .pain__item:last-child:nth-child(odd) { grid-column: 1 / -1; border-right: 0; }
 
 
   .service { grid-template-columns: 2fr 3fr; min-height: 75vh; min-height: 75svh; }
@@ -709,11 +711,12 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
           <li class="pain__item" data-reveal><span class="pain__num">01</span><span>Your products are great but somehow still aren’t in demand.</span></li>
           <li class="pain__item" data-reveal><span class="pain__num">02</span><span>People keep choosing competitors that aren’t that good.</span></li>
           <li class="pain__item" data-reveal><span class="pain__num">03</span><span>The moment you stop advertising, interest in your brand disappears.</span></li>
-          <li class="pain__item" data-reveal><span class="pain__num">04</span><span>Every new media campaign feels like another blind guess.</span></li>
+          <li class="pain__item" data-reveal><span class="pain__num">04</span><span>Each new task means another agency to find.</span></li>
+          <li class="pain__item" data-reveal><span class="pain__num">05</span><span>Every new media campaign feels like another blind guess.</span></li>
         </ul>
         <p class="pain__answer" data-reveal>We’re ready to identify what's holding your brand back and deliver what's missing to make it people's first choice.</p>
         <div class="pain__cta" data-reveal>
-          <p class="label">Get a 20-min expert audit to reveal what's wrong and what to do next.</p>
+          <p class="label">Get a 30-min expert audit to reveal what's wrong and what to do next.</p>
           <a class="btn btn--block" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
         </div>
       </div>
