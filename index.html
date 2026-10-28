@@ -242,7 +242,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .intro > *:not(.intro__bottom), .intro__copy { position: relative; z-index: 2; }
 /* video fills the whole section behind the text; on scroll it zooms out across the full block */
 .intro__media { position: absolute; inset: 0; z-index: 0; margin: 0; }
-.intro__box { position: absolute; inset: 0; background: #15209f; transform-origin: 28% 62%; transform: scale(var(--zoom, 1)); will-change: transform; }
+.intro__box { position: absolute; inset: 0; background: #15209f; transform-origin: 28% 62%; }
+/* touch devices draw the video in-place, so a CSS zoom is clipped correctly; desktop zooms inside the WebGL effect */
+.touch-zoom .intro__box { transform: scale(var(--zoom, 1)); will-change: transform; }
 .intro__box video { display: block; width: 100%; height: 100%; object-fit: cover; }
 .intro__copy { display: grid; gap: 1.3em; max-width: 44ch; font-size: clamp(18px, 1.5vw, 28px); line-height: 1.4; }
 
@@ -937,13 +939,17 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   const box = document.querySelector('.intro__box');
   if (!box || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const fig = box.parentElement;
+  const video = box.querySelector('video');
+  if (window.__touchDither) document.documentElement.classList.add('touch-zoom');
   let ticking = false;
   const update = () => {
     ticking = false;
     const r = fig.getBoundingClientRect(), vh = innerHeight;
     const p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height * 0.6)));
     const e = p * p * (3 - 2 * p); // smooth, even pace
-    box.style.setProperty('--zoom', (1.6 - 0.6 * e).toFixed(4));
+    const z = (1.6 - 0.6 * e).toFixed(4);
+    if (window.__touchDither) box.style.setProperty('--zoom', z);
+    else { video.dataset.zoom = z; video.dataset.zoomCenter = '0.28,0.62'; }
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   addEventListener('resize', update);

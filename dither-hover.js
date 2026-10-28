@@ -92,6 +92,7 @@ uniform float uDitherAmount;
 uniform float uScaleResolution;
 uniform float uOpacity;
 uniform float uZoom;
+uniform vec2 uZoomCenter;
 uniform float uPixelSize;
 uniform float uPixelSizeMultiplier;
 uniform float uTime;
@@ -222,8 +223,8 @@ void main() {
     offset = vec2(0.0, (1.0 - s) * 0.5);
   }
 
-  vec2 zoomedUv = vUv / uZoom;
-  zoomedUv.y = 1.0 - (1.0 - vUv.y) / uZoom;
+  // zoom around uZoomCenter (default (0,1) = top-left, as before)
+  vec2 zoomedUv = (vUv - uZoomCenter) / uZoom + uZoomCenter;
   vec2 coverUv = zoomedUv * scale + offset;
   vec2 safeUv = clamp(coverUv, 0.0, 1.0);
 
@@ -479,6 +480,7 @@ export function initDitherHover(options = {}) {
         uScaleResolution: { value: PARAMS.scaleResolution },
         uOpacity: { value: 0 },
         uZoom: { value: PARAMS.zoom },
+        uZoomCenter: { value: new THREE.Vector2(0, 1) },
         uPixelSize: { value: PARAMS.enterPixelSize },
         uPixelSizeMultiplier: { value: PARAMS.pixelSizeMultiplier },
         uTime: { value: 0 },
@@ -584,6 +586,11 @@ export function initDitherHover(options = {}) {
     m.mesh.scale.set(r.width, r.height, 1);
     m.mesh.position.set(r.left + r.width / 2 - w / 2, h / 2 - (r.top + r.height / 2), 0);
     m.material.uniforms.uPlaneSize.value.set(r.width, r.height);
+    // optional per-element zoom: data-zoom="1.4" data-zoom-center="0.28,0.62" (x,y from top-left)
+    const z = parseFloat(m.img.dataset.zoom);
+    m.material.uniforms.uZoom.value = z > 0 ? z : PARAMS.zoom;
+    const c = (m.img.dataset.zoomCenter || '').split(',').map(Number);
+    if (c.length === 2 && !c.some(isNaN)) m.material.uniforms.uZoomCenter.value.set(c[0], 1 - c[1]);
   }
 
   document.documentElement.classList.add('dither-ready');
