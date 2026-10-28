@@ -99,13 +99,6 @@ a { color: inherit; text-decoration: none; }
 /* No single-word lines: balance headings, avoid orphans in text */
 h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
-/* Secondary headings: Host Grotesk. Meno is kept for the main section headings only. */
-.display.service__title {
-  font-family: var(--text);
-  font-weight: 500;
-  letter-spacing: -0.025em;
-  line-height: 1.05;
-}
 
 /* ============ Buttons & links ============ */
 .btn {
@@ -327,17 +320,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .service__media { position: relative; margin-top: var(--g); height: 82vw; max-height: 70svh; }
 .service__media img { width: 100%; height: 100%; object-fit: cover; }
 .service__body { display: grid; align-content: start; gap: var(--s4); padding: var(--s3) 0 var(--s4); }
-.service__title { font-size: clamp(24px, 3vw, 54px); margin-top: var(--s1); }
-.service__lead--wide { max-width: 46ch !important; }
-.service__lead {
-  max-width: 30ch;
-  margin-top: var(--s3);
-  font-size: clamp(20px, 1.75vw, 30px);
-  font-weight: 300;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-}
+.service__title { font-size: clamp(38px, 5.6vw, 108px); line-height: 0.95; margin-top: var(--s1); text-wrap: balance; }
 .service__cols { display: grid; gap: var(--s3); }
+.service__text { font-size: clamp(16px, 1.3vw, 22px); line-height: 1.5; }
 .service__text p + p { margin-top: 1em; }
 .service__list-title { margin-bottom: var(--s1); }
 .service__list li { padding: 0.6em 0; border-bottom: var(--line); line-height: 1.35; }
@@ -522,26 +507,23 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .pain__list { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .pain__item { padding: var(--s2) var(--g) var(--s4); }
   .pain__item + .pain__item { border-top: 0; border-left: var(--line); }
-
-
-  .service { grid-template-columns: 2fr 3fr; min-height: 75vh; min-height: 75svh; }
+}
+@media (min-width: 900px) {
+  .service { grid-template-columns: 7fr 18fr; min-height: 0; }
   .service__media { margin: var(--g) var(--s3) var(--g) 0; height: auto; max-height: none; aspect-ratio: 1; align-self: start; }
   .service__media { position: sticky; top: calc(var(--header) + var(--g)); }
   .service__media img { position: absolute; inset: 0; }
-  .service__body { border-left: var(--line); padding: var(--g) var(--s2) var(--s4) var(--s3); align-content: space-between; gap: var(--s4); }
-  .service__cols { grid-template-columns: 1fr 1fr; gap: var(--s4); align-items: start; }
-  .service__text { max-width: 44ch; }
+  .service__body { border-left: var(--line); padding: var(--g) var(--s2) var(--s4) var(--s3); align-content: start; gap: var(--s3); }
+  .service__cols { grid-template-columns: 3fr 2fr; gap: var(--s4); align-items: start; }
+  .service__text { max-width: 48ch; }
 
   .gets__wrap { display: grid; grid-template-columns: 9fr 11fr; align-items: start; }
   .gets__title { position: sticky; top: calc(var(--header) + var(--s3)); padding-bottom: var(--s5); }
   .gets__list { margin-top: calc(var(--s3) + 0.2em); }
   .gets__nos { grid-template-columns: repeat(3, 1fr); padding: var(--s2) var(--g); }
-  /* fill the space under the CTA; the bottom edge crops the figures' legs */
 }
 @media (min-width: 900px) and (max-width: 1023px) {
   .header__nav { display: none; }
-}
-@media (min-width: 900px) and (max-width: 1279px) {
 }
 @media (min-width: 900px) and (max-width: 1180px) {
   .header__nav ul { gap: var(--s2); }
@@ -554,8 +536,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .service__body > div:first-child .label { order: 1; }
   .service__title { order: 2; margin: var(--s1) 0 0; }
   .service__media { order: 3; margin: var(--s3) 0 0; }
-  .service__lead { order: 4; margin-top: var(--s3); }
-  .service__cols { order: 5; margin-top: var(--s4); }
+  .service__cols { order: 4; margin-top: var(--s3); }
   .service__list li:last-child { border-bottom: 0; }
   .header .btn { padding: 0 var(--s1); }
   .header__logo img { height: 32px; }
@@ -657,16 +638,16 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
     <article class="service" aria-labelledby="s1">
       <figure class="service__media">
-        <img src="assets/img/brand-strategy.jpg" srcset="assets/img/brand-strategy-m.jpg 720w, assets/img/brand-strategy.jpg 857w" sizes="(min-width: 900px) 40vw, 55vw" alt="Printed brand strategy book with a blue cover lying open on a mirror" data-dither loading="lazy" width="857" height="1200">
+        <img src="assets/img/brand-strategy.jpg" srcset="assets/img/brand-strategy-m.jpg 720w, assets/img/brand-strategy.jpg 857w" sizes="(min-width: 900px) 28vw, 55vw" alt="Printed brand strategy book with a blue cover lying open on a mirror" data-dither loading="lazy" width="857" height="1200">
       </figure>
       <div class="service__body">
         <div>
           <p class="label">01</p>
           <h3 class="service__title display" id="s1" data-reveal>Brand Strategy</h3>
-          <p class="service__lead" data-reveal>Great brands grow not from making more decisions, but from making better ones. We build a strategy that tells you where to compete, how to be different and what to avoid, so that your brand becomes the one people reach for.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
+            <p>Great brands grow not from making more decisions, but from making better ones. We build a strategy that tells you where to compete, how to be different and what to avoid, so that your brand becomes the one people reach for.</p>
             <p>It’s all based on real consumer insights verified in your product category, and delivered as a clear, structured document your team can actually use to drive commercial growth.</p>
           </div>
           <div data-reveal data-d="1">
@@ -695,10 +676,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <div>
           <p class="label">02</p>
           <h3 class="service__title display" id="s2" data-reveal>Campaign Development</h3>
-          <p class="service__lead" data-reveal>Your brand has only 1.3 seconds to capture attention, so before a single ad goes live, you need to know exactly what to say and where to do it.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
+            <p>Your brand has only 1.3 seconds to capture attention, so before a single ad goes live, you need to know exactly what to say and where to do it.</p>
             <p>We develop messages that are instantly clear, identify the highest-potential placements, and create unmissable advertising materials that spark desire.</p>
             <p>It comes together as a complete campaign kit, ready to launch.</p>
           </div>
@@ -723,10 +704,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         <div>
           <p class="label">03</p>
           <h3 class="service__title display" id="s3" data-reveal>Media Activation</h3>
-          <p class="service__lead" data-reveal>Being visible online is easy. Being visible in the right place is what most brands still haven’t learned to do.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
+            <p>Being visible online is easy. Being visible in the right place is what most brands still haven’t learned to do.</p>
             <p>For your brand, we launch multi-channel campaigns across the top-tier placements others miss (or just can’t access ☻).</p>
             <p>Using real-time intent signals and predictive targeting, we reach the people who matter most to you at the moment they're actually paying attention.</p>
           </div>
@@ -747,16 +728,16 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
     <article class="service" aria-labelledby="s4">
       <figure class="service__media">
-        <img src="assets/img/measurement.jpg" srcset="assets/img/measurement-m.jpg 720w, assets/img/measurement.jpg 1024w" sizes="(min-width: 900px) 40vw, 55vw" alt="Printed analytics report with bar, line and funnel charts" data-dither loading="lazy" width="1024" height="1024">
+        <img src="assets/img/measurement.jpg" srcset="assets/img/measurement-m.jpg 720w, assets/img/measurement.jpg 1024w" sizes="(min-width: 900px) 28vw, 55vw" alt="Printed analytics report with bar, line and funnel charts" data-dither loading="lazy" width="1024" height="1024">
       </figure>
       <div class="service__body">
         <div>
           <p class="label">04</p>
           <h3 class="service__title display" id="s4" data-reveal>Brand Measurement</h3>
-          <p class="service__lead service__lead--wide" data-reveal>What you spend on marketing rarely bumps sales immediately, but it starts shifting what people think of your brand from day one. Measure that shift, and you’ll know what deserves the next round of budget.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
+            <p>What you spend on marketing rarely bumps sales immediately, but it starts shifting what people think of your brand from day one. Measure that shift, and you’ll know what deserves the next round of budget.</p>
             <p>We run Brand Lift to isolate the effect of a specific media campaign, or Brand Health Tracking to show how all your marketing activity changes brand perception over months and years.</p>
           </div>
           <div data-reveal data-d="1">
@@ -776,16 +757,16 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
     <article class="service" aria-labelledby="s5">
       <figure class="service__media">
-        <img src="assets/img/visual-identity.jpg" srcset="assets/img/visual-identity-m.jpg 720w, assets/img/visual-identity.jpg 1200w" sizes="(min-width: 900px) 40vw, 55vw" alt="Premium cigarette packaging design: Saint Brion Gold box, closed and open" data-dither loading="lazy" width="1200" height="1200">
+        <img src="assets/img/visual-identity.jpg" srcset="assets/img/visual-identity-m.jpg 720w, assets/img/visual-identity.jpg 1200w" sizes="(min-width: 900px) 28vw, 55vw" alt="Premium cigarette packaging design: Saint Brion Gold box, closed and open" data-dither loading="lazy" width="1200" height="1200">
       </figure>
       <div class="service__body">
         <div>
           <p class="label">05</p>
           <h3 class="service__title display" id="s5" data-reveal>Visual Identity</h3>
-          <p class="service__lead" data-reveal>To win on a crowded shelf, it’s essential to look different, yet still be crystal clear at first sight.</p>
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
+            <p>To win on a crowded shelf, it’s essential to look different, yet still be crystal clear at first sight.</p>
             <p>We develop a complete visual identity with a character that’s unmistakably yours, where every element follows your strategy and helps your products get picked.</p>
             <p>It works across packaging, print, and digital alike. You get the whole visual system in one guideline, easy for everyone on your team to use right.</p>
           </div>
