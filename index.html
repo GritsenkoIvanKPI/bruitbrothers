@@ -479,6 +479,13 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .footer__privacy { justify-self: end; }
 }
 
+/* TEMP: Campaign visual variant switcher (only with ?campaign=…) */
+.variant-switch { position: fixed; z-index: 90; left: 16px; bottom: 16px; display: flex; align-items: center; gap: 8px; padding: 6px; background: #f0ede5; color: #15209f; font: 500 13px/1 var(--text); box-shadow: 0 6px 24px rgba(21, 32, 159, 0.25); }
+.variant-switch button { width: 36px; height: 36px; border: 0; background: #15209f; color: #f0ede5; font-size: 20px; cursor: pointer; }
+.variant-switch button:hover { opacity: 0.85; }
+.variant-switch button:active { transform: scale(0.95); }
+.variant-switch span { min-width: 92px; text-align: center; }
+
 /* ============ Reveal (transform + opacity only) ============ */
 .js [data-reveal] {
   opacity: 0;
@@ -689,7 +696,30 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
     <article class="service" aria-labelledby="s2">
       <figure class="service__media">
-        <img src="assets/img/campaign.jpg" alt="A hand placing the last blue jigsaw piece next to a stack of building blocks" data-dither loading="lazy" width="1400" height="764">
+        <img id="campaign-img" src="assets/img/campaign.jpg" alt="A hand placing the last blue jigsaw piece next to a stack of building blocks" data-dither loading="lazy" width="1400" height="764">
+        <script>
+        /* TEMP variant switcher for the Campaign Development visual.
+           Hidden unless the URL has ?campaign=… — remove this script and the .variant-switch CSS when a variant is chosen. */
+        (() => {
+          const q = new URLSearchParams(location.search).get('campaign');
+          if (q === null) return;
+          const variants = ['current', 'v1', 'v2', 'v3', 'v4', 'v5', 'v6'];
+          let i = Math.max(0, variants.indexOf(q)); if (variants.indexOf(q) < 0 && !isNaN(+q)) i = Math.min(+q, variants.length - 1);
+          const img = document.getElementById('campaign-img');
+          if (variants[i] !== 'current') {
+            img.removeAttribute('srcset');
+            img.src = (window.__touchDither ? `assets/img/campaign-${variants[i]}-m.jpg` : `assets/img/campaign-${variants[i]}.jpg`);
+            img.loading = 'eager';
+          }
+          const go = d => { const n = (i + d + variants.length) % variants.length; location.href = `?campaign=${variants[n]}#s2`; };
+          const ui = document.createElement('div');
+          ui.className = 'variant-switch';
+          ui.innerHTML = `<button type="button" aria-label="Previous variant">‹</button><span>${variants[i]} · ${i + 1}/${variants.length}</span><button type="button" aria-label="Next variant">›</button>`;
+          ui.children[0].onclick = () => go(-1); ui.children[2].onclick = () => go(1);
+          addEventListener('keydown', e => { if (e.key === 'ArrowLeft') go(-1); if (e.key === 'ArrowRight') go(1); });
+          document.body.appendChild(ui);
+        })();
+        </script>
       </figure>
       <div class="service__body">
         <div>
