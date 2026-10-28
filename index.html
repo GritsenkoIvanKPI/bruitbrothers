@@ -99,7 +99,7 @@ a { color: inherit; text-decoration: none; }
 h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 /* Secondary headings: Host Grotesk. Meno is kept for the main section headings only. */
-.display.service__title, .gets__item h3.display {
+.display.service__title {
   font-family: var(--text);
   font-weight: 500;
   letter-spacing: -0.025em;
@@ -351,45 +351,50 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 
 /* ============ What you always get ============ */
-.gets { padding-top: var(--s5); padding-bottom: 0; }
-.gets__title { font-size: var(--t-h2); line-height: 0.95; }
-.gets__grid { display: grid; margin-top: var(--s4); border-top: var(--line); }
-.gets__item {
+/* What you always get: cream section, blue title bars sweep in from the right edge */
+.gets { background: #f0ede5; color: #15209f; padding-top: var(--s5); }
+.gets__title { font-size: clamp(56px, 7.8vw, 156px); line-height: 0.9; }
+.gets__list { display: grid; gap: var(--s3); margin-top: var(--s4); margin-right: calc(-1 * var(--g)); padding-bottom: var(--s5); }
+.gets__bar {
   position: relative;
   isolation: isolate;
-  padding: var(--s3) 0;
-  border-bottom: var(--line);
-  transition: color 0.5s var(--ease);
-}
-/* blue highlight for the item currently in view */
-.gets__item::before {
-  content: "";
-  position: absolute;
-  inset: 0 calc(-1 * var(--g));
-  z-index: -1;
-  background: var(--blue);
-  opacity: 0;
-  transition: opacity 0.5s var(--ease);
-}
-.gets__item.is-active { color: var(--cream); }
-.gets__item.is-active::before { opacity: 1; }
-.gets__item { padding-left: 0; }
-.gets__num { display: block; margin-bottom: var(--s2); opacity: 0.7; }
-.gets__item h3 { font-size: clamp(24px, 2.6vw, 46px); line-height: 0.95; margin: var(--s1) 0 var(--s2); text-wrap: balance; }
-.gets__item p { max-width: 38ch; }
-.nos { background: var(--blue); color: var(--cream); margin: var(--s4) 0; }
-.nos__list { display: grid; }
-.nos__list li {
-  padding: var(--s3) 0;
+  margin: 0;
+  padding: 0.55em var(--g);
   font-family: var(--text);
-  font-size: clamp(20px, 2.1vw, 38px);
-  white-space: nowrap;
-  font-weight: 500;
-  line-height: 1;
+  font-size: clamp(20px, 2vw, 38px);
+  font-weight: 600;
+  line-height: 1.1;
   letter-spacing: -0.02em;
+  color: #f0ede5;
+  overflow: hidden;
 }
-.nos__list li { text-align: center; }
-.nos__list li + li { border-top: var(--line-cream); }
+.gets__bar::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #15209f; transform-origin: right; }
+.gets__bar span { display: block; }
+.gets__item p { margin: var(--s2) var(--g) 0 calc(var(--g) * 2.5); max-width: 52ch; font-size: clamp(16px, 1.35vw, 24px); line-height: 1.4; }
+.gets__item { --i: 0; }
+.gets__item:nth-child(2) { --i: 1; }
+.gets__item:nth-child(3) { --i: 2; }
+.gets__item:nth-child(4) { --i: 3; }
+/* entrance: bar sweeps in from the right edge, title rises into it, description fades in */
+.js .gets__bar::before { transform: scaleX(0); transition: transform 0.9s cubic-bezier(0.7, 0, 0.2, 1); transition-delay: calc(var(--i) * 0.12s); }
+.js .gets__bar span { opacity: 0; transform: translateY(70%); transition: opacity 0.6s var(--ease), transform 0.8s var(--ease); transition-delay: calc(var(--i) * 0.12s + 0.45s); }
+.js .gets__item p { opacity: 0; transform: translateY(12px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); transition-delay: calc(var(--i) * 0.12s + 0.65s); }
+.js .gets__item.is-in .gets__bar::before { transform: none; }
+.js .gets__item.is-in .gets__bar span, .js .gets__item.is-in p { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .gets__bar::before, .js .gets__bar span, .js .gets__item p { transform: none; opacity: 1; transition: none; }
+}
+.gets__nos {
+  display: grid;
+  gap: var(--s1);
+  padding: var(--s2) var(--g);
+  background: #15209f;
+  color: #f0ede5;
+  font-size: clamp(13px, 1.1vw, 20px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
 
 /* ============ Closing line + video ============ */
 @media (min-width: 900px) {
@@ -515,19 +520,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .service__cols { grid-template-columns: 1fr 1fr; gap: var(--s4); align-items: start; }
   .service__text { max-width: 44ch; }
 
-  .gets__wrap { display: grid; grid-template-columns: 1fr 1fr; }
-  .gets__grid { margin-top: 0; border-left: var(--line); }
-  .gets__wrap { align-items: start; }
-  .gets__title { position: sticky; top: calc(var(--header) + var(--s3)); }
-  .gets__item { padding: var(--s3) var(--g); }
-  .gets__item h3 { font-size: clamp(24px, 2.4vw, 44px); }
-  .gets__item p { text-wrap: pretty; }
-  .gets__item::before { inset: 0; }
-
-  .nos { padding-left: 0; padding-right: 0; }
-  .nos__list { grid-template-columns: repeat(3, 1fr); }
-  .nos__list li { display: flex; align-items: center; justify-content: center; padding: var(--s4) var(--g); }
-  .nos__list li + li { border-top: 0; border-left: var(--line-cream); }
+  .gets__wrap { display: grid; grid-template-columns: 9fr 11fr; align-items: start; }
+  .gets__title { position: sticky; top: calc(var(--header) + var(--s3)); padding-bottom: var(--s5); }
+  .gets__list { margin-top: calc(var(--s3) + 0.2em); }
+  .gets__nos { grid-template-columns: repeat(3, 1fr); padding: var(--s2) var(--g); }
   .footer__grid {
     grid-template-columns: 2fr 1fr 1fr;
     grid-template-rows: auto 1fr auto;
@@ -823,40 +819,32 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   </section>
 
   <!-- What you always get -->
-  <section class="on-blue gets wrap" id="always" aria-labelledby="gets-title">
-    <div class="gets__wrap">
-      <h2 class="gets__title display" id="gets-title" data-reveal>What you always get</h2>
-      <div class="gets__grid">
-        <article class="gets__item is-active" data-reveal>
-          <span class="gets__num label">01</span>
-          <h3 class="display">High-value channels only.</h3>
+  <section class="gets" id="always" aria-labelledby="gets-title">
+    <div class="gets__wrap wrap">
+      <h2 class="gets__title display" id="gets-title" data-reveal>What<br>you always<br>get</h2>
+      <div class="gets__list">
+        <article class="gets__item">
+          <h3 class="gets__bar"><span>High-value media only.</span></h3>
           <p>Valuable attention starts beyond the obvious placements, so we’ll never put you on oversaturated Meta Ads or other default options.</p>
         </article>
-        <article class="gets__item" data-reveal data-d="1">
-          <span class="gets__num label">02</span>
-          <h3 class="display">Regulated industries expertise.</h3>
+        <article class="gets__item">
+          <h3 class="gets__bar"><span>Regulated industries expertise.</span></h3>
           <p>We get your campaign live without the usual drama, covering category restrictions, age assurance, platform policies, and creative compliance.</p>
         </article>
-        <article class="gets__item" data-reveal>
-          <span class="gets__num label">03</span>
-          <h3 class="display">Total clarity.</h3>
+        <article class="gets__item">
+          <h3 class="gets__bar"><span>Total clarity.</span></h3>
           <p>You always know what's going on, what comes next, and why it matters, so nothing ever feels like a black box.</p>
         </article>
-        <article class="gets__item" data-reveal data-d="1">
-          <span class="gets__num label">04</span>
-          <h3 class="display">Zero guesswork.</h3>
+        <article class="gets__item">
+          <h3 class="gets__bar"><span>Zero guesswork.</span></h3>
           <p>Every decision is grounded in proven consumer psychology, behavioral patterns, and purchase motivations.</p>
         </article>
       </div>
     </div>
-  </section>
-
-  <!-- No-line -->
-  <section class="on-blue nos wrap" aria-label="How we work">
-    <ul class="nos__list">
-      <li data-reveal>No endless briefings</li>
-      <li data-reveal data-d="1">No useless documents</li>
-      <li data-reveal data-d="2">No unexpected delays</li>
+    <ul class="gets__nos" aria-label="How we work">
+      <li>No endless briefings</li>
+      <li>No useless documents</li>
+      <li>No unexpected delays</li>
     </ul>
   </section>
 
@@ -963,25 +951,12 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 })();
 </script>
 <script>
-/* What you always get: highlight the promise closest to the middle of the screen */
+/* What you always get: each promise plays its entrance once it is in view */
 (() => {
-  const items = [...document.querySelectorAll('.gets__item')];
-  if (!items.length) return;
-  let ticking = false;
-  function update() {
-    ticking = false;
-    const mid = innerHeight * 0.5;
-    let best = null, bestDist = Infinity;
-    for (const el of items) {
-      const r = el.getBoundingClientRect();
-      const d = r.top <= mid && r.bottom >= mid ? 0 : Math.min(Math.abs(r.top - mid), Math.abs(r.bottom - mid));
-      if (d < bestDist) { bestDist = d; best = el; }
-    }
-    items.forEach(el => el.classList.toggle('is-active', el === best));
-  }
-  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  addEventListener('resize', update);
-  update();
+  const items = document.querySelectorAll('.gets__item');
+  if (!('IntersectionObserver' in window)) { items.forEach(el => el.classList.add('is-in')); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -15% 0px' });
+  items.forEach(el => io.observe(el));
 })();
 </script>
 <script type="module">
