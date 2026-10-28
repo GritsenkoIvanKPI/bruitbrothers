@@ -159,26 +159,33 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .link:active { opacity: 0.6; }
 
 /* ============ Header ============ */
+/* Floating header (per reference): solid logo + CTA boxes, nav columns with thin rules over the hero */
 .header {
   position: fixed;
   z-index: 50;
   inset: 0 0 auto 0;
-  height: var(--header);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: var(--s2);
-  padding: 0 var(--g);
-  background: var(--cream);
-  border-bottom: var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--s1) var(--g) 0;
+  pointer-events: none;
 }
-.header__logo { display: inline-flex; align-items: center; min-height: 44px; justify-self: start; transition: opacity 0.4s var(--ease); }
-.header__logo img { height: 38px; width: auto; }
-.header__logo:hover { opacity: 0.75; }
-.header__nav { display: none; }
-.header__nav ul { display: flex; gap: var(--s3); white-space: nowrap; }
-.header__nav a { display: inline-flex; align-items: center; min-height: 44px; }
-.header__nav li { flex: none; }
+.header > * { pointer-events: auto; }
+.header__logo {
+  display: inline-flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 18px;
+  background: #f0ede5;
+  transition: transform 0.4s var(--ease);
+}
+.header__logo img { height: 30px; width: auto; }
+.header__logo:hover { transform: translateY(-2px); }
+.header__logo:active { transform: scale(0.98); }
+.header__logo:focus-visible { outline: 2px solid #f0ede5; outline-offset: 3px; }
+.header .header__cta { height: 52px; min-height: 0; background: #f0ede5; color: #15209f; }
+.header .header__cta::before { background: #15209f; }
+.header__cols { display: none; }
 
 /* ============ Hero ============ */
 .hero {
@@ -186,7 +193,6 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   height: 100vh;
   height: 100svh;
   min-height: 560px;
-  padding-top: var(--header);
   color: var(--cream);
 }
 .hero__media { position: relative; height: 100%; background: var(--blue); }
@@ -513,9 +519,32 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 /* ============ Desktop ============ */
 @media (min-width: 900px) {
   :root { --header: 72px; }
-  .header { grid-template-columns: repeat(4, 1fr); gap: 0; }
-  .header__nav { display: block; grid-column: 3; }
-  .header .btn { grid-column: 4; justify-self: end; }
+  .header__logo, .header .header__cta { height: 60px; }
+}
+@media (min-width: 900px) and (max-width: 1023px) {
+  .header__cols { display: none !important; }
+}
+@media (min-width: 900px) {
+  .header__logo img { height: 34px; }
+  .header__cols { display: block; position: absolute; inset: 0 0 auto 0; pointer-events: none; transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+  .header__col {
+    position: absolute;
+    top: 0;
+    height: 38vh;
+    padding: calc(var(--s1) + 16px) var(--g) 0;
+    border-left: 1px solid rgba(240, 237, 229, 0.55);
+    color: #f0ede5;
+    pointer-events: auto;
+  }
+  .header__col:first-child { left: 50%; }
+  .header__col:last-child { left: 66.666%; }
+  .header__col li { line-height: 1.75; }
+  .header__col a { position: relative; display: inline-block; padding: 1px 6px; margin-left: -6px; background: #15209f; }
+  .header__col a::before { content: ""; position: absolute; inset: -10px -4px; } /* 44px tap area */
+  .header__col li + li { margin-top: 4px; }
+  /* after leaving the top of the page only the two solid boxes stay */
+  .header.is-scrolled .header__cols { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+  .header.is-scrolled .header__col { pointer-events: none; }
 
 
   .intro__copy { margin-left: 50%; }
@@ -546,11 +575,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .gets__nos { grid-template-columns: repeat(3, 1fr); padding: var(--s3) var(--g); }
 }
 @media (min-width: 900px) and (max-width: 1023px) {
-  .header__nav { display: none; }
 }
 @media (min-width: 900px) and (max-width: 1180px) {
   .service { grid-template-columns: 2fr 3fr; }
-  .header__nav ul { gap: var(--s2); }
   .service__cols { grid-template-columns: 1fr; }
 }
 @media (max-width: 899px) {
@@ -561,8 +588,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .service__title { order: 2; margin: var(--s1) 0 0; }
   .service__media { order: 3; margin: var(--s3) 0 0; }
   .service__cols { order: 4; margin-top: var(--s3); }
-  .header .btn { padding: 0 var(--s1); }
-  .header__logo img { height: 32px; }
+  .header .header__cta { padding: 0 var(--s1); }
+  .header__logo { padding: 0 12px; }
+  .header__logo img { height: 26px; }
 }
 </style>
 </head>
@@ -579,18 +607,21 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   </div>
 </div>
 
-<header class="on-blue header">
+<header class="header" id="site-header">
   <a class="header__logo" href="#top" aria-label="Bruit Brothers — back to top">
-    <img src="assets/brand/wordmark-cream-sm.png" alt="Bruit Brothers" width="600" height="256">
+    <img src="assets/brand/wordmark-blue-sm.png" alt="Bruit Brothers" width="600" height="256">
   </a>
-  <nav class="header__nav label" aria-label="Main">
-    <ul>
+  <nav class="header__cols label" aria-label="Main">
+    <ul class="header__col">
       <li><a class="link" href="#solutions">Solutions</a></li>
-      <li><a class="link" href="#always">What you get</a></li>
+      <li><a class="link" href="#always">What you get</a></li>
       <!-- <li><a class="link" href="#clients">Clients</a></li> -->
     </ul>
+    <ul class="header__col">
+      <li><a class="link" href="mailto:office@bruitbrothers.com">Contact</a></li>
+    </ul>
   </nav>
-  <a class="btn" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
+  <a class="btn header__cta" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
 </header>
 
 <main id="top">
@@ -883,6 +914,13 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   if (document.documentElement.classList.contains('is-loading')) lenis.stop();
   window.lenis = lenis;
   requestAnimationFrame(function raf(t) { lenis.raf(t); requestAnimationFrame(raf); });
+})();
+</script>
+<script>
+(() => {
+  const h = document.getElementById('site-header');
+  const set = () => h.classList.toggle('is-scrolled', scrollY > 40);
+  addEventListener('scroll', set, { passive: true }); set();
 })();
 </script>
 <script>
