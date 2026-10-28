@@ -41,6 +41,19 @@ window.__touchDither = matchMedia('(hover: none), (pointer: coarse)').matches;
   --line-cream: 1px solid rgba(240, 237, 229, 0.4);
 }
 
+/* ============ Colour scopes ============ */
+/* .on-blue swaps the two brand colours inside a block: background blue, text/lines cream.
+   Every component uses var(--blue) for ink and var(--cream) for paper, so it inverts as a whole. */
+.on-blue {
+  --blue: #f0ede5;
+  --cream: #15209f;
+  --line: 1px solid #f0ede5;
+  --line-cream: 1px solid rgba(21, 32, 159, 0.4);
+  background: var(--cream);
+  color: var(--blue);
+}
+.on-blue .trust { --line-cream: 1px solid rgba(240, 237, 229, 0.3); }
+
 /* ============ Base ============ */
 *, *::before, *::after { box-sizing: border-box; }
 html.is-loading { overflow: hidden; }
@@ -50,9 +63,10 @@ html.lenis { scroll-behavior: auto; }
 .lenis.lenis-stopped { overflow: clip; }
 .lenis [data-lenis-prevent] { overscroll-behavior: contain; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: var(--header); }
+html { background: #15209f; }
 body {
   margin: 0;
-  background: var(--cream);
+  background: #15209f;
   color: var(--blue);
   font-family: var(--text);
   font-size: var(--t-body);
@@ -272,7 +286,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .pain__cta p { margin-bottom: var(--s2); }
 
 /* ============ Trusted by ============ */
-.trust { background: var(--blue); color: var(--cream); }
+.trust { background: var(--blue); color: var(--cream); border-top: 1px solid rgba(240, 237, 229, 0.3); border-bottom: 1px solid rgba(240, 237, 229, 0.3); }
 .trust__grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .trust__head { grid-column: 1 / -1; display: flex; align-items: center; padding: var(--s3) var(--g) var(--s1); margin: 0; }
 .trust__item { display: flex; align-items: center; justify-content: center; height: clamp(96px, 10vw, 180px); }
@@ -369,7 +383,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .nos__list li + li { border-top: var(--line-cream); }
 
 /* ============ Closing line + video ============ */
-.listen { position: relative; height: 280vh; }
+.listen { position: relative; height: 280vh; background: #f0ede5; color: #15209f; }
 .listen__stage {
   position: sticky;
   top: var(--header);
@@ -607,9 +621,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   </div>
 </div>
 
-<header class="header">
+<header class="on-blue header">
   <a class="header__logo" href="#top" aria-label="Bruit Brothers — back to top">
-    <img src="assets/brand/wordmark-blue.png" alt="Bruit Brothers" width="3667" height="1569">
+    <img src="assets/brand/wordmark-cream-sm.png" alt="Bruit Brothers" width="600" height="256">
   </a>
   <nav class="header__nav label" aria-label="Main">
     <ul>
@@ -639,7 +653,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   </section>
 
   <!-- What we do -->
-  <section class="intro wrap" aria-label="What we do">
+  <section class="on-blue intro wrap" aria-label="What we do">
     <h2 class="intro__statement display" data-reveal>Strategy, Creative, and Digital Advertising for</h2>
     <ul class="intro__cats" aria-label="Food &amp; Beverage, Alcohol, Tobacco, and OTC Medicines">
       <li class="intro__cat" data-reveal>
@@ -680,7 +694,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   </section>
 
   <!-- Challenges -->
-  <section class="pain wrap" aria-labelledby="pain-title">
+  <section class="on-blue pain wrap" aria-labelledby="pain-title">
     <div class="pain__grid">
       <h2 class="pain__title display" id="pain-title" data-reveal>No doubt, your team is working hard to grow the brand.</h2>
       <div class="pain__body">
@@ -711,7 +725,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   </section>
 
   <!-- Services -->
-  <section class="services" id="solutions" aria-labelledby="services-title">
+  <section class="on-blue services" id="solutions" aria-labelledby="services-title">
     <h2 class="services__title display wrap" id="services-title" data-reveal>Five solutions we deliver</h2>
 
     <article class="service" aria-labelledby="s1">
@@ -867,7 +881,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   </section>
 
   <!-- What you always get -->
-  <section class="gets wrap" id="always" aria-labelledby="gets-title">
+  <section class="on-blue gets wrap" id="always" aria-labelledby="gets-title">
     <div class="gets__wrap">
       <h2 class="gets__title display" id="gets-title" data-reveal>What you always get</h2>
       <div class="gets__grid">
@@ -896,7 +910,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   </section>
 
   <!-- No-line -->
-  <section class="nos wrap" aria-label="How we work">
+  <section class="on-blue nos wrap" aria-label="How we work">
     <ul class="nos__list">
       <li data-reveal>No endless briefings</li>
       <li data-reveal data-d="1">No useless documents</li>
@@ -906,7 +920,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 </main>
 
-<footer class="footer wrap" id="audit">
+<footer class="on-blue footer wrap" id="audit">
   <div class="footer__grid">
     <div class="footer__art">
       <div class="footer__mark" role="img" aria-label="The two Bruit Brothers"></div>
