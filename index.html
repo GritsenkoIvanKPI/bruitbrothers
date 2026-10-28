@@ -301,7 +301,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 /* ============ Services ============ */
 .services { padding-top: var(--s5); }
-.services__title { font-size: var(--t-h2); line-height: 0.95; padding-bottom: var(--s4); }
+.services__title { font-family: var(--text); font-weight: 500; font-size: clamp(30px, 4.2vw, 80px); line-height: 1.08; letter-spacing: -0.03em; padding-bottom: var(--s4); }
 .service {
   display: grid;
   min-height: 67vh;
@@ -619,7 +619,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
   <!-- Services -->
   <section class="on-blue services" id="solutions" aria-labelledby="services-title">
-    <h2 class="services__title display wrap" id="services-title" data-reveal>Five solutions we deliver</h2>
+    <h2 class="services__title wrap" id="services-title" data-reveal>Five solutions we deliver</h2>
 
     <article class="service" aria-labelledby="s1">
       <figure class="service__media">
