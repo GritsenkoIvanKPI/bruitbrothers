@@ -240,7 +240,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 /* ============ Challenges ============ */
 .pain { padding-top: var(--s5); padding-bottom: 0; }
 /* two-sentence heading: one style, one size */
-.pain__title { font-size: clamp(30px, 4vw, 76px); line-height: 1; }
+.pain__title { font-family: var(--text); font-weight: 500; font-size: clamp(30px, 4.2vw, 80px); line-height: 1.08; letter-spacing: -0.03em; }
 .pain__title span { display: block; max-width: 24ch; text-wrap: balance; }
 .pain__title span + span { margin-top: 0.35em; }
 .pain__list { display: grid; gap: var(--s1); margin-top: var(--s4); }
@@ -587,7 +587,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
   <!-- Challenges -->
   <section class="on-blue pain wrap" aria-labelledby="pain-title">
-    <h2 class="pain__title display" id="pain-title" data-reveal>
+    <h2 class="pain__title" id="pain-title" data-reveal>
       <span>No doubt, your team is working hard to grow the brand.</span>
       <span>However, you’re probably still facing common challenges:</span>
     </h2>
