@@ -499,10 +499,12 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .pain__item { padding: var(--s2) var(--g) var(--s4); }
 }
 @media (min-width: 900px) {
+  .services__list { display: grid; grid-auto-rows: 1fr; row-gap: var(--s5); }
+  .service + .service { margin-top: 0; }
   .service { grid-template-columns: 7fr 18fr; min-height: 0; }
-  .service__media { margin: var(--g) var(--s3) var(--g) 0; height: auto; max-height: none; aspect-ratio: 1; align-self: start; }
+  .service__media { margin: var(--g) var(--s2) var(--g) 0; height: auto; max-height: none; align-self: stretch; }
   .service__media img { position: absolute; inset: 0; }
-  .service__body { padding: var(--g) var(--s2) var(--s4) var(--s3); align-content: start; gap: var(--s3); }
+  .service__body { padding: var(--g) var(--s2) var(--g) var(--s2); align-content: start; gap: var(--s3); }
   .service__cols { grid-template-columns: 3fr 2fr; gap: var(--s4); align-items: start; }
   .service__text { max-width: 48ch; }
 
@@ -515,6 +517,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .header__nav { display: none; }
 }
 @media (min-width: 900px) and (max-width: 1180px) {
+  .service { grid-template-columns: 2fr 3fr; }
   .header__nav ul { gap: var(--s2); }
   .service__cols { grid-template-columns: 1fr; }
 }
@@ -624,6 +627,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   <section class="on-blue services" id="solutions" aria-labelledby="services-title">
     <h2 class="services__title wrap" id="services-title" data-reveal>Five solutions we deliver</h2>
 
+    <div class="services__list">
     <article class="service" aria-labelledby="s1">
       <figure class="service__media">
         <img src="assets/img/brand-strategy.jpg" srcset="assets/img/brand-strategy-m.jpg 720w, assets/img/brand-strategy.jpg 857w" sizes="(min-width: 900px) 28vw, 55vw" alt="Printed brand strategy book with a blue cover lying open on a mirror" data-dither loading="lazy" width="857" height="1200">
@@ -774,6 +778,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
         </div>
       </div>
     </article>
+    </div>
   </section>
 
   <!-- What you always get -->
