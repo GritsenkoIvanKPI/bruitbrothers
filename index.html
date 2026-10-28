@@ -90,13 +90,21 @@ a { color: inherit; text-decoration: none; }
 }
 .display {
   font-family: var(--display);
-  font-weight: 400;
-  letter-spacing: -0.03em;
+  font-weight: 600;
+  letter-spacing: -0.035em;
   line-height: 0.88;
 }
 .wrap { padding-left: var(--g); padding-right: var(--g); }
 /* No single-word lines: balance headings, avoid orphans in text */
 h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
+
+/* Secondary headings: Host Grotesk. Meno is kept for the main section headings only. */
+.display.service__title, .display.intro__name, .gets__item h3.display {
+  font-family: var(--text);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
 
 /* ============ Buttons & links ============ */
 .btn {
@@ -235,7 +243,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .intro__cat:nth-child(even) { padding-left: var(--g); padding-right: 0; border-left: var(--line); }
 .intro__media { aspect-ratio: 3 / 4; }
 .intro__media img { width: 100%; height: 100%; object-fit: cover; }
-.intro__name { white-space: nowrap; font-size: clamp(20px, 3.9vw, 72px); line-height: 1; }
+.intro__name { white-space: nowrap; font-size: clamp(16px, 2.3vw, 42px); line-height: 1; }
 
 /* ============ Challenges ============ */
 .pain { padding-top: var(--s5); padding-bottom: var(--s5); }
@@ -317,7 +325,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .service__media { position: relative; margin-top: var(--g); height: 82vw; max-height: 70svh; }
 .service__media img { width: 100%; height: 100%; object-fit: cover; }
 .service__body { display: grid; align-content: start; gap: var(--s4); padding: var(--s3) 0 var(--s4); }
-.service__title { font-size: var(--t-h3); margin-top: var(--s1); }
+.service__title { font-size: clamp(24px, 3vw, 54px); margin-top: var(--s1); }
 .service__lead--wide { max-width: 46ch !important; }
 .service__lead {
   max-width: 30ch;
@@ -366,16 +374,16 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .gets__item.is-active::before { opacity: 1; }
 .gets__item { padding-left: 0; }
 .gets__num { display: block; margin-bottom: var(--s2); opacity: 0.7; }
-.gets__item h3 { font-size: clamp(32px, 3.9vw, 69px); line-height: 0.95; margin: var(--s1) 0 var(--s2); text-wrap: balance; }
+.gets__item h3 { font-size: clamp(24px, 2.6vw, 46px); line-height: 0.95; margin: var(--s1) 0 var(--s2); text-wrap: balance; }
 .gets__item p { max-width: 38ch; }
 .nos { background: var(--blue); color: var(--cream); margin: var(--s4) 0; }
 .nos__list { display: grid; }
 .nos__list li {
   padding: var(--s3) 0;
-  font-family: var(--display);
-  font-size: clamp(34px, 3.5vw, 66px);
+  font-family: var(--text);
+  font-size: clamp(20px, 2.1vw, 38px);
   white-space: nowrap;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1;
   letter-spacing: -0.02em;
 }
@@ -454,7 +462,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .pain__item:nth-child(odd) { border-right: var(--line); }
 }
 @media (max-width: 379px) {
-  :root { --t-h1: 36px; --t-h3: 30px; }
+  :root { --t-h1: 34px; --t-h3: 30px; }
   .footer__title { font-size: 32px; }
 }
 @media (max-width: 479px) {
@@ -527,7 +535,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .trust__item { border-left: var(--line-cream); }
   .pain__grid { grid-template-columns: 1fr 1fr; gap: 0; }
   .pain__grid { align-items: start; }
-  .pain__title { position: sticky; top: calc(var(--header) + var(--s3)); padding-right: var(--s3); }
+  .pain__title { position: sticky; top: calc(var(--header) + var(--s3)); padding-right: var(--g); }
   .pain__body { border-left: var(--line); padding-left: var(--g); }
   .pain__cta { max-width: 75%; }
   .pain__list { grid-template-columns: 1fr 1fr; margin-left: calc(-1 * var(--g)); margin-right: calc(-1 * var(--g)); }
@@ -551,7 +559,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .gets__wrap { align-items: start; }
   .gets__title { position: sticky; top: calc(var(--header) + var(--s3)); }
   .gets__item { padding: var(--s3) var(--g); }
-  .gets__item h3 { font-size: clamp(32px, 3.5vw, 64px); }
+  .gets__item h3 { font-size: clamp(24px, 2.4vw, 44px); }
   .gets__item p { text-wrap: pretty; }
   .gets__item::before { inset: 0; }
 
