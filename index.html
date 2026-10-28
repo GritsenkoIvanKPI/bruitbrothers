@@ -49,6 +49,7 @@ window.__touchDither = matchMedia('(hover: none), (pointer: coarse)').matches;
   --cream: #15209f;
   --line: 1px solid #f0ede5;
   --line-cream: 1px solid rgba(21, 32, 159, 0.4);
+  --line-soft: 1px solid rgba(240, 237, 229, 0.25);
   background: var(--cream);
   color: var(--blue);
 }
@@ -401,31 +402,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 
 /* ============ Footer (CTA + info) ============ */
-.footer { position: relative; overflow: hidden; background: var(--cream); color: var(--blue); border-top: var(--line); }
-.footer__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s3); padding: var(--s4) 0 0; }
-.footer__cta { order: -1; }
-.footer__art { order: 9; display: flex; justify-content: center; align-items: flex-end; margin-bottom: calc(-1 * var(--s2)); }
 /* the brothers stand at the bottom edge and are cut off by it */
-.footer__mark {
-  width: min(86%, 380px);
-  aspect-ratio: 870 / 734;
-  margin-bottom: -16%;
-  background: var(--blue);
-  -webkit-mask: url("assets/brand/brothers-crop.png") center / contain no-repeat;
-  mask: url("assets/brand/brothers-crop.png") center / contain no-repeat;
-}
-.footer__cell ul { display: grid; gap: 0.35em; }
-.footer__nav, .footer__contact { font-size: clamp(17px, 1.4vw, 24px); line-height: 1.4; }
-.footer__nav ul, .footer__contact ul { gap: 0; }
 /* comfortable tap targets without changing the visual rhythm */
-.footer__cell a { display: inline-flex; align-items: center; min-height: 44px; }
-.footer__contact li:not(:has(a)) { padding: 10px 0; }
-.footer__contact { display: flex; flex-direction: column; }
-.footer__title { font-size: var(--t-h1); line-height: 0.95; max-width: 18ch; text-wrap: balance; }
-.footer__cta .btn { margin-top: var(--s3); max-width: 420px; }
-.footer__cell--bottom { opacity: 0.75; }
 .nowrap { white-space: nowrap; }
-.footer__sep { padding: 0 0.6em; }
 @media (min-width: 600px) and (max-width: 1179px) {
   .pain__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .pain__item + .pain__item { border-top: 0; }
@@ -434,15 +413,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 @media (max-width: 379px) {
   :root { --t-h1: 34px; --t-h3: 30px; }
-  .footer__title { font-size: 32px; }
 }
 @media (max-width: 479px) {
-  .footer__sep { display: none; }
-  p.footer__cell--bottom .nowrap { display: block; }
-}
-@media (min-width: 900px) and (max-width: 1360px) {
-  .footer__sep { display: none; }
-  p.footer__cell--bottom { flex-direction: column; justify-content: flex-end; align-items: flex-start; }
 }
 
 /* ============ Preloader ============ */
@@ -472,6 +444,46 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .preloader { transition: opacity 0.3s linear; }
   .preloader.is-done { transform: none; opacity: 0; }
   .preloader__inner { animation: none; opacity: 1; transform: none; }
+}
+
+/* ============ Footer: CTA first, quiet navigation bar below ============ */
+.footer { display: flex; flex-direction: column; min-height: calc(100vh - var(--header)); min-height: calc(100svh - var(--header)); border-top: var(--line); overflow: hidden; }
+.footer__main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: var(--s3); padding-top: var(--s4); text-align: center; }
+.footer__cta { display: flex; flex-direction: column; align-items: center; }
+.footer__title { font-size: var(--t-h1); line-height: 0.95; max-width: 20ch; text-wrap: balance; }
+.footer__btn { margin-top: var(--s3); min-width: min(100%, 320px); min-height: 56px; }
+/* the brothers stand on the bar's top line, cut off at the legs */
+.footer__mark {
+  width: min(62vw, 300px);
+  aspect-ratio: 870 / 734;
+  margin-bottom: -8%;
+  background: var(--blue);
+  -webkit-mask: url("assets/brand/brothers-crop.png") center top / contain no-repeat;
+  mask: url("assets/brand/brothers-crop.png") center top / contain no-repeat;
+}
+.footer__bar {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--s1);
+  justify-items: center;
+  padding-top: var(--s2);
+  padding-bottom: var(--s2);
+  border-top: var(--line-soft);
+  background: var(--cream);
+  font-size: clamp(13px, 0.95vw, 16px);
+  text-align: center;
+}
+.footer__bar, .footer__bar a { color: rgba(240, 237, 229, 0.7); }
+.footer__bar a { display: inline-flex; align-items: center; min-height: 44px; transition: color 0.3s var(--ease); }
+.footer__bar a:hover { color: #f0ede5; }
+.footer__nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 var(--s2); }
+.footer__legal { margin: 0; }
+@media (min-width: 900px) {
+  .footer__mark { width: min(32vw, 46vh, 500px); }
+  .footer__bar { grid-template-columns: 1fr auto 1fr; align-items: center; }
+  .footer__legal { justify-self: start; }
+  .footer__privacy { justify-self: end; }
 }
 
 /* ============ Reveal (transform + opacity only) ============ */
@@ -524,30 +536,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   .gets__title { position: sticky; top: calc(var(--header) + var(--s3)); padding-bottom: var(--s5); }
   .gets__list { margin-top: calc(var(--s3) + 0.2em); }
   .gets__nos { grid-template-columns: repeat(3, 1fr); padding: var(--s2) var(--g); }
-  .footer__grid {
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas:
-      "cta  nav   contact"
-      "art  nav   contact"
-      "art  legal privacy";
-    gap: 0;
-    height: calc(100vh - var(--header));
-    height: calc(100svh - var(--header));
-    min-height: 600px;
-    padding: 0;
-  }
-  .footer__cta { grid-area: cta; order: 0; padding: var(--s3) var(--s3) 0 0; }
-  .footer__title { margin-top: -0.17em; }
-  .footer__art { grid-area: art; order: 0; justify-content: flex-start; align-items: flex-end; margin: var(--s3) 0 0; min-height: 0; }
   /* fill the space under the CTA; the bottom edge crops the figures' legs */
-  .footer__mark { height: 112%; width: auto; max-width: 90%; margin-bottom: -10%; }
-  .footer__cell { padding: var(--s3) var(--g); border-left: var(--line); }
-  .footer__nav { grid-area: nav; }
-  .footer__cell--top:not(.footer__nav) { grid-area: contact; }
-  p.footer__cell--bottom { grid-area: legal; }
-  div.footer__cell--bottom { grid-area: privacy; }
-  .footer__cell--bottom { display: flex; align-items: flex-end; margin: 0; }
 }
 @media (min-width: 900px) and (max-width: 1023px) {
   .header__nav { display: none; }
@@ -850,39 +839,24 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 </main>
 
-<footer class="on-blue footer wrap" id="audit">
-  <div class="footer__grid">
-    <div class="footer__art">
-      <div class="footer__mark" role="img" aria-label="The two Bruit Brothers"></div>
-    </div>
-
-    <nav class="footer__cell footer__cell--top footer__nav" aria-label="Footer">
-      <ul>
-        <li><a class="link" href="#solutions">Solutions</a></li>
-        <li><a class="link" href="#always">What you get</a></li>
-        <li><a class="link" href="#clients">Clients</a></li>
-        <li><a class="link" href="#audit">Free brand audit</a></li>
-      </ul>
-    </nav>
-    <div class="footer__cell footer__cell--top footer__contact">
-      <ul>
-        <li><a class="link" href="mailto:office@bruitbrothers.com">office@bruitbrothers.com</a></li>
-        <li><a class="link" href="tel:+35799701001">+357 99 701 001</a></li>
-        <li>28 Oktovriou Street,<br>3041 Limassol, Cyprus</li>
-      </ul>
-    </div>
-
+<footer class="on-blue footer" id="audit">
+  <div class="footer__main wrap">
     <div class="footer__cta">
-      <h2 class="footer__title display" data-reveal>They are ready to listen. Let’s give them something worth hearing.</h2>
-      <a class="btn btn--block" href="mailto:office@bruitbrothers.com?subject=Free%20brand%20audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
+      <h2 class="footer__title display" data-reveal>They are ready to listen. Let’s give them something worth hearing.</h2>
+      <a class="btn footer__btn" href="mailto:office@bruitbrothers.com?subject=Free%20brand%20audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
     </div>
-
-
-    <p class="footer__cell footer__cell--bottom label"><span class="nowrap">© Bruit Brothers 2026</span><span class="footer__sep">|</span><span class="nowrap">All rights reserved</span></p>
-    <div class="footer__cell footer__cell--bottom label">
-      <!-- TODO: link to the real Privacy Policy page -->
-      <a class="link" href="#privacy">Privacy Policy</a>
-    </div>
+    <div class="footer__mark" role="img" aria-label="The two Bruit Brothers"></div>
+  </div>
+  <div class="footer__bar wrap">
+    <p class="footer__legal">© Bruit Brothers 2026 / All Rights Reserved</p>
+    <nav class="footer__nav" aria-label="Footer">
+      <a class="link" href="#solutions">Solutions</a>
+      <a class="link" href="#always">What you get</a>
+      <a class="link" href="#clients">Clients</a>
+      <a class="link" href="#audit">Free brand audit</a>
+    </nav>
+    <!-- TODO: link to the real Privacy Policy page -->
+    <a class="link footer__privacy" href="#privacy">Privacy Policy</a>
   </div>
 </footer>
 
