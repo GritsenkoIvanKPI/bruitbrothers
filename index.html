@@ -470,8 +470,11 @@ html.drawer-open { overflow: hidden; }
 @media (min-width: 600px) and (max-width: 1179px) {
   .pain__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+@media (max-width: 339px) {
+  .header .header__burger { width: 38px; }
+}
 @media (max-width: 379px) {
-  .header .header__cta { padding: 0 10px; font-size: 11px; letter-spacing: 0.04em; white-space: nowrap; }
+  .header .header__cta { padding: 0 8px; font-size: 12px; letter-spacing: 0; white-space: nowrap; }
   .header__right { gap: 4px; }
   .header__burger { width: 46px; }
   .header .header__logo { padding: 0 8px; }
