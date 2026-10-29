@@ -620,7 +620,7 @@ html.drawer-open { overflow: hidden; }
 
 /* ============ Desktop ============ */
 @media (min-width: 900px) {
-  :root { --header: 72px; }
+  :root { --header: 72px; --g: clamp(24px, 1.85vw, 36px); } /* desktop gutter +20% */
   .header__logo, .header .header__cta { height: 60px; }
 }
 @media (min-width: 900px) and (max-width: 1023px) {
