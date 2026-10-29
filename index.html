@@ -533,44 +533,47 @@ html.drawer-open { overflow: hidden; }
 
 /* ============ Footer: CTA first, quiet navigation bar below ============ */
 .footer { background: #f0ede5; color: #15209f; display: flex; flex-direction: column; min-height: calc(100vh - var(--header)); min-height: calc(100svh - var(--header)); overflow: hidden; }
-.footer__main { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: var(--s3); padding-top: var(--s4); }
+.footer__main { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr; column-gap: var(--s2); row-gap: var(--s3); padding-top: var(--s4); }
+.footer__cta { grid-column: 1 / -1; }
 .footer__cta { display: flex; flex-direction: column; align-items: flex-start; }
 .footer__title { font-family: var(--text); font-weight: 600; font-size: clamp(30px, 4.5vw, 92px); line-height: 1.05; letter-spacing: -0.035em; }
 .footer__title span { display: block; text-wrap: balance; }
 .footer__btn { margin-top: var(--s4); min-width: min(100%, clamp(300px, 34vw, 640px)); min-height: clamp(64px, 6vw, 112px); padding: 0 var(--s3); font-size: clamp(15px, 1.45vw, 26px); }
-/* the brothers stand on the bar's top line, cut off at the legs */
+/* the brothers stand on the bottom edge; legal + privacy sit in a column opposite them */
 .footer__mark {
-  align-self: flex-end;
-  width: min(62vw, 300px);
+  grid-column: 2;
+  align-self: end;
+  width: min(66vw, 340px);
   aspect-ratio: 870 / 734;
   margin-bottom: 0;
   background: var(--blue);
   -webkit-mask: url("assets/brand/brothers-crop.png") center top / contain no-repeat;
   mask: url("assets/brand/brothers-crop.png") center top / contain no-repeat;
 }
-.footer__bar {
-  position: relative;
-  z-index: 1;
+.footer__info {
+  grid-column: 1;
+  align-self: end;
   display: grid;
-  gap: var(--s1);
   justify-items: start;
-  padding-top: var(--s2);
+  gap: 2px;
   padding-bottom: var(--s2);
-  background: #15209f;
   font-size: clamp(13px, 0.95vw, 16px);
 }
-.footer__bar, .footer__bar a { color: #f0ede5; }
-.footer__bar a { display: inline-flex; align-items: center; min-height: 44px; transition: color 0.3s var(--ease); }
-.footer__bar a:hover { opacity: 0.7; }
+.footer__info a { display: inline-flex; align-items: center; min-height: 44px; transition: color 0.3s var(--ease); }
+.footer__info a:hover { opacity: 0.7; }
 .footer__legal { margin: 0; }
+@media (max-width: 599px) {
+  .footer__sep { display: none; }
+  .footer__rights { display: block; }
+  .footer__legal { white-space: nowrap; }
+  .footer__mark { width: 56vw; }
+}
+@media (max-width: 379px) { .footer__info { font-size: 12px; } }
 @media (min-width: 900px) {
-  .footer__main { display: grid; grid-template-columns: 1fr auto; align-items: end; padding-top: var(--s5); }
+  .footer__main { padding-top: var(--s5); }
   .footer__cta { align-self: start; grid-column: 1 / -1; }
   .footer__mark { grid-column: 2; }
-  .footer__mark { width: min(36vw, 52vh, 560px); margin-right: var(--s3); }
-  .footer__bar { grid-template-columns: 1fr auto; align-items: center; }
-  .footer__legal { justify-self: start; }
-  .footer__privacy { justify-self: end; }
+  .footer__mark { width: min(43vw, 64vh, 680px); margin-right: var(--s3); }
 }
 
 /* TEMP: Campaign visual variant switcher (only with ?campaign=…) */
@@ -1023,12 +1026,12 @@ html.drawer-open { overflow: hidden; }
       <h2 class="footer__title" data-reveal><span>They are ready to listen.</span> <span>Let’s give them something worth hearing.</span></h2>
       <a class="btn footer__btn" href="mailto:office@bruitbrothers.com?subject=Free%20brand%20audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
     </div>
+    <div class="footer__info">
+      <p class="footer__legal">© Bruit Brothers 2026<span class="footer__sep"> /</span> <span class="footer__rights">All Rights Reserved</span></p>
+      <!-- TODO: link to the real Privacy Policy page -->
+      <a class="link footer__privacy" href="#privacy">Privacy Policy</a>
+    </div>
     <div class="footer__mark" role="img" aria-label="The two Bruit Brothers"></div>
-  </div>
-  <div class="footer__bar wrap">
-    <p class="footer__legal">© Bruit Brothers 2026 / All Rights Reserved</p>
-    <!-- TODO: link to the real Privacy Policy page -->
-    <a class="link footer__privacy" href="#privacy">Privacy Policy</a>
   </div>
 </footer>
 
