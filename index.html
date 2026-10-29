@@ -20,12 +20,13 @@ window.__touchDither = matchMedia('(hover: none), (pointer: coarse)').matches;
   --display: "meno-display-condensed", Georgia, serif;
   --text: "host-grotesk", "Helvetica Neue", Arial, sans-serif;
 
-  --g: clamp(16px, 1.25vw, 24px);      /* gutter */
-  --s1: calc(var(--g) * 0.5);
-  --s2: var(--g);
-  --s3: calc(var(--g) * 2);
-  --s4: calc(var(--g) * 4);
-  --s5: calc(var(--g) * 6);
+  --gb: clamp(16px, 1.25vw, 24px);     /* spacing base (vertical rhythm, unchanged) */
+  --g: clamp(18px, 1.4vw, 27px);       /* side gutter: ~12% wider than the base */
+  --s1: calc(var(--gb) * 0.5);
+  --s2: var(--gb);
+  --s3: calc(var(--gb) * 2);
+  --s4: calc(var(--gb) * 4);
+  --s5: calc(var(--gb) * 6);
   --header: 64px;
 
   --t-label: clamp(12px, 0.8vw, 13px);
@@ -167,7 +168,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: var(--s1) var(--g) 0;
+  padding: var(--g) var(--g) 0;
   pointer-events: none;
 }
 .header > * { pointer-events: auto; }
@@ -210,7 +211,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   position: absolute; inset: 0 0 0 auto;
   display: flex; flex-direction: column;
   width: min(100%, 720px);
-  padding: var(--s1) var(--g) var(--s3);
+  padding: var(--g) var(--g) var(--s3);
   background: #f0ede5; color: #15209f;
   overflow-y: auto;
   transform: translateX(100%);
@@ -597,7 +598,7 @@ html.drawer-open { overflow: hidden; }
     display: flex;
     align-items: center;
     position: absolute;
-    top: var(--s1);
+    top: var(--g);
     left: 50%;
     height: 60px;
     padding: 0;
