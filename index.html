@@ -560,7 +560,7 @@ html.drawer-open { overflow: hidden; }
 .dc-glyph { position: absolute; top: 0; left: 50%; transform: translateX(-50%) scaleX(var(--sq, 1)); opacity: 0.55; }
 .dc-cell:not(.is-scrambled) > .dc-glyph { display: none; }
 .header__menu a:active, .header .header__cta:active { opacity: 0.7; }
-.header__menu a:focus-visible { outline: 2px solid #15209f; outline-offset: 4px; }
+.header__menu a:focus-visible { outline: 2px solid #f0ede5; outline-offset: 4px; }
 
 /* ============ Reveal (transform + opacity only) ============ */
 .js [data-reveal] {
@@ -587,7 +587,6 @@ html.drawer-open { overflow: hidden; }
   .header__burger { display: inline-flex !important; }
 }
 @media (min-width: 1024px) and (max-width: 1279px) {
-  .header .header__menu { padding: 0 var(--s1); }
   .header .header__menu ul { gap: var(--s2); }
   .header .header__cta { padding: 0 var(--s1); }
 }
@@ -601,11 +600,11 @@ html.drawer-open { overflow: hidden; }
     top: var(--s1);
     left: 50%;
     height: 60px;
-    padding: 0 var(--s2);
-    background: #f0ede5;
-    color: #15209f;
+    padding: 0;
+    color: #f0ede5;
+    text-shadow: 0 0 2px #15209f, 0 0 8px #15209f, 0 0 16px #15209f; /* legible over the photo without a box */
   }
-  .header__menu ul { display: grid; grid-template-columns: auto auto; column-gap: var(--s3); row-gap: 2px; white-space: nowrap; }
+  .header__menu ul { display: grid; grid-template-rows: auto auto; grid-auto-flow: column; column-gap: var(--s4); row-gap: 2px; white-space: nowrap; }
   .header__menu a { display: inline-flex; align-items: center; min-height: 22px; }
   .header__menu { transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); }
   .header__burger { width: 60px; height: 60px; display: none; }
@@ -679,18 +678,19 @@ html.drawer-open { overflow: hidden; }
   </a>
   <nav class="header__menu label" aria-label="Main">
     <ul>
-      <li><a href="#about" data-decrypt>About us</a></li>
-      <li><a href="#always" data-decrypt>What you get</a></li>
       <li><a href="#solutions" data-decrypt>Solutions</a></li>
+      <li><a href="#always" data-decrypt>What you get</a></li>
+      <!-- TODO: point to the separate About us / Contact pages once they exist -->
+      <li><a href="#about" data-decrypt>About us</a></li>
       <li><a href="mailto:office@bruitbrothers.com" data-decrypt>Contact</a></li>
       <!-- <li><a href="#clients" data-decrypt>Clients</a></li> -->
     </ul>
   </nav>
   <div class="header__right">
-    <a class="btn header__cta" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
     <button class="header__burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-drawer">
       <span></span><span></span><span></span>
     </button>
+    <a class="btn header__cta" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
   </div>
 </header>
 
@@ -702,9 +702,9 @@ html.drawer-open { overflow: hidden; }
       <button class="drawer__close label" type="button" data-close>Close</button>
     </div>
     <nav class="drawer__nav" aria-label="Menu">
-      <a href="#about" data-close>About us</a>
       <a href="#solutions" data-close>Solutions</a>
       <a href="#always" data-close>What you get</a>
+      <a href="#about" data-close>About us</a>
       <a href="mailto:office@bruitbrothers.com">Contact</a>
     </nav>
     <div class="drawer__info">
