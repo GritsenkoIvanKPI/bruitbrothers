@@ -340,7 +340,8 @@ html.drawer-open { overflow: hidden; }
 .pain__hl {
   position: absolute; top: 0; left: 0; z-index: 0;
   background: var(--blue);
-  transform: translate(var(--x, 0), var(--y, 0));
+  transform-origin: 0 0;
+  transform: translate(var(--x, 0), var(--y, 0)) scale(var(--sx, 1), var(--sy, 1));
   transition: transform 0.6s cubic-bezier(0.65, 0, 0.25, 1);
   pointer-events: none;
 }
@@ -487,6 +488,7 @@ html.drawer-open { overflow: hidden; }
   .pain__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .pain__item + .pain__item::after { left: 0; right: auto; top: var(--s2); bottom: var(--s2); width: 1px; height: auto; }
   .pain__item:nth-child(3n+1)::after { display: none; }
+  .pain__item:last-child:nth-child(3n+2) { grid-column: span 2; } /* no empty cell at the end */
   .pain__item:nth-child(n+4)::before { content: ""; position: absolute; left: var(--s2); right: var(--s2); top: 0; height: 1px; background: var(--pain-line); }
 }
 @media (max-width: 339px) {
@@ -656,6 +658,7 @@ html.drawer-open { overflow: hidden; }
   .pain__title { grid-column: 1; grid-row: 1; position: sticky; top: calc(var(--header) + var(--s3)); padding-right: var(--s3); }
   .pain__board { grid-column: 2; grid-row: 1; margin-top: 0; }
   .pain__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pain__item:last-child:nth-child(odd) { grid-column: 1 / -1; } /* last card fills the row */
   .pain__item { min-height: clamp(200px, 17vw, 320px); padding: var(--s2) var(--g) var(--s3); }
   .pain__item + .pain__item::after { display: none; }
   .pain__item:nth-child(2n)::after { display: block; content: ""; position: absolute; left: 0; right: auto; top: var(--s2); bottom: var(--s2); width: 1px; height: auto; background: var(--pain-line); }
@@ -1136,7 +1139,11 @@ html.drawer-open { overflow: hidden; }
   const place = (el, instant) => {
     const b = board.getBoundingClientRect(), r = el.getBoundingClientRect();
     if (instant) hl.style.transition = 'none';
-    hl.style.width = r.width + 'px'; hl.style.height = r.height + 'px';
+    /* fixed base size, scaled to the card, so only transform animates */
+    const w = board.clientWidth, h = board.clientHeight;
+    hl.style.width = w + 'px'; hl.style.height = h + 'px';
+    hl.style.setProperty('--sx', r.width / w);
+    hl.style.setProperty('--sy', r.height / h);
     hl.style.setProperty('--x', (r.left - b.left - board.clientLeft) + 'px');
     hl.style.setProperty('--y', (r.top - b.top - board.clientTop) + 'px');
     items.forEach(i => i.classList.toggle('is-active', i === el));
