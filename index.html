@@ -202,18 +202,18 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .header__burger:active { transform: scale(0.95); }
 .header__burger:focus-visible { outline: 2px solid #f0ede5; outline-offset: 3px; }
 
-/* drawer: slides in from the left */
+/* drawer: slides in from the right */
 .drawer { position: fixed; inset: 0; z-index: 120; visibility: hidden; transition: visibility 0s linear 0.6s; }
 .drawer.is-open { visibility: visible; transition: none; }
 .drawer__veil { position: absolute; inset: 0; background: rgba(21, 32, 159, 0.55); opacity: 0; transition: opacity 0.5s var(--ease); }
 .drawer__panel {
-  position: absolute; inset: 0 auto 0 0;
+  position: absolute; inset: 0 0 0 auto;
   display: flex; flex-direction: column;
   width: min(100%, 720px);
   padding: var(--s1) var(--g) var(--s3);
   background: #f0ede5; color: #15209f;
   overflow-y: auto;
-  transform: translateX(-100%);
+  transform: translateX(100%);
   transition: transform 0.6s var(--ease);
 }
 .drawer.is-open .drawer__veil { opacity: 1; }
@@ -229,7 +229,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   font-size: clamp(40px, 5.6vw, 84px); font-weight: 500; line-height: 1.12; letter-spacing: -0.03em;
   transition: transform 0.45s var(--ease), opacity 0.3s var(--ease);
 }
-.drawer__nav a:hover { transform: translateX(10px); }
+.drawer__nav a:hover { transform: translateX(-10px); }
 .drawer__nav a:active { opacity: 0.6; }
 .drawer__nav a:focus-visible { outline: 2px solid #15209f; outline-offset: 4px; }
 .drawer__info { display: grid; gap: var(--s3); margin-top: auto; }
