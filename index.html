@@ -1127,7 +1127,7 @@ html.drawer-open { overflow: hidden; }
 (() => {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+';
-  const SPEED = 60;
+  const SPEED = 30;
   document.querySelectorAll('[data-decrypt]').forEach(el => {
     const text = el.textContent.trim();
     el.setAttribute('aria-label', text);
@@ -1160,7 +1160,7 @@ html.drawer-open { overflow: hidden; }
     el.addEventListener('mouseenter', () => {
       if (timer) return;
       cells.forEach(i => { i.cell.classList.add('is-scrambled'); scramble(i); });
-      queue = [null, ...cells];          // one beat fully scrambled, then reveal from the start
+      queue = [...cells];                // reveal from the start immediately
       timer = setInterval(tick, SPEED);
     });
     el.addEventListener('mouseleave', stop);
