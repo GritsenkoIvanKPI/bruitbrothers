@@ -477,7 +477,7 @@ html.drawer-open { overflow: hidden; }
 /* the brothers stand at the bottom edge and are cut off by it */
 /* comfortable tap targets without changing the visual rhythm */
 .nowrap { white-space: nowrap; }
-@media (min-width: 600px) and (max-width: 1179px) {
+@media (min-width: 600px) and (max-width: 899px) {
   .pain__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .pain__item + .pain__item::after { left: 0; right: auto; top: var(--s2); bottom: var(--s2); width: 1px; height: auto; }
   .pain__item:nth-child(3n+1)::after { display: none; }
@@ -644,10 +644,17 @@ html.drawer-open { overflow: hidden; }
   .trust__head { grid-column: auto; padding: 0 var(--g); }
   .pain__answer { grid-template-columns: 3fr 2fr; align-items: end; padding: var(--s4) var(--g); }
 }
-@media (min-width: 1180px) {
-  .pain__list { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  .pain__item { padding: var(--s2) var(--g) var(--s3); }
-  .pain__item + .pain__item::after { left: 0; right: auto; top: var(--s2); bottom: var(--s2); width: 1px; height: auto; }
+@media (min-width: 900px) {
+  /* heading on the left, problem cards in a 2-column grid on the right (per reference) */
+  .pain { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
+  .pain__title { grid-column: 1; grid-row: 1; position: sticky; top: calc(var(--header) + var(--s3)); padding-right: var(--s3); }
+  .pain__board { grid-column: 2; grid-row: 1; margin-top: 0; }
+  .pain__answer { grid-column: 1 / -1; }
+  .pain__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pain__item { min-height: clamp(200px, 17vw, 320px); padding: var(--s2) var(--g) var(--s3); }
+  .pain__item + .pain__item::after { display: none; }
+  .pain__item:nth-child(2n)::after { display: block; content: ""; position: absolute; left: 0; right: auto; top: var(--s2); bottom: var(--s2); width: 1px; height: auto; background: rgba(240, 237, 229, 0.35); }
+  .pain__item:nth-child(n+3)::before { content: ""; position: absolute; left: var(--s2); right: var(--s2); top: 0; height: 1px; background: rgba(240, 237, 229, 0.35); z-index: 1; }
 }
 @media (min-width: 900px) {
   .services__list { display: grid; grid-auto-rows: 1fr; row-gap: var(--s5); }
@@ -1123,8 +1130,8 @@ html.drawer-open { overflow: hidden; }
     const b = board.getBoundingClientRect(), r = el.getBoundingClientRect();
     if (instant) hl.style.transition = 'none';
     hl.style.width = r.width + 'px'; hl.style.height = r.height + 'px';
-    hl.style.setProperty('--x', (r.left - b.left) + 'px');
-    hl.style.setProperty('--y', (r.top - b.top) + 'px');
+    hl.style.setProperty('--x', (r.left - b.left - board.clientLeft) + 'px');
+    hl.style.setProperty('--y', (r.top - b.top - board.clientTop) + 'px');
     items.forEach(i => i.classList.toggle('is-active', i === el));
     active = el;
     if (instant) { hl.offsetWidth; hl.style.transition = ''; }
