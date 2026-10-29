@@ -384,7 +384,7 @@ html.drawer-open { overflow: hidden; }
 .trust__item:hover .trust__logo { opacity: 1; }
 
 /* ============ Services ============ */
-.services { padding-top: var(--s5); padding-bottom: calc(var(--s5) / 2); }
+.services { background: #f0ede5; color: #15209f; padding-top: var(--s5); padding-bottom: calc(var(--s5) / 2); }
 /* same type as the 'Strategy, Creative…' and 'We're ready…' headings */
 .services__title { font-family: var(--text); font-weight: 600; font-size: clamp(25px, 3.37vw, 68px); line-height: 1.12; letter-spacing: -0.025em; padding-bottom: var(--s4); }
 .service {
@@ -403,16 +403,16 @@ html.drawer-open { overflow: hidden; }
   right: 0;
   top: calc(var(--s5) / -2);
   height: 1px;
-  background: rgba(240, 237, 229, 0.25);
+  background: rgba(21, 32, 159, 0.25);
 }
-.service__media { position: relative; margin-top: var(--g); height: 82vw; max-height: 70svh; }
+.service__media { position: relative; margin-top: var(--g); aspect-ratio: 1; }
 .service__media img { width: 100%; height: 100%; object-fit: cover; }
 .service__body { display: grid; align-content: start; gap: var(--s4); padding: var(--s3) 0 var(--s4); }
-.service__title { font-size: clamp(38px, 5.6vw, 108px); line-height: 0.95; margin-top: var(--s1); text-wrap: balance; }
+.service__title { font-size: clamp(49px, 7.3vw, 140px); line-height: 0.95; margin-top: var(--s1); text-wrap: balance; }
 .service__cols { display: grid; gap: var(--s3); }
 .service__text { font-size: clamp(16px, 1.3vw, 22px); line-height: 1.5; }
 .service__text p + p { margin-top: 1em; }
-.service__num { font-family: var(--text); font-weight: 500; font-size: clamp(15px, 1.1vw, 19px); line-height: 1; letter-spacing: 0.04em; opacity: 0.6; }
+.service__num { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2vw, 36px); line-height: 1; letter-spacing: -0.02em; opacity: 0.6; }
 /* list label: cream bar running to the right edge, like the 'What you always get' titles */
 .service__list-title {
   margin: 0 calc(-1 * var(--g)) var(--s1) 0;
@@ -665,7 +665,7 @@ html.drawer-open { overflow: hidden; }
   .services__list { display: grid; grid-auto-rows: 1fr; row-gap: var(--s5); }
   .service + .service { margin-top: 0; }
   .service { grid-template-columns: 7fr 18fr; min-height: 0; }
-  .service__media { margin: var(--g) var(--s2) var(--g) 0; height: auto; max-height: none; align-self: stretch; }
+  .service__media { margin: var(--g) var(--s2) var(--g) 0; height: auto; max-height: none; aspect-ratio: 1; align-self: start; }
   .service__media img { position: absolute; inset: 0; }
   .service__body { padding: var(--g) var(--s2) var(--g) var(--s2); align-content: start; gap: var(--s3); }
   .service__cols { grid-template-columns: 3fr 2fr; gap: var(--s4); align-items: start; }
@@ -829,7 +829,7 @@ html.drawer-open { overflow: hidden; }
   </section>
 
   <!-- Services -->
-  <section class="on-blue services" id="solutions" aria-labelledby="services-title">
+  <section class="services" id="solutions" aria-labelledby="services-title">
     <h2 class="services__title wrap" id="services-title" data-reveal>Five solutions we deliver</h2>
 
     <div class="services__list">
