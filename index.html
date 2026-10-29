@@ -176,16 +176,69 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   align-items: center;
   height: 52px;
   padding: 0 18px;
-  background: #f0ede5;
+  background: #15209f;
   transition: transform 0.4s var(--ease);
 }
 .header__logo img { height: 30px; width: auto; }
 .header__logo:hover { transform: translateY(-2px); }
 .header__logo:active { transform: scale(0.98); }
 .header__logo:focus-visible { outline: 2px solid #f0ede5; outline-offset: 3px; }
+.header__logo { box-shadow: 0 0 0 1px rgba(240, 237, 229, 0.35); }
 .header .header__cta { height: 52px; min-height: 0; background: #f0ede5; color: #15209f; }
 .header .header__cta::before { background: #15209f; }
 .header__menu { display: none; }
+.header__right { display: flex; gap: 6px; }
+/* hamburger: shown on small screens, and on desktop once the page is scrolled */
+.header__burger {
+  display: inline-flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+  width: 52px; height: 52px; padding: 0; border: 0; cursor: pointer;
+  background: #15209f;
+  box-shadow: 0 0 0 1px rgba(240, 237, 229, 0.35);
+  transition: transform 0.35s var(--ease);
+}
+.header__burger span { display: block; width: 20px; height: 2px; background: #f0ede5; transition: transform 0.35s var(--ease); }
+.header__burger:hover span:nth-child(1) { transform: translateX(-3px); }
+.header__burger:hover span:nth-child(3) { transform: translateX(3px); }
+.header__burger:active { transform: scale(0.95); }
+.header__burger:focus-visible { outline: 2px solid #f0ede5; outline-offset: 3px; }
+
+/* drawer: slides in from the left */
+.drawer { position: fixed; inset: 0; z-index: 120; visibility: hidden; transition: visibility 0s linear 0.6s; }
+.drawer.is-open { visibility: visible; transition: none; }
+.drawer__veil { position: absolute; inset: 0; background: rgba(21, 32, 159, 0.55); opacity: 0; transition: opacity 0.5s var(--ease); }
+.drawer__panel {
+  position: absolute; inset: 0 auto 0 0;
+  display: flex; flex-direction: column;
+  width: min(100%, 720px);
+  padding: var(--s1) var(--g) var(--s3);
+  background: #f0ede5; color: #15209f;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.6s var(--ease);
+}
+.drawer.is-open .drawer__veil { opacity: 1; }
+.drawer.is-open .drawer__panel { transform: none; }
+.drawer__top { display: flex; justify-content: space-between; align-items: center; min-height: 52px; }
+.drawer__top img { height: 30px; width: auto; }
+.drawer__close { min-height: 44px; padding: 0 var(--s2); border: 1px solid #15209f; background: transparent; color: #15209f; cursor: pointer; transition: background 0.3s var(--ease), color 0.3s var(--ease); }
+.drawer__close:hover { background: #15209f; color: #f0ede5; }
+.drawer__close:focus-visible { outline: 2px solid #15209f; outline-offset: 3px; }
+.drawer__nav { display: grid; margin: var(--s4) 0 var(--s4); }
+.drawer__nav a {
+  justify-self: start;
+  font-size: clamp(40px, 5.6vw, 84px); font-weight: 500; line-height: 1.12; letter-spacing: -0.03em;
+  transition: transform 0.45s var(--ease), opacity 0.3s var(--ease);
+}
+.drawer__nav a:hover { transform: translateX(10px); }
+.drawer__nav a:active { opacity: 0.6; }
+.drawer__nav a:focus-visible { outline: 2px solid #15209f; outline-offset: 4px; }
+.drawer__info { display: grid; gap: var(--s3); margin-top: auto; }
+.drawer__row { display: grid; gap: var(--s1); }
+.drawer__row > a.link { justify-self: start; font-size: clamp(17px, 1.4vw, 22px); }
+.drawer__row .btn { justify-self: start; min-height: 52px; }
+html.drawer-open { overflow: hidden; }
+@media (min-width: 600px) { .drawer__row { grid-template-columns: 1fr 1fr; align-items: baseline; } }
+@media (prefers-reduced-motion: reduce) { .drawer__panel, .drawer__veil { transition: none; } }
 
 /* ============ Hero ============ */
 .hero {
@@ -532,6 +585,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 @media (min-width: 900px) and (max-width: 1023px) {
   .header__menu { display: none !important; }
+  .header__burger { display: inline-flex !important; }
 }
 @media (min-width: 1024px) and (max-width: 1279px) {
   .header .header__menu { padding: 0 var(--s1); }
@@ -552,8 +606,12 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
     background: #f0ede5;
     color: #15209f;
   }
-  .header__menu ul { display: flex; gap: var(--s3); white-space: nowrap; }
-  .header__menu a { display: inline-flex; align-items: center; min-height: 44px; }
+  .header__menu ul { display: grid; grid-template-columns: auto auto; column-gap: var(--s3); row-gap: 2px; white-space: nowrap; }
+  .header__menu a { display: inline-flex; align-items: center; min-height: 22px; }
+  .header__menu { transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); }
+  .header__burger { width: 60px; height: 60px; display: none; }
+  .header.is-scrolled .header__burger { display: inline-flex; }
+  .header.is-scrolled .header__menu { opacity: 0; transform: translateY(-10px); pointer-events: none; visibility: hidden; }
 
 
   .intro__copy { margin-left: 50%; }
@@ -618,18 +676,50 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 
 <header class="header" id="site-header">
   <a class="header__logo" href="#top" aria-label="Bruit Brothers — back to top">
-    <img src="assets/brand/wordmark-blue-sm.png" alt="Bruit Brothers" width="600" height="256">
+    <img src="assets/brand/wordmark-cream-sm.png" alt="Bruit Brothers" width="600" height="256">
   </a>
   <nav class="header__menu label" aria-label="Main">
     <ul>
-      <li><a href="#solutions" data-decrypt>Solutions</a></li>
+      <li><a href="#about" data-decrypt>About us</a></li>
       <li><a href="#always" data-decrypt>What you get</a></li>
-      <!-- <li><a href="#clients" data-decrypt>Clients</a></li> -->
+      <li><a href="#solutions" data-decrypt>Solutions</a></li>
       <li><a href="mailto:office@bruitbrothers.com" data-decrypt>Contact</a></li>
+      <!-- <li><a href="#clients" data-decrypt>Clients</a></li> -->
     </ul>
   </nav>
-  <a class="btn header__cta" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
+  <div class="header__right">
+    <a class="btn header__cta" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
+    <button class="header__burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-drawer">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
+
+<div class="drawer" id="site-drawer" aria-hidden="true">
+  <div class="drawer__veil" data-close></div>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="drawer__top">
+      <img src="assets/brand/wordmark-blue-sm.png" alt="Bruit Brothers" width="600" height="256">
+      <button class="drawer__close label" type="button" data-close>Close</button>
+    </div>
+    <nav class="drawer__nav" aria-label="Menu">
+      <a href="#about" data-close>About us</a>
+      <a href="#solutions" data-close>Solutions</a>
+      <a href="#always" data-close>What you get</a>
+      <a href="mailto:office@bruitbrothers.com">Contact</a>
+    </nav>
+    <div class="drawer__info">
+      <div class="drawer__row">
+        <p class="label">Stay in touch</p>
+        <a class="link" href="mailto:office@bruitbrothers.com">office@bruitbrothers.com</a>
+      </div>
+      <div class="drawer__row">
+        <p class="label">Free brand audit</p>
+        <a class="btn" href="#audit" data-close><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <main id="top">
 
@@ -649,7 +739,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   </section>
 
   <!-- What we do -->
-  <section class="on-blue intro wrap" aria-labelledby="intro-title">
+  <section class="on-blue intro wrap" id="about" aria-labelledby="intro-title">
     <h2 class="intro__statement" id="intro-title" data-reveal>
       <span class="intro__line">Strategy, Creative, and Digital Advertising</span>
       <span class="intro__for">for</span>
@@ -928,6 +1018,27 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   const h = document.getElementById('site-header');
   const set = () => h.classList.toggle('is-scrolled', scrollY > 40);
   addEventListener('scroll', set, { passive: true }); set();
+
+  // menu drawer
+  const drawer = document.getElementById('site-drawer');
+  const burger = h.querySelector('.header__burger');
+  let last = null;
+  const open = () => {
+    last = document.activeElement;
+    drawer.classList.add('is-open'); drawer.setAttribute('aria-hidden', 'false');
+    burger.setAttribute('aria-expanded', 'true');
+    document.documentElement.classList.add('drawer-open'); window.lenis?.stop();
+    setTimeout(() => drawer.querySelector('.drawer__nav a')?.focus(), 50);
+  };
+  const close = () => {
+    drawer.classList.remove('is-open'); drawer.setAttribute('aria-hidden', 'true');
+    burger.setAttribute('aria-expanded', 'false');
+    document.documentElement.classList.remove('drawer-open'); window.lenis?.start();
+    (last || burger).focus?.({ preventScroll: true });
+  };
+  burger.addEventListener('click', open);
+  drawer.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', close));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.classList.contains('is-open')) close(); });
 })();
 </script>
 <script>
