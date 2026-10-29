@@ -305,6 +305,7 @@ html.drawer-open { overflow: hidden; }
   letter-spacing: 0;
 }
 .intro__bottom { display: grid; gap: var(--s4); }
+.intro__rule { display: none; }
 /* video grows from its bottom-left corner as the section scrolls into view (uniform scale: no distortion) */
 .intro { position: relative; overflow: hidden; }
 .intro > *:not(.intro__bottom), .intro__copy { position: relative; z-index: 2; }
@@ -627,7 +628,9 @@ html.drawer-open { overflow: hidden; }
 
   .intro__copy { margin-left: 50%; }
   .intro__line { max-width: none; }
-  .intro { gap: var(--s5); min-height: calc(100vh - var(--header)); min-height: calc(100svh - var(--header)); }
+  .intro { display: flex; flex-direction: column; gap: 0; min-height: calc(100vh - var(--header)); min-height: calc(100svh - var(--header)); padding-bottom: calc(var(--s5) + 14vh); }
+  /* a thin rule on the centre grid line, running from the heading down to the description */
+  .intro__rule { display: block; flex: 1; min-height: var(--s4); margin: var(--s3) 0 var(--s3) 50%; border-left: 1px solid rgba(240, 237, 229, 0.5); }
 
   .trust__grid { grid-template-columns: repeat(4, 1fr); }
   .trust__head { grid-column: auto; padding: 0 var(--g); }
@@ -757,6 +760,7 @@ html.drawer-open { overflow: hidden; }
       <span class="intro__for">for</span>
       <span class="intro__line">Food &amp; Beverages, Alcohol, Tobacco, and OTC Medicines</span>
     </h2>
+    <span class="intro__rule" aria-hidden="true"></span>
     <div class="intro__bottom">
     <div class="intro__copy">
       <p data-reveal>8 years in, we absolutely know what sells, what grows, what makes money, and what will never work.</p>
