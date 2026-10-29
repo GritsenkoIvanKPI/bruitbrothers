@@ -239,6 +239,11 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 html.drawer-open { overflow: hidden; }
 @media (min-width: 600px) { .drawer__row { grid-template-columns: 1fr 1fr; align-items: baseline; } }
 @media (prefers-reduced-motion: reduce) { .drawer__panel, .drawer__veil { transition: none; } }
+/* touch screens: the compact two-row panel is too small to tap, use the drawer instead */
+@media (pointer: coarse) {
+  .header .header__menu { display: none !important; }
+  .header .header__burger { display: inline-flex !important; }
+}
 
 /* ============ Hero ============ */
 .hero {
