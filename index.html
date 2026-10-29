@@ -158,6 +158,9 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 .link:hover::after, .link:focus-visible::after { transform: scaleX(1); transform-origin: left; }
 .link:active { opacity: 0.6; }
+/* no underline: the letter scramble is the hover cue */
+.link--plain::after { content: none; }
+.link--plain:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
 
 /* ============ Header ============ */
 /* Floating header (per reference): solid logo + CTA boxes, nav columns with thin rules over the hero */
@@ -759,7 +762,7 @@ html.drawer-open { overflow: hidden; }
     <div class="drawer__info">
       <div class="drawer__row">
         <p class="label">Stay in touch</p>
-        <a class="link" href="mailto:office@bruitbrothers.com" data-decrypt>office@bruitbrothers.com</a>
+        <a class="link link--plain" href="mailto:office@bruitbrothers.com" data-decrypt>office@bruitbrothers.com</a>
       </div>
       <div class="drawer__row">
         <p class="label">Free brand audit</p>
