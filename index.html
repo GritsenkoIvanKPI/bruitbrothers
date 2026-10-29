@@ -522,9 +522,6 @@ html.drawer-open { overflow: hidden; }
 .preloader__img--base { opacity: 0.18; }
 /* solid copy revealed left to right with the progress value */
 .preloader__img--fill { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--p, 0) * 100%) 0 0); }
-.preloader__bar { width: 100%; height: 1px; margin-top: var(--s3); background: rgba(240, 237, 229, 0.25); overflow: hidden; }
-.preloader__bar span { display: block; height: 100%; background: var(--cream); transform: scaleX(var(--p, 0)); transform-origin: left; }
-.preloader__count { justify-self: end; margin-top: var(--s1); color: var(--cream); font-variant-numeric: tabular-nums; }
 .preloader.is-done { transform: translateY(-100%); }
 .preloader.is-gone { display: none; }
 @keyframes preloader-in { to { opacity: 1; transform: none; } }
@@ -707,8 +704,6 @@ html.drawer-open { overflow: hidden; }
       <img class="preloader__img preloader__img--base" src="assets/brand/wordmark-cream-sm.png" alt="" width="600" height="256">
       <img class="preloader__img preloader__img--fill" src="assets/brand/wordmark-cream-sm.png" alt="" width="600" height="256">
     </div>
-    <div class="preloader__bar"><span></span></div>
-    <span class="preloader__count label">0</span>
   </div>
 </div>
 
@@ -1084,10 +1079,8 @@ html.drawer-open { overflow: hidden; }
 (() => {
   // Preloader: track image + font loading, then slide away and reveal the first screen
   const pre = document.querySelector('.preloader');
-  const bar = pre && pre.querySelector('.preloader__bar span');
   const revealHero = () => document.querySelectorAll('.hero [data-reveal]').forEach(el => el.classList.add('is-in'));
   if (pre) {
-    const count = pre.querySelector('.preloader__count');
     const imgs = [...document.images].filter(i => i.loading !== 'lazy');
     let done = 0; const total = imgs.length + 2; // + fonts + window load
     const step = () => { done++; };
@@ -1105,7 +1098,6 @@ html.drawer-open { overflow: hidden; }
       shown += (Math.min(target, cap) - shown) * 0.12;
       if (target >= 1 && cap >= 1 && shown > 0.995) shown = 1;
       pre.style.setProperty('--p', shown.toFixed(4));
-      count.textContent = Math.round(shown * 100);
       if (shown < 1) return requestAnimationFrame(tick);
       if (finished) return; finished = true;
       setTimeout(() => {
