@@ -430,7 +430,7 @@ html.drawer-open { overflow: hidden; }
 
 /* ============ What you always get ============ */
 /* What you always get: cream section, blue title bars sweep in from the right edge */
-.gets { background: #15209f; color: #f0ede5; padding-top: var(--s5); padding-bottom: var(--s5); }
+.gets { background: #15209f; color: #f0ede5; padding-top: var(--s5); }
 .gets__title { font-size: clamp(56px, 7.8vw, 156px); line-height: 0.9; }
 .gets__list { display: grid; gap: var(--s4); margin-top: var(--s4); margin-right: calc(-1 * var(--g)); padding-bottom: var(--s5); }
 .gets__bar {
@@ -466,9 +466,9 @@ html.drawer-open { overflow: hidden; }
   display: grid;
   gap: var(--s1);
   margin: 0;
-  padding: var(--s3) var(--g);
-  background: #f0ede5;
-  color: #15209f;
+  padding: var(--s4) var(--g);
+  border-top: 1px solid rgba(240, 237, 229, 0.25);
+  color: #f0ede5;
   font-size: clamp(13px, 1.1vw, 20px);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -532,11 +532,12 @@ html.drawer-open { overflow: hidden; }
 }
 
 /* ============ Footer: CTA first, quiet navigation bar below ============ */
-.footer { display: flex; flex-direction: column; min-height: calc(100vh - var(--header)); min-height: calc(100svh - var(--header)); overflow: hidden; }
+.footer { background: #f0ede5; color: #15209f; display: flex; flex-direction: column; min-height: calc(100vh - var(--header)); min-height: calc(100svh - var(--header)); overflow: hidden; }
 .footer__main { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: var(--s3); padding-top: var(--s4); }
 .footer__cta { display: flex; flex-direction: column; align-items: flex-start; }
-.footer__title { font-size: var(--t-h1); line-height: 0.95; max-width: 20ch; text-wrap: balance; }
-.footer__btn { margin-top: var(--s3); min-width: min(100%, 320px); min-height: 56px; }
+.footer__title { font-family: var(--text); font-weight: 600; font-size: clamp(30px, 4.5vw, 92px); line-height: 1.05; letter-spacing: -0.035em; }
+.footer__title span { display: block; text-wrap: balance; }
+.footer__btn { margin-top: var(--s4); min-width: min(100%, clamp(300px, 34vw, 640px)); min-height: clamp(64px, 6vw, 112px); padding: 0 var(--s3); font-size: clamp(15px, 1.45vw, 26px); }
 /* the brothers stand on the bar's top line, cut off at the legs */
 .footer__mark {
   align-self: flex-end;
@@ -555,16 +556,17 @@ html.drawer-open { overflow: hidden; }
   justify-items: start;
   padding-top: var(--s2);
   padding-bottom: var(--s2);
-  background: #f0ede5;
+  background: #15209f;
   font-size: clamp(13px, 0.95vw, 16px);
 }
-.footer__bar, .footer__bar a { color: #15209f; }
+.footer__bar, .footer__bar a { color: #f0ede5; }
 .footer__bar a { display: inline-flex; align-items: center; min-height: 44px; transition: color 0.3s var(--ease); }
 .footer__bar a:hover { opacity: 0.7; }
 .footer__legal { margin: 0; }
 @media (min-width: 900px) {
   .footer__main { display: grid; grid-template-columns: 1fr auto; align-items: end; padding-top: var(--s5); }
-  .footer__cta { align-self: start; }
+  .footer__cta { align-self: start; grid-column: 1 / -1; }
+  .footer__mark { grid-column: 2; }
   .footer__mark { width: min(36vw, 52vh, 560px); margin-right: var(--s3); }
   .footer__bar { grid-template-columns: 1fr auto; align-items: center; }
   .footer__legal { justify-self: start; }
@@ -674,7 +676,7 @@ html.drawer-open { overflow: hidden; }
   .gets__wrap { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
   .gets__title { position: sticky; top: calc(var(--header) + var(--s3)); padding-bottom: var(--s5); }
   .gets__list { margin-top: calc(var(--s3) + 0.2em); }
-  .gets__nos { grid-template-columns: repeat(3, 1fr); padding: var(--s3) var(--g); }
+  .gets__nos { grid-template-columns: repeat(3, 1fr); padding: var(--s4) var(--g); }
 }
 @media (min-width: 900px) and (max-width: 1023px) {
 }
@@ -1016,10 +1018,10 @@ html.drawer-open { overflow: hidden; }
 
 </main>
 
-<footer class="on-blue footer" id="audit">
+<footer class="footer" id="audit">
   <div class="footer__main wrap">
     <div class="footer__cta">
-      <h2 class="footer__title display" data-reveal>They are ready to listen. Let’s give them something worth hearing.</h2>
+      <h2 class="footer__title" data-reveal><span>They are ready to listen.</span> <span>Let’s give them something worth hearing.</span></h2>
       <a class="btn footer__btn" href="mailto:office@bruitbrothers.com?subject=Free%20brand%20audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
     </div>
     <div class="footer__mark" role="img" aria-label="The two Bruit Brothers"></div>
