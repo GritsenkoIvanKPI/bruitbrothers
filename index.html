@@ -266,7 +266,10 @@ html.drawer-open { overflow: hidden; }
   pointer-events: none;
 }
 .hero__eyebrow { margin-bottom: var(--s2); }
-.hero__title { max-width: 18ch; font-size: var(--t-h1); line-height: 0.95; }
+/* staircase headline: three lines growing in length; the description steps in at the centre grid line */
+.hero__title { font-size: clamp(26px, 8.4vw, 76px); line-height: 0.98; }
+@media (min-width: 900px) { .hero__title { font-size: min(8.5vw, 168px); } }
+.hero__title span { display: block; white-space: nowrap; }
 .hero__sub {
   max-width: 60ch;
   margin-top: var(--s3);
@@ -461,6 +464,7 @@ html.drawer-open { overflow: hidden; }
 
 /* ============ Closing line + video ============ */
 @media (min-width: 900px) {
+  .hero__sub { margin-left: 50%; }
 }
 
 /* ============ Footer (CTA + info) ============ */
@@ -741,7 +745,7 @@ html.drawer-open { overflow: hidden; }
     </div>
     <div class="hero__text">
       <p class="hero__eyebrow label" data-reveal>Integrated Brand Growth Agency</p>
-      <h1 class="hero__title display" id="hero-title" data-reveal data-d="1">We are here to make your brand the obvious choice on the shelf.</h1>
+      <h1 class="hero__title display" id="hero-title" data-reveal data-d="1"><span>We are here</span> <span>to make your brand</span> <span>the obvious choice on the shelf.</span></h1>
       <p class="hero__sub" data-reveal data-d="2">At Bruit Brothers, we help FMCG brands become impossible to ignore.<br>Even the highly regulated ones.</p>
     </div>
   </section>
