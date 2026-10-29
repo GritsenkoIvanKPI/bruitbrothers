@@ -430,25 +430,25 @@ html.drawer-open { overflow: hidden; }
 
 /* ============ What you always get ============ */
 /* What you always get: cream section, blue title bars sweep in from the right edge */
-.gets { background: #f0ede5; color: #15209f; padding-top: var(--s5); padding-bottom: var(--s5); }
+.gets { background: #15209f; color: #f0ede5; padding-top: var(--s5); padding-bottom: var(--s5); }
 .gets__title { font-size: clamp(56px, 7.8vw, 156px); line-height: 0.9; }
-.gets__list { display: grid; gap: var(--s3); margin-top: var(--s4); margin-right: calc(-1 * var(--g)); padding-bottom: var(--s5); }
+.gets__list { display: grid; gap: var(--s4); margin-top: var(--s4); margin-right: calc(-1 * var(--g)); padding-bottom: var(--s5); }
 .gets__bar {
   position: relative;
   isolation: isolate;
   margin: 0;
-  padding: 0.55em var(--g);
+  padding: 0.3em var(--g) 0.3em var(--s2); /* same thin bar as the 'Includes:' label */
   font-family: var(--text);
   font-size: clamp(20px, 2vw, 38px);
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  color: #f0ede5;
+  color: #15209f;
   overflow: hidden;
 }
-.gets__bar::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #15209f; transform-origin: right; }
+.gets__bar::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #f0ede5; transform-origin: right; }
 .gets__bar span { display: block; }
-.gets__item p { margin: var(--s2) var(--g) 0 var(--s2); max-width: 52ch; font-size: clamp(16px, 1.35vw, 24px); line-height: 1.4; }
+.gets__item p { margin: var(--s1) var(--g) 0 var(--s2); max-width: 52ch; font-size: clamp(16px, 1.35vw, 24px); line-height: 1.4; }
 .gets__item { --i: 0; }
 .gets__item:nth-child(2) { --i: 1; }
 .gets__item:nth-child(3) { --i: 2; }
@@ -467,8 +467,8 @@ html.drawer-open { overflow: hidden; }
   gap: var(--s1);
   margin: 0;
   padding: var(--s3) var(--g);
-  background: #15209f;
-  color: #f0ede5;
+  background: #f0ede5;
+  color: #15209f;
   font-size: clamp(13px, 1.1vw, 20px);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -996,15 +996,15 @@ html.drawer-open { overflow: hidden; }
       <div class="gets__list">
         <article class="gets__item">
           <h3 class="gets__bar"><span>High-value media only.</span></h3>
-          <p>Valuable attention starts beyond the obvious placements, so we’ll never put you on oversaturated Meta Ads or other default options.</p>
+          <p>Valuable attention starts beyond the obvious placements, so we’ll never put you on oversaturated Meta Ads or other default options.</p>
         </article>
         <article class="gets__item">
           <h3 class="gets__bar"><span>Regulated industries expertise.</span></h3>
-          <p>We get your campaign live without the usual drama, covering category restrictions, age assurance, platform policies, and creative compliance.</p>
+          <p>We get your campaign live without the usual drama, covering category restrictions, age assurance, platform policies, and creative compliance.</p>
         </article>
         <article class="gets__item">
           <h3 class="gets__bar"><span>Total clarity.</span></h3>
-          <p>You always know what's going on, what comes next, and why it matters, so nothing ever feels like a black box.</p>
+          <p>You always know what's going on, what comes next, and why it matters, so nothing ever feels like a black box.</p>
         </article>
         <article class="gets__item">
           <h3 class="gets__bar"><span>Zero guesswork.</span></h3>
