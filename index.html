@@ -33,7 +33,7 @@ window.__touchDither = matchMedia('(hover: none), (pointer: coarse)').matches;
   --t-body: clamp(15px, 1.05vw, 18px);
   --t-row: clamp(20px, 1.9vw, 34px);
   --t-lead: clamp(28px, 3.4vw, 60px);
-  --t-sans-h: clamp(28px, 3.85vw, 78px);   /* shared size for the two sans-serif section headings */
+  --t-sans-h: clamp(30px, 4.5vw, 92px);    /* one size for every sans-serif heading */
   --t-h1: clamp(42px, 6.6vw, 126px);   /* all section headings use the first-screen size */
   --t-h2: var(--t-h1);
   --t-h3: clamp(34px, 4.8vw, 90px);   /* service names, one step below */
@@ -288,12 +288,13 @@ html.drawer-open { overflow: hidden; }
   padding-top: var(--s5);
   padding-bottom: var(--s5);
 }
-.intro__statement {
+/* shared sans heading style: intro, challenges, answer panel, services, footer */
+.intro__statement, .pain__title, .pain__answer-text, .pain__audit, .services__title, .footer__title {
   font-family: var(--text);
   font-weight: 600;
-  font-size: clamp(25px, 3.37vw, 68px); /* ~12% smaller than the shared sans heading size */
-  line-height: 1.12;
-  letter-spacing: -0.025em;
+  font-size: var(--t-sans-h);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
 }
 .intro__line { display: block; max-width: 30ch; text-wrap: balance; }
 .intro__for {
@@ -316,7 +317,6 @@ html.drawer-open { overflow: hidden; }
 /* ============ Challenges ============ */
 .pain { padding-top: var(--s5); padding-bottom: 0; background: #f0ede5; color: #15209f; --pain-line: rgba(21, 32, 159, 0.3); }
 /* two-sentence heading: one style, one size */
-.pain__title { font-family: var(--text); font-weight: 500; font-size: var(--t-sans-h); line-height: 1.08; letter-spacing: -0.03em; }
 .pain__title span { display: block; max-width: 24ch; text-wrap: balance; }
 .pain__title span + span { margin-top: 0.35em; }
 /* problem cards: thin inset dividers, one cream fill that travels to the hovered card */
@@ -359,10 +359,7 @@ html.drawer-open { overflow: hidden; }
   background: var(--blue);
   color: var(--cream);
 }
-.pain__answer-text, .pain__audit {
-  /* same type as the 'Strategy, Creative…' heading */
-  font-family: var(--text); font-weight: 600; font-size: clamp(25px, 3.37vw, 68px); line-height: 1.12; letter-spacing: -0.025em; text-wrap: balance;
-}
+.pain__answer-text, .pain__audit { text-wrap: balance; }
 .pain__cta { display: grid; gap: var(--s4); }
 .pain__cta .btn { justify-self: start; min-width: min(100%, 420px); }
 .pain__answer .btn { background: var(--cream); color: var(--blue); }
@@ -388,7 +385,7 @@ html.drawer-open { overflow: hidden; }
 /* ============ Services ============ */
 .services { background: #f0ede5; color: #15209f; padding-top: var(--s5); padding-bottom: calc(var(--s5) / 2); }
 /* same type as the 'Strategy, Creative…' and 'We're ready…' headings */
-.services__title { font-family: var(--text); font-weight: 600; font-size: clamp(25px, 3.37vw, 68px); line-height: 1.12; letter-spacing: -0.025em; padding-bottom: var(--s4); }
+.services__title { padding-bottom: var(--s4); }
 .service {
   display: grid;
   min-height: 67vh;
@@ -542,7 +539,6 @@ html.drawer-open { overflow: hidden; }
 .footer__main { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr; column-gap: var(--s2); row-gap: var(--s3); padding-top: var(--s4); }
 .footer__cta { grid-column: 1 / -1; }
 .footer__cta { display: flex; flex-direction: column; align-items: flex-start; }
-.footer__title { font-family: var(--text); font-weight: 600; font-size: clamp(30px, 4.5vw, 92px); line-height: 1.05; letter-spacing: -0.035em; }
 .footer__title span { display: block; text-wrap: balance; }
 .footer__btn { margin-top: var(--s4); min-width: min(100%, clamp(300px, 34vw, 640px)); min-height: clamp(64px, 6vw, 112px); padding: 0 var(--s3); font-size: clamp(15px, 1.45vw, 26px); }
 /* the brothers stand on the bottom edge; legal + privacy sit in a column opposite them */
