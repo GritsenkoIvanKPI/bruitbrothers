@@ -430,7 +430,9 @@ html.drawer-open { overflow: hidden; }
 .gets { background: #15209f; color: #f0ede5; padding-top: var(--s5); }
 .gets__title { font-size: clamp(49px, 14vw, 76px); line-height: 0.9; }
 /* one display size for the big serif headings: first screen, service names, 'What you always get' */
-@media (min-width: 900px) { .hero__title, .service__title, .gets__title { font-size: min(8.5vw, 168px); } }
+@media (min-width: 900px) { .hero__title, .service__title, .gets__title { font-size: min(8vw, 158px); } }
+/* service names stay on one line where the wide layout has room */
+@media (min-width: 1181px) { .service__title { white-space: nowrap; } }
 .gets__list { display: grid; gap: var(--s4); margin-top: var(--s4); margin-right: calc(-1 * var(--g)); padding-bottom: var(--s5); }
 .gets__bar {
   position: relative;
