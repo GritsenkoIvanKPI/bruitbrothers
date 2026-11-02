@@ -246,6 +246,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 /* functional elements in IBM Plex Mono */
 .btn, .header__menu, .drawer__nav a, .drawer__close, .drawer__row > a.link, .footer__info { font-family: var(--mono); font-weight: 400; }
 .btn, .header__menu, .drawer__close { letter-spacing: 0.02em; }
+/* buttons a touch heavier: the kit only has Plex Mono 300/400, so thicken 400 with a hairline stroke (swap for font-weight: 500 once Medium is added to the kit) */
+.btn { -webkit-text-stroke: 0.4px currentColor; }
 .drawer__nav a { letter-spacing: -0.04em; }
 html.drawer-open { overflow: hidden; }
 @media (min-width: 600px) { .drawer__row { grid-template-columns: 1fr 1fr; align-items: baseline; } }
