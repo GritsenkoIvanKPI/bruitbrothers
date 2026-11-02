@@ -411,6 +411,21 @@ html.drawer-open { overflow: hidden; }
 .pain__answer .btn { background: var(--cream); color: var(--blue); }
 .pain__answer .btn::before { background: var(--blue); }
 
+/* TEMP answer-panel options, chosen with ?answer=a|b|c (default = current). Remove the unused ones once picked. */
+/* A: same type system as the left headings; text left, audit + button right (mirrors the grid above) */
+.pain[data-answer="a"] .pain__answer { margin-top: var(--s3); }
+.pain[data-answer="a"] .pain__answer-text { font-size: var(--t-lead); font-weight: var(--w-lead); }
+.pain[data-answer="a"] .pain__audit { font-size: clamp(18px, 1.5vw, 28px); font-weight: 400; line-height: 1.35; letter-spacing: 0; }
+/* B: the closing card under the five problems, in the right column */
+.pain[data-answer="b"] .pain__answer { margin-top: 0; }
+.pain[data-answer="b"] .pain__answer-text { font-size: clamp(22px, 2vw, 38px); font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; }
+.pain[data-answer="b"] .pain__audit { font-size: clamp(16px, 1.25vw, 22px); font-weight: 400; line-height: 1.4; letter-spacing: 0; }
+.pain[data-answer="b"] .pain__cta .btn { justify-self: stretch; min-width: 0; }
+/* C: compact full-width band; promise as large body text, audit + button on the right */
+.pain[data-answer="c"] .pain__answer { margin-top: var(--s3); }
+.pain[data-answer="c"] .pain__answer-text { font-size: clamp(20px, 1.75vw, 32px); font-weight: 400; line-height: 1.35; letter-spacing: -0.005em; }
+.pain[data-answer="c"] .pain__audit { font-family: var(--mono); font-size: clamp(13px, 0.95vw, 16px); font-weight: 400; line-height: 1.5; letter-spacing: 0.02em; text-transform: uppercase; }
+
 /* ============ Trusted by ============ */
 .trust { background: var(--blue); color: var(--cream); padding: var(--s4) 0; }
 .trust__grid { display: grid; grid-template-columns: repeat(3, 1fr); }
@@ -709,6 +724,12 @@ html.drawer-open { overflow: hidden; }
   .trust__grid { grid-template-columns: repeat(4, 1fr); }
   .trust__head { grid-column: auto; padding: 0 var(--g); }
   .pain__answer { padding: var(--s5) var(--g); gap: var(--s2); }
+  .pain[data-answer="a"] .pain__answer { grid-template-columns: 1fr 1fr; align-items: end; column-gap: var(--s3); padding: var(--s4) var(--g); }
+  .pain[data-answer="a"] .pain__answer-text { padding-right: var(--s3); }
+  .pain[data-answer="b"] .pain__answer { margin-left: 50%; margin-right: calc(-1 * var(--g)); padding: var(--s3) var(--g) var(--g); gap: var(--s3); }
+  .pain[data-answer="c"] .pain__answer { grid-template-columns: 1fr 1fr; align-items: center; column-gap: var(--s3); padding: var(--s3) var(--g); }
+  .pain[data-answer="c"] .pain__answer-text { max-width: 30ch; }
+  .pain[data-answer="c"] .pain__cta { gap: var(--s2); }
 }
 @media (min-width: 900px) {
   /* heading on the left, problem cards in a 2-column grid on the right (per reference) */
@@ -1254,6 +1275,8 @@ html.drawer-open { overflow: hidden; }
 })();
 </script>
 <script>
+/* TEMP: answer-panel option from ?answer=a|b|c */
+(() => { const v = new URLSearchParams(location.search).get('answer'); if (/^[abc]$/.test(v || '')) document.querySelector('.pain')?.setAttribute('data-answer', v); })();
 /* Decrypted-text hover for [data-decrypt]: sequential reveal from the start, fixed glyph widths. */
 (() => {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
