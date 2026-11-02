@@ -1209,7 +1209,7 @@ html.drawer-open { overflow: hidden; }
 (() => {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+';
-  const SPEED = 30;
+  const SPEED = 45;
   document.querySelectorAll('[data-decrypt]').forEach(el => {
     const text = el.textContent.trim();
     el.setAttribute('aria-label', text);
