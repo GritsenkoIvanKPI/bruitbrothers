@@ -19,6 +19,7 @@ window.__touchDither = matchMedia('(hover: none), (pointer: coarse)').matches;
   --cream: #f0ede5;
   --display: "meno-display-condensed", Georgia, serif;
   --text: "host-grotesk", "Helvetica Neue", Arial, sans-serif;
+  --mono: "ibm-plex-mono", "SFMono-Regular", Menlo, monospace; /* functional elements: menus, buttons, links */
 
   --gb: clamp(16px, 1.25vw, 24px);     /* spacing base (vertical rhythm, unchanged) */
   --g: clamp(20px, 1.54vw, 30px);      /* side gutter (+10%) */
@@ -239,6 +240,10 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .drawer__row { display: grid; gap: var(--s1); }
 .drawer__row > a.link { justify-self: start; font-size: clamp(17px, 1.4vw, 22px); }
 .drawer__row .btn { justify-self: start; min-height: 52px; }
+/* functional elements in IBM Plex Mono */
+.btn, .header__menu, .drawer__nav a, .drawer__close, .drawer__row > a.link, .footer__info { font-family: var(--mono); font-weight: 400; }
+.btn, .header__menu, .drawer__close { letter-spacing: 0.02em; }
+.drawer__nav a { letter-spacing: -0.04em; }
 html.drawer-open { overflow: hidden; }
 @media (min-width: 600px) { .drawer__row { grid-template-columns: 1fr 1fr; align-items: baseline; } }
 @media (prefers-reduced-motion: reduce) { .drawer__panel, .drawer__veil { transition: none; } }
