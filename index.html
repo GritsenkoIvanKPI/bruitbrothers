@@ -752,6 +752,7 @@ html.drawer-open { overflow: hidden; }
   .service__body { display: contents; }
   .service__body > div:first-child { grid-column: 2; grid-row: 1; padding: var(--g) var(--s2) 0; }
   .service__cols { grid-column: 2; grid-row: 2; padding: 0 var(--s2) var(--g); }
+  .service__list-title { margin-right: calc(-1 * (var(--g) + var(--s2))); } /* bar runs flush to the screen edge */
   .service__media { grid-column: 1; grid-row: 2; margin: 0 var(--s2) var(--g) 0; height: auto; max-height: none; aspect-ratio: 4 / 3; align-self: start; }
   .service__media img { position: absolute; inset: 0; }
   .service__cols { grid-template-columns: 3fr 2fr; gap: var(--s4); align-items: start; }
