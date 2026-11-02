@@ -417,14 +417,14 @@ html.drawer-open { overflow: hidden; }
 
 /* answer panel: promise left, audit + button right; both texts in one style, a step under the big statements */
 .pain__answer { margin-top: var(--s3); }
-.pain__answer-text, .pain__audit { font-size: clamp(22px, 2.2vw, 42px); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; }
+.pain__answer-text, .pain__audit { font-size: clamp(20px, 1.8vw, 34px); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; }
 .pain__answer .btn--block { width: auto; }
 .pain__answer-main { display: grid; gap: var(--s3); align-content: start; }
 /* the brothers (same art as the footer), in cream, standing on the panel's bottom edge */
 .pain__mark {
   justify-self: end;
   align-self: end;
-  width: 44vw;
+  width: 58vw;
   aspect-ratio: 870 / 734;
   margin-bottom: calc(-1 * var(--s4));
   background: var(--cream);
@@ -734,7 +734,7 @@ html.drawer-open { overflow: hidden; }
   .trust__head { grid-column: auto; padding: 0 var(--g); }
   .pain__answer { grid-template-columns: 1fr 1fr; column-gap: var(--s3); padding: var(--s4) var(--g); }
   .pain__answer-main { padding-right: var(--s3); }
-  .pain__mark { justify-self: center; width: min(30vw, 46vh, 480px); }
+  .pain__mark { justify-self: center; width: min(38vw, 60vh, 620px); }
 }
 @media (min-width: 900px) {
   /* heading on the left, problem cards in a 2-column grid on the right (per reference) */
