@@ -341,7 +341,7 @@ html.drawer-open { overflow: hidden; }
   letter-spacing: -0.03em;
 }
 /* big left-hand statements (intro, challenges, 'Five solutions'): one system, set by --t-lead / --w-lead */
-.intro__statement, .pain__title, .services__title { font-weight: var(--w-lead); font-size: var(--t-lead); }
+.intro__statement, .pain__title, .services__title, .footer__title { font-weight: var(--w-lead); font-size: var(--t-lead); }
 .intro__line { display: block; max-width: 30ch; text-wrap: balance; }
 .intro__for {
   display: block;
@@ -607,12 +607,12 @@ html.drawer-open { overflow: hidden; }
 .footer__cta { grid-column: 1 / -1; }
 .footer__cta { display: flex; flex-direction: column; align-items: flex-start; }
 .footer__title span { display: block; text-wrap: balance; }
-.footer__btn { margin-top: var(--s4); min-width: min(100%, clamp(300px, 34vw, 640px)); min-height: clamp(64px, 6vw, 112px); padding: 0 var(--s3); font-size: clamp(15px, 1.45vw, 26px); }
+.footer__btn { margin-top: var(--s4); min-width: min(100%, 420px); min-height: clamp(56px, 4.4vw, 76px); } /* same as the answer-panel button */
 /* the brothers stand on the bottom edge; legal + privacy sit in a column opposite them */
 .footer__mark {
   grid-column: 2;
   align-self: end;
-  width: min(66vw, 340px);
+  width: min(56vw, 290px);
   aspect-ratio: 870 / 734;
   margin-bottom: 0;
   background: var(--blue);
@@ -635,9 +635,10 @@ html.drawer-open { overflow: hidden; }
   .footer__sep { display: none; }
   .footer__rights { display: block; }
   .footer__legal { white-space: nowrap; }
-  .footer__mark { width: 56vw; }
+  .footer__mark { width: 44vw; }
+  .footer__info { font-size: 12px; }
 }
-@media (max-width: 379px) { .footer__info { font-size: 12px; } }
+@media (max-width: 379px) { .footer__info { font-size: 11px; } .footer__legal { white-space: normal; } }
 @media (min-width: 900px) {
   /* heading across the top; button + legal on the left, brothers beside them on the right */
   .footer__main { padding-top: var(--s4); grid-template-rows: auto auto 1fr; }
@@ -648,7 +649,7 @@ html.drawer-open { overflow: hidden; }
   .footer__mark { grid-row: 2 / 4; }
   .footer__cta { align-self: start; grid-column: 1 / -1; }
   .footer__mark { grid-column: 2; }
-  .footer__mark { width: min(43vw, 64vh, 680px); margin-right: var(--s3); }
+  .footer__mark { width: min(36.5vw, 54vh, 578px); margin-right: var(--s3); } /* -15% */
 }
 
 /* TEMP: Campaign visual variant switcher (only with ?campaign=…) */
