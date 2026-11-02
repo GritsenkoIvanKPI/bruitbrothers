@@ -35,6 +35,8 @@ window.__touchDither = matchMedia('(hover: none), (pointer: coarse)').matches;
   --t-row: clamp(20px, 1.9vw, 34px);
   --t-lead: clamp(28px, 3.4vw, 60px);
   --t-sans-h: clamp(28px, 3.9vw, 80px);     /* one size for every sans-serif heading */
+  --t-lead: clamp(24px, 3.3vw, 68px);       /* big left-hand statements on screens 2 and 3 */
+  --w-lead: 500;
   --t-h1: clamp(42px, 6.6vw, 126px);   /* all section headings use the first-screen size */
   --t-h2: var(--t-h1);
   --t-h3: clamp(34px, 4.8vw, 90px);   /* service names, one step below */
@@ -336,8 +338,8 @@ html.drawer-open { overflow: hidden; }
   line-height: 1.08;
   letter-spacing: -0.03em;
 }
-/* intro statement: one step lighter (Medium) and one step smaller than the shared heading */
-.intro__statement { font-weight: 500; font-size: clamp(24px, 3.3vw, 68px); }
+/* big left-hand statements (screen 2 intro, screen 3 challenges): one system, set by --t-lead / --w-lead */
+.intro__statement, .pain__title { font-weight: var(--w-lead); font-size: var(--t-lead); }
 .intro__line { display: block; max-width: 30ch; text-wrap: balance; }
 .intro__for {
   display: block;
