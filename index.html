@@ -693,11 +693,14 @@ html.drawer-open { overflow: hidden; }
   .header__burger { width: 60px; height: 60px; }
 
 
-  .intro__copy { margin-left: 50%; }
+  .intro__copy { margin-left: 50%; margin-left: calc(var(--line-x, 55%) - 6vw); } /* the line crosses the copy near its start */
   .intro__line { max-width: none; }
   .intro { display: flex; flex-direction: column; gap: 0; min-height: calc(100vh - var(--header)); min-height: calc(100svh - var(--header)); padding-bottom: var(--s5); }
   /* a thin rule on the centre grid line, running from the heading down to the description */
-  .intro__rule { display: block; flex: 1; min-height: var(--s4); margin: var(--s3) 0 var(--s3) 50%; border-left: 1px solid rgba(240, 237, 229, 0.5); }
+  /* spacer between heading and copy (the line itself is drawn on the section) */
+  .intro__rule { display: block; flex: 1; min-height: var(--s4); }
+  /* one cream line cuts the whole screen top to bottom, through 'Tobacco' (x set by script) */
+  .intro::before { content: ""; position: absolute; top: 0; bottom: 0; left: var(--line-x, 55%); width: 1px; background: var(--blue); z-index: 1; pointer-events: none; }
 
   .trust__grid { grid-template-columns: repeat(4, 1fr); }
   .trust__head { grid-column: auto; padding: 0 var(--g); }
@@ -831,7 +834,7 @@ html.drawer-open { overflow: hidden; }
     <h2 class="intro__statement" id="intro-title" data-reveal>
       <span class="intro__line">Strategy, Creative, and Digital Advertising</span>
       <span class="intro__for">for</span>
-      <span class="intro__line">Food &amp; Beverages, Alcohol, Tobacco, and OTC Medicines</span>
+      <span class="intro__line">Food &amp; Beverages, Alcohol, <span class="intro__mark">Tobacco</span>, and OTC Medicines</span>
     </h2>
     <span class="intro__rule" aria-hidden="true"></span>
     <div class="intro__bottom">
@@ -1247,6 +1250,13 @@ html.drawer-open { overflow: hidden; }
 })();
 </script>
 <script>
+/* Intro line: keep it through the middle of 'Tobacco' at every width */
+(() => {
+  const intro = document.querySelector('.intro'), mark = intro && intro.querySelector('.intro__mark');
+  if (!mark) return;
+  const place = () => { const a = intro.getBoundingClientRect(), m = mark.getBoundingClientRect(); intro.style.setProperty('--line-x', Math.round(m.left - a.left + m.width / 2) + 'px'); };
+  place(); document.fonts?.ready.then(place); addEventListener('resize', place);
+})();
 /* Decrypted-text hover for [data-decrypt]: sequential reveal from the start, fixed glyph widths. */
 (() => {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
