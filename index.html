@@ -253,6 +253,37 @@ html.drawer-open { overflow: hidden; }
   .header .header__burger { display: inline-flex !important; }
 }
 
+/* Desktop header <-> burger switch on scroll.
+   Down: links fade out one by one, left to right; then the burger's lines draw in from the left.
+   Up: the lines slide away to the right; then the links fade back in, left to right. */
+@media (min-width: 1200px) and (pointer: fine) {
+  .header__menu li { --i: 0; transition: opacity 0.35s var(--ease), transform 0.45s var(--ease); transition-delay: calc(0.22s + var(--i) * 0.07s); }
+  .header__menu li:nth-child(2) { --i: 1; }
+  .header__menu li:nth-child(3) { --i: 2; }
+  .header__menu li:nth-child(4) { --i: 3; }
+  .header__menu { transition: visibility 0s; }
+  .header.is-scrolled .header__menu { visibility: hidden; pointer-events: none; transition: visibility 0s linear 0.6s; }
+  .header.is-scrolled .header__menu li { opacity: 0; transform: translateX(10px); transition-delay: calc(var(--i) * 0.07s); }
+
+  .header__burger { opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity 0.3s var(--ease) 0.2s, visibility 0s linear 0.5s, transform 0.35s var(--ease); }
+  .header__burger span { transform: scaleX(0); transform-origin: right; transition: transform 0.3s var(--ease); }
+  .header__burger span:nth-child(2) { transition-delay: 0.04s; }
+  .header__burger span:nth-child(3) { transition-delay: 0.08s; }
+  .header.is-scrolled .header__burger { opacity: 1; visibility: visible; pointer-events: auto;
+    transition: opacity 0.25s var(--ease) 0.2s, visibility 0s, transform 0.35s var(--ease); }
+  .header.is-scrolled .header__burger span { transform: scaleX(1); transform-origin: left; transition: transform 0.45s var(--ease) 0.3s; }
+  .header.is-scrolled .header__burger span:nth-child(2) { transition-delay: 0.37s; }
+  .header.is-scrolled .header__burger span:nth-child(3) { transition-delay: 0.44s; }
+  /* once drawn, hover nudges the lines without the entrance delay */
+  .header.is-scrolled .header__burger:hover span { transition-delay: 0s; }
+  .header.is-scrolled .header__burger:hover span:nth-child(1) { transform: translateX(-3px); }
+  .header.is-scrolled .header__burger:hover span:nth-child(3) { transform: translateX(3px); }
+}
+@media (min-width: 1200px) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  .header__menu li, .header__burger, .header__burger span { transition-duration: 0.01s !important; transition-delay: 0s !important; }
+}
+
 /* ============ Hero ============ */
 .hero {
   position: relative;
@@ -651,10 +682,7 @@ html.drawer-open { overflow: hidden; }
   }
   .header__menu ul { display: flex; align-items: center; column-gap: var(--s3); white-space: nowrap; } /* all four links on one line */
   .header__menu a { display: inline-flex; align-items: center; min-height: 22px; }
-  .header__menu { transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); }
-  .header__burger { width: 60px; height: 60px; display: none; }
-  .header.is-scrolled .header__burger { display: inline-flex; }
-  .header.is-scrolled .header__menu { opacity: 0; transform: translateY(-10px); pointer-events: none; visibility: hidden; }
+  .header__burger { width: 60px; height: 60px; }
 
 
   .intro__copy { margin-left: 50%; }
