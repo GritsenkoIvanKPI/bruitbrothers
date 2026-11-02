@@ -734,6 +734,7 @@ html.drawer-open { overflow: hidden; }
   .trust__head { grid-column: auto; padding: 0 var(--g); }
   .pain__answer { grid-template-columns: 1fr 1fr; column-gap: var(--s3); padding: var(--s4) var(--g); }
   .pain__answer-main { padding-right: var(--s3); }
+  .pain__answer-text span { display: block; white-space: nowrap; } /* two lines on desktop */
   .pain__mark { justify-self: center; width: min(38vw, 60vh, 620px); }
 }
 @media (min-width: 900px) {
@@ -899,7 +900,7 @@ html.drawer-open { overflow: hidden; }
     </div>
     <div class="pain__answer" data-reveal>
       <div class="pain__answer-main">
-      <p class="pain__answer-text">We’re ready to identify what's holding your brand back and deliver what's missing to make it people's first choice.</p>
+      <p class="pain__answer-text"><span>We’re ready to identify what's holding your brand back</span> <span>and deliver what's missing to make it people's first choice.</span></p>
       <div class="pain__cta">
         <p class="pain__audit">Get a 30-min expert audit to reveal what's wrong and what to do next.</p>
         <a class="btn btn--block" href="#audit"><span class="btn__roll" data-text="Book a free brand audit"><span>Book a free brand audit</span></span></a>
