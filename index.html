@@ -37,6 +37,8 @@ window.__touchDither = matchMedia('(hover: none), (pointer: coarse)').matches;
   --t-sans-h: clamp(28px, 3.9vw, 80px);     /* one size for every sans-serif heading */
   --t-lead: clamp(24px, 3.3vw, 68px);       /* big left-hand statements on screens 2 and 3 */
   --w-lead: 500;
+  --t-bar: clamp(18px, 1.5vw, 28px);        /* label bars ('Includes:', 'What you always get') + service description */
+  --t-bar-sub: clamp(16px, 1.25vw, 23px);   /* one step smaller: list items, bar descriptions */
   --t-h1: clamp(42px, 6.6vw, 126px);   /* all section headings use the first-screen size */
   --t-h2: var(--t-h1);
   --t-h3: clamp(34px, 4.8vw, 90px);   /* service names, one step below */
@@ -471,7 +473,7 @@ html.drawer-open { overflow: hidden; }
 .service__title { font-size: clamp(49px, 14vw, 76px); line-height: 0.95; margin-top: var(--s1); text-wrap: balance; }
 .service__cols { display: grid; gap: var(--s3); }
 /* service type: description and 'Includes:' share size + weight (Light, as on screens 1 and 3); list items one step smaller */
-.service__text { font-size: clamp(18px, 1.5vw, 28px); font-weight: 300; line-height: 1.25; }
+.service__text { font-size: var(--t-bar); font-weight: 300; line-height: 1.25; }
 .service__text p + p { margin-top: 1em; }
 .service__num { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2vw, 36px); line-height: 1; letter-spacing: -0.02em; opacity: 0.6; }
 /* list label: cream bar running to the right edge, like the 'What you always get' titles */
@@ -480,13 +482,13 @@ html.drawer-open { overflow: hidden; }
   padding: 0.3em var(--g) 0.3em 0.6em;
   background: var(--blue);
   color: var(--cream);
-  font-size: clamp(18px, 1.5vw, 28px);
+  font-size: var(--t-bar);
   font-weight: 300;
   line-height: 1.25;
   letter-spacing: 0;
 }
 .service__list { padding-left: 1.4em; }
-.service__list li { padding: 0.1em 0; line-height: 1.25; font-size: clamp(16px, 1.25vw, 23px); font-weight: 300; }
+.service__list li { padding: 0.1em 0; line-height: 1.25; font-size: var(--t-bar-sub); font-weight: 300; }
 
 /* ============ What you always get ============ */
 /* What you always get: cream section, blue title bars sweep in from the right edge */
@@ -501,18 +503,19 @@ html.drawer-open { overflow: hidden; }
   position: relative;
   isolation: isolate;
   margin: 0;
-  padding: 0.3em var(--g) 0.3em var(--s2); /* same thin bar as the 'Includes:' label */
+  padding: 0.3em var(--g) 0.3em 0.6em; /* identical to the 'Includes:' bar: size, weight, height, inner padding */
   font-family: var(--text);
-  font-size: clamp(20px, 2vw, 38px);
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-size: var(--t-bar);
+  font-weight: 300;
+  line-height: 1.25;
+  letter-spacing: 0;
   color: #15209f;
   overflow: hidden;
 }
 .gets__bar::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #f0ede5; transform-origin: right; }
 .gets__bar span { display: block; }
-.gets__item p { margin: var(--s1) var(--g) 0 var(--s2); max-width: 52ch; font-size: clamp(16px, 1.35vw, 24px); line-height: 1.4; }
+/* description: one step smaller, starts in line with the bar text (like the list under 'Includes:') */
+.gets__item p { margin: var(--s1) var(--g) 0 calc(var(--t-bar) * 0.6); max-width: 52ch; font-size: var(--t-bar-sub); font-weight: 300; line-height: 1.3; }
 .gets__item { --i: 0; }
 .gets__item:nth-child(2) { --i: 1; }
 .gets__item:nth-child(3) { --i: 2; }
