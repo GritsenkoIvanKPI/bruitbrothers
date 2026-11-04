@@ -262,7 +262,7 @@ html.drawer-open { overflow: hidden; }
 /* Desktop header <-> burger switch on scroll.
    Down: links fade out one by one, left to right; then the burger's lines draw in from the left.
    Up: the lines slide away to the right; then the links fade back in, left to right. */
-@media (min-width: 1200px) and (pointer: fine) {
+@media (min-width: 1280px) and (pointer: fine) {
   .header__menu li { --i: 0; transition: opacity 0.35s var(--ease), transform 0.45s var(--ease); transition-delay: calc(0.22s + var(--i) * 0.07s); }
   .header__menu li:nth-child(2) { --i: 1; }
   .header__menu li:nth-child(3) { --i: 2; }
@@ -286,12 +286,12 @@ html.drawer-open { overflow: hidden; }
   .header.is-scrolled .header__burger:hover span:nth-child(1) { transform: translateX(-3px); }
   .header.is-scrolled .header__burger:hover span:nth-child(3) { transform: translateX(3px); }
 }
-@media (min-width: 1200px) and (pointer: fine) {
+@media (min-width: 1280px) and (pointer: fine) {
   /* letter animation handles the links (see script); keep them in place and hide the panel once it ends */
   .header.dc-anim .header__menu li, .header.dc-anim.is-scrolled .header__menu li { opacity: 1; transform: none; transition: none; }
   .header.dc-anim.is-scrolled .header__menu { transition: visibility 0s linear 0.95s; }
 }
-@media (min-width: 1200px) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+@media (min-width: 1280px) and (pointer: fine) and (prefers-reduced-motion: reduce) {
   .header__menu li, .header__burger, .header__burger span { transition-duration: 0.01s !important; transition-delay: 0s !important; }
 }
 
@@ -696,12 +696,12 @@ html.drawer-open { overflow: hidden; }
   :root { --header: 72px; --g: clamp(24px, 1.85vw, 36px); } /* desktop gutter +20% */
   .header__logo, .header .header__cta { height: 60px; }
 }
-@media (min-width: 900px) and (max-width: 1199px) { /* one-line menu needs ~1200px; use the burger below that */
+@media (min-width: 900px) and (max-width: 1279px) { /* one-line menu needs ~1280px; use the burger below that */
   .header__menu { display: none !important; }
   .header__burger { display: inline-flex !important; }
 }
-@media (min-width: 1200px) and (max-width: 1279px) {
-  .header .header__menu ul { gap: var(--s2); }
+@media (min-width: 1280px) and (max-width: 1439px) { .header .header__menu ul { gap: var(--s2); } }
+@media (min-width: 1280px) and (max-width: 1359px) {
   .header .header__cta { padding: 0 var(--s1); }
 }
 @media (min-width: 900px) {
@@ -719,6 +719,7 @@ html.drawer-open { overflow: hidden; }
   }
   .header__menu ul { display: flex; align-items: center; column-gap: var(--s3); white-space: nowrap; } /* all four links on one line */
   .header__menu a { display: inline-flex; align-items: center; min-height: 22px; }
+  .header__menu { font-size: clamp(15px, 1.05vw, 17px); } /* menu links one step above the small labels */
   .header__burger { width: 60px; height: 60px; }
 
 
@@ -1339,7 +1340,7 @@ html.drawer-open { overflow: hidden; }
   const header = document.querySelector('.header');
   const links = header ? [...header.querySelectorAll('.header__menu [data-decrypt]')] : [];
   if (!links.length || !links[0].__dc) return;
-  const desk = matchMedia('(min-width: 1200px) and (pointer: fine)');
+  const desk = matchMedia('(min-width: 1280px) and (pointer: fine)');
   header.classList.add('dc-anim');
   const STAGGER = 90, LAG = 3;
   const reset = d => { clearInterval(d.anim); clearTimeout(d.wait); d.busy = false; d.cells.forEach(i => i.cell.classList.remove('is-scrambled', 'is-gone')); };
