@@ -715,12 +715,12 @@ html.drawer-open { overflow: hidden; }
 
   .intro__copy { margin-left: 50%; }
   .intro__line { max-width: none; }
-  .intro { display: flex; flex-direction: column; gap: 0; min-height: calc(100vh - var(--header)); min-height: calc(100svh - var(--header)); padding-bottom: 0; }
+  .intro { display: flex; flex-direction: column; gap: 0; min-height: calc(77.5vh - var(--header)); min-height: calc(77.5svh - var(--header)); padding-bottom: 0; } /* copy 15% of the screen higher; rules keep 2:1 */
   /* a thin rule on the centre grid line, running from the heading down to the description */
   .intro__rule { display: block; flex: 2; min-height: var(--s4); margin: var(--s3) 0 var(--s3) 50%; border-left: 1px solid var(--blue); } /* solid cream inside .on-blue */
   /* second rule on the same grid line: from under the copy down to the bottom edge.
      Free height is shared 2:1, so the copy sits a little above the bottom and the top rule always stays the longer one. */
-  .intro__rule--end { flex: 1; min-height: calc(var(--s5) - var(--s3)); margin: var(--s3) 0 0 50%; }
+  .intro__rule--end { flex: 1; min-height: var(--s3); margin: var(--s3) 0 0 50%; } /* min is half the top rule min: 2:1 holds on short screens too */
 
   .trust__grid { grid-template-columns: repeat(4, 1fr); }
   .trust__head { grid-column: auto; padding: 0 var(--g); }
