@@ -39,6 +39,7 @@ window.__touchDither = matchMedia('(hover: none), (pointer: coarse)').matches;
   --w-lead: 500;
   --t-bar: clamp(16px, 1.25vw, 23px);       /* service description + label bars ('Includes:', 'What you always get') */
   --t-bar-sub: clamp(14px, 1.05vw, 19px);   /* one step smaller: list items, bar descriptions */
+  --lh-text: 1.2;                           /* one line spacing for all running text and lists */
   --t-h1: clamp(42px, 6.6vw, 126px);   /* all section headings use the first-screen size */
   --t-h2: var(--t-h1);
   --t-h3: clamp(34px, 4.8vw, 90px);   /* service names, one step below */
@@ -242,7 +243,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 /* one rule under the links, then the contact details (Plex only on the 'Stay in touch' label) */
 .drawer__info { display: grid; gap: var(--s2); padding-top: var(--s3); border-top: 1px solid #15209f; }
 .drawer__label { font-family: var(--mono); font-weight: 400; }
-.drawer__contacts { display: grid; justify-items: start; gap: var(--s1); font-style: normal; font-size: clamp(17px, 1.4vw, 22px); line-height: 1.35; }
+.drawer__contacts { display: grid; justify-items: start; gap: var(--s1); font-style: normal; font-size: clamp(17px, 1.4vw, 22px); line-height: var(--lh-text); }
 .drawer__contacts > * { display: inline-flex; align-items: center; min-height: 32px; }
 .drawer__contacts a:active { opacity: 0.6; }
 /* functional elements in IBM Plex Mono */
@@ -324,7 +325,7 @@ html.drawer-open { overflow: hidden; }
   margin-top: var(--s3);
   font-size: clamp(16px, 1.35vw, 24px);
   font-weight: 300;
-  line-height: 1.3;
+  line-height: var(--lh-text);
 }
 
 /* ============ Intro ============ */
@@ -361,7 +362,7 @@ html.drawer-open { overflow: hidden; }
 /* video grows from its bottom-left corner as the section scrolls into view (uniform scale: no distortion) */
 .intro { position: relative; overflow: hidden; }
 .intro > *:not(.intro__bottom), .intro__copy { position: relative; z-index: 2; }
-.intro__copy { display: grid; gap: 1.3em; max-width: 44ch; font-size: clamp(18px, 1.5vw, 28px); line-height: 1.4; }
+.intro__copy { display: grid; gap: 1.3em; max-width: 44ch; font-size: clamp(18px, 1.5vw, 28px); line-height: var(--lh-text); }
 
 /* ============ Challenges ============ */
 .pain { padding-top: var(--s5); padding-bottom: 0; background: #f0ede5; color: #15209f; --pain-line: rgba(21, 32, 159, 0.3); }
@@ -379,7 +380,7 @@ html.drawer-open { overflow: hidden; }
   padding: var(--s2);
   font-size: clamp(18px, 1.35vw, 24px);
   font-weight: 300;
-  line-height: 1.3;
+  line-height: var(--lh-text);
   text-wrap: balance;
   outline: none;
   transition: color 0.3s var(--ease) 0.2s; /* swap colour as the fill arrives */
@@ -468,8 +469,8 @@ html.drawer-open { overflow: hidden; }
 .service__title { font-size: clamp(49px, 14vw, 76px); line-height: 0.95; margin-top: var(--s1); text-wrap: balance; }
 .service__cols { display: grid; gap: var(--s3); }
 /* service type: description and 'Includes:' share size + weight (Light, as on screens 1 and 3); list items one step smaller */
-.service__text { font-size: var(--t-bar); font-weight: 300; line-height: 1.35; }
-.service__text p + p { margin-top: 1em; }
+.service__text { font-size: var(--t-bar); font-weight: 300; line-height: var(--lh-text); }
+.service__text p + p { margin-top: 0.8em; }
 .service__num { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2vw, 36px); line-height: 1; letter-spacing: -0.02em; opacity: 0.6; }
 /* list label: cream bar running to the right edge, like the 'What you always get' titles */
 .service__list-title {
@@ -479,11 +480,11 @@ html.drawer-open { overflow: hidden; }
   color: var(--cream);
   font-size: var(--t-bar);
   font-weight: 300;
-  line-height: 1.25;
+  line-height: var(--lh-text);
   letter-spacing: 0;
 }
 .service__list { padding-left: 1.4em; }
-.service__list li { padding: 0.1em 0; line-height: 1.25; font-size: var(--t-bar-sub); font-weight: 300; }
+.service__list li { padding: 0; line-height: var(--lh-text); font-size: var(--t-bar-sub); font-weight: 300; }
 
 /* ============ What you always get ============ */
 /* What you always get: cream section, blue title bars sweep in from the right edge */
@@ -502,7 +503,7 @@ html.drawer-open { overflow: hidden; }
   font-family: var(--text);
   font-size: var(--t-bar);
   font-weight: 300;
-  line-height: 1.25;
+  line-height: var(--lh-text);
   letter-spacing: 0;
   color: #15209f;
   overflow: hidden;
@@ -510,7 +511,7 @@ html.drawer-open { overflow: hidden; }
 .gets__bar::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #f0ede5; transform-origin: right; }
 .gets__bar span { display: block; }
 /* description: one step smaller, starts in line with the bar text (like the list under 'Includes:') */
-.gets__item p { margin: var(--s1) var(--g) 0 calc(var(--t-bar) * 0.6); max-width: 52ch; font-size: var(--t-bar-sub); font-weight: 300; line-height: 1.3; }
+.gets__item p { margin: var(--s1) var(--g) 0 calc(var(--t-bar) * 0.6); max-width: 52ch; font-size: var(--t-bar-sub); font-weight: 300; line-height: var(--lh-text); }
 .gets__item { --i: 0; }
 .gets__item:nth-child(2) { --i: 1; }
 .gets__item:nth-child(3) { --i: 2; }
