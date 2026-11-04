@@ -200,15 +200,15 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 /* hamburger: shown on small screens, and on desktop once the page is scrolled */
 .header__burger {
   display: inline-flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
-  width: 52px; height: 52px; padding: 0; border: 0; cursor: pointer;
-  background: #15209f;
+  width: 52px; height: 52px; padding: 0; border: 1px solid #15209f; cursor: pointer;
+  background: #f0ede5;
   transition: transform 0.35s var(--ease);
 }
-.header__burger span { display: block; width: 20px; height: 2px; background: #f0ede5; transition: transform 0.35s var(--ease); }
+.header__burger span { display: block; width: 20px; height: 2px; background: #15209f; transition: transform 0.35s var(--ease); }
 .header__burger:hover span:nth-child(1) { transform: translateX(-3px); }
 .header__burger:hover span:nth-child(3) { transform: translateX(3px); }
 .header__burger:active { transform: scale(0.95); }
-.header__burger:focus-visible { outline: 2px solid #f0ede5; outline-offset: 3px; }
+.header__burger:focus-visible { outline: 2px solid #15209f; outline-offset: 3px; }
 
 /* drawer: slides in from the right */
 .drawer { position: fixed; inset: 0; z-index: 120; visibility: hidden; transition: visibility 0s linear 0.6s; }
@@ -226,32 +226,32 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 }
 .drawer.is-open .drawer__veil { opacity: 1; }
 .drawer.is-open .drawer__panel { transform: none; }
-.drawer__top { display: flex; justify-content: space-between; align-items: center; min-height: 52px; }
-.drawer__top img { height: 30px; width: auto; }
+.drawer__top { display: flex; justify-content: flex-end; align-items: center; min-height: 52px; }
 .drawer__close { min-height: 44px; padding: 0 var(--s2); border: 1px solid #15209f; background: transparent; color: #15209f; cursor: pointer; transition: background 0.3s var(--ease), color 0.3s var(--ease); }
 .drawer__close:hover { background: #15209f; color: #f0ede5; }
 .drawer__close:focus-visible { outline: 2px solid #15209f; outline-offset: 3px; }
 .drawer__nav { display: grid; margin: var(--s4) 0 var(--s4); }
 .drawer__nav a {
   justify-self: start;
-  font-size: clamp(40px, 5.6vw, 84px); font-weight: 500; line-height: 1.12; letter-spacing: -0.03em;
+  font-size: clamp(28px, 2.8vw, 46px); font-weight: 500; line-height: 1.2; letter-spacing: -0.03em;
   transition: transform 0.45s var(--ease), opacity 0.3s var(--ease);
 }
 .drawer__nav a:hover { transform: translateX(-10px); }
 .drawer__nav a:active { opacity: 0.6; }
 .drawer__nav a:focus-visible { outline: 2px solid #15209f; outline-offset: 4px; }
-.drawer__info { display: grid; gap: var(--s3); margin-top: auto; }
-.drawer__row { display: grid; gap: var(--s1); }
-.drawer__row > a.link { justify-self: start; font-size: clamp(17px, 1.4vw, 22px); }
-.drawer__row .btn { justify-self: start; min-height: 52px; }
+/* one rule under the links, then the contact details (Plex only on the 'Stay in touch' label) */
+.drawer__info { display: grid; gap: var(--s2); padding-top: var(--s3); border-top: 1px solid #15209f; }
+.drawer__label { font-family: var(--mono); font-weight: 400; }
+.drawer__contacts { display: grid; justify-items: start; gap: var(--s1); font-style: normal; font-size: clamp(17px, 1.4vw, 22px); line-height: 1.35; }
+.drawer__contacts > * { display: inline-flex; align-items: center; min-height: 32px; }
+.drawer__contacts a:active { opacity: 0.6; }
 /* functional elements in IBM Plex Mono */
-.btn, .header__menu, .drawer__nav a, .drawer__close, .drawer__row > a.link, .footer__info { font-family: var(--mono); font-weight: 400; }
+.btn, .header__menu, .drawer__close, .footer__info { font-family: var(--mono); font-weight: 400; }
 .btn, .header__menu, .drawer__close { letter-spacing: 0.02em; }
 /* buttons a touch heavier: the kit only has Plex Mono 300/400, so thicken 400 with a hairline stroke (swap for font-weight: 500 once Medium is added to the kit) */
 .btn { -webkit-text-stroke: 0.4px currentColor; }
-.drawer__nav a { letter-spacing: -0.04em; }
 html.drawer-open { overflow: hidden; }
-@media (min-width: 600px) { .drawer__row { grid-template-columns: 1fr 1fr; align-items: baseline; } }
+@media (min-width: 600px) { .drawer__info { grid-template-columns: 1fr 1fr; align-items: baseline; } }
 @media (prefers-reduced-motion: reduce) { .drawer__panel, .drawer__veil { transition: none; } }
 /* touch screens: the compact two-row panel is too small to tap, use the drawer instead */
 @media (pointer: coarse) {
@@ -828,7 +828,6 @@ html.drawer-open { overflow: hidden; }
   <div class="drawer__veil" data-close></div>
   <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
     <div class="drawer__top">
-      <img src="assets/brand/wordmark-blue-sm.png" alt="Bruit Brothers" width="600" height="256">
       <button class="drawer__close label" type="button" data-close>Close</button>
     </div>
     <nav class="drawer__nav" aria-label="Menu">
@@ -838,14 +837,13 @@ html.drawer-open { overflow: hidden; }
       <a href="mailto:office@bruitbrothers.com">Contact</a>
     </nav>
     <div class="drawer__info">
-      <div class="drawer__row">
-        <p class="label">Stay in touch</p>
+      <p class="label drawer__label">Stay in touch</p>
+      <!-- TODO: same details as the future Contact page; replace the address and LinkedIn placeholders with the real ones -->
+      <address class="drawer__contacts">
+        <span>Office address, City, Postcode</span>
         <a class="link link--plain" href="mailto:office@bruitbrothers.com" data-decrypt>office@bruitbrothers.com</a>
-      </div>
-      <div class="drawer__row">
-        <p class="label">Free brand audit</p>
-        <a class="btn" href="#audit" data-close><span class="btn__roll" data-text="Book a free brand audit&nbsp;→"><span>Book a free brand audit<span class="btn__arrow" aria-hidden="true">&nbsp;→</span></span></span></a>
-      </div>
+        <a class="link link--plain" href="https://www.linkedin.com/" target="_blank" rel="noopener" data-decrypt>LinkedIn</a>
+      </address>
     </div>
   </div>
 </div>
