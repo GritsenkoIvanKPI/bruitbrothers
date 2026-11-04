@@ -410,28 +410,18 @@ html.drawer-open { overflow: hidden; }
   background: var(--blue);
   color: var(--cream);
 }
-.pain__answer-text, .pain__audit { text-wrap: balance; }
-.pain__cta { display: grid; gap: var(--s4); }
+.pain__answer-text, .pain__audit { text-wrap: wrap; }
+.pain__cta { display: grid; gap: var(--s2); }
 .pain__cta .btn { justify-self: start; min-width: min(100%, 420px); }
 .pain__answer .btn { background: var(--cream); color: var(--blue); }
 .pain__answer .btn::before { background: var(--blue); }
 
 /* answer panel: promise left, audit + button right; both texts in one style, a step under the big statements */
 .pain__answer { margin-top: var(--s3); }
-.pain__answer-text, .pain__audit { font-size: clamp(20px, 1.8vw, 34px); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; }
+.pain__answer-text, .pain__audit { font-size: clamp(20px, 1.8vw, 34px); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; }
 .pain__answer .btn--block { width: auto; }
+.pain__answer .btn, .footer__btn { font-size: clamp(14px, 1vw, 16px); } /* a step larger than the header button */
 .pain__answer-main { display: grid; gap: var(--s3); align-content: start; }
-/* the brothers (same art as the footer), in cream, standing on the panel's bottom edge */
-.pain__mark {
-  justify-self: end;
-  align-self: end;
-  width: 58vw;
-  aspect-ratio: 870 / 734;
-  margin-bottom: calc(-1 * var(--s4));
-  background: var(--cream);
-  -webkit-mask: url("assets/brand/brothers-crop.png") center bottom / contain no-repeat;
-  mask: url("assets/brand/brothers-crop.png") center bottom / contain no-repeat;
-}
 
 /* ============ Trusted by ============ */
 .trust { background: var(--blue); color: var(--cream); padding: var(--s4) 0; }
@@ -734,10 +724,8 @@ html.drawer-open { overflow: hidden; }
 
   .trust__grid { grid-template-columns: repeat(4, 1fr); }
   .trust__head { grid-column: auto; padding: 0 var(--g); }
-  .pain__answer { grid-template-columns: 1fr 1fr; column-gap: var(--s3); padding: var(--s4) var(--g); }
-  .pain__answer-main { padding-right: var(--s3); }
-  .pain__answer-text span { display: block; white-space: nowrap; } /* two lines on desktop */
-  .pain__mark { justify-self: center; width: min(38vw, 60vh, 620px); }
+  .pain__answer { padding: var(--s4) var(--g); }
+  .pain__answer-text span { display: block; } /* break after 'missing', as in the layout */
 }
 @media (min-width: 900px) {
   /* heading on the left, problem cards in a 2-column grid on the right (per reference) */
@@ -900,13 +888,12 @@ html.drawer-open { overflow: hidden; }
     </div>
     <div class="pain__answer" data-reveal>
       <div class="pain__answer-main">
-      <p class="pain__answer-text"><span>We’re ready to identify what's holding your brand back</span> <span>and deliver what's missing to make it people's first choice.</span></p>
+      <p class="pain__answer-text"><span>We’re ready to identify what's holding your brand back and deliver what's missing</span> <span>to make it people's first choice.</span></p>
       <div class="pain__cta">
         <p class="pain__audit">Get a 30-min expert audit to reveal what's wrong and what to do next.</p>
         <a class="btn btn--block" href="#audit"><span class="btn__roll" data-text="Book a free brand audit&nbsp;→"><span>Book a free brand audit<span class="btn__arrow" aria-hidden="true">&nbsp;→</span></span></span></a>
       </div>
       </div>
-      <div class="pain__mark" aria-hidden="true"></div>
     </div>
   </section>
 
