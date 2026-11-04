@@ -501,7 +501,7 @@ html.drawer-open { overflow: hidden; }
   margin: 0;
   padding: 0.3em var(--g) 0.3em 0.6em; /* identical to the 'Includes:' bar: size, weight, height, inner padding */
   font-family: var(--text);
-  font-size: var(--t-bar);
+  font-size: clamp(19px, 1.5vw, 27px); /* one step above the descriptions (--t-bar) */
   font-weight: 500;
   line-height: var(--lh-text);
   letter-spacing: 0;
