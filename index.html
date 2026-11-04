@@ -560,11 +560,11 @@ html.drawer-open { overflow: hidden; }
 /* comfortable tap targets without changing the visual rhythm */
 .nowrap { white-space: nowrap; }
 @media (min-width: 600px) and (max-width: 899px) {
-  .pain__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pain__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } /* four problems: 2 x 2, like desktop */
   .pain__item + .pain__item::after { left: 0; right: auto; top: var(--s2); bottom: var(--s2); width: 1px; height: auto; }
-  .pain__item:nth-child(3n+1)::after { display: none; }
-  .pain__item:last-child:nth-child(3n+2) { grid-column: span 2; } /* no empty cell at the end */
-  .pain__item:nth-child(n+4)::before { content: ""; position: absolute; left: var(--s2); right: var(--s2); top: 0; height: 1px; background: var(--pain-line); }
+  .pain__item:nth-child(2n+1)::after { display: none; }
+  .pain__item:last-child:nth-child(odd) { grid-column: 1 / -1; } /* no empty cell at the end */
+  .pain__item:nth-child(n+3)::before { content: ""; position: absolute; left: var(--s2); right: var(--s2); top: 0; height: 1px; background: var(--pain-line); }
 }
 @media (max-width: 339px) {
   .header .header__burger { width: 38px; }
@@ -893,8 +893,7 @@ html.drawer-open { overflow: hidden; }
       <li class="pain__item" tabindex="0"><span class="pain__bullet" aria-hidden="true"></span>Your products are great but somehow still aren’t in demand.</li>
       <li class="pain__item" tabindex="0"><span class="pain__bullet" aria-hidden="true"></span>People keep choosing competitors that aren’t that good.</li>
       <li class="pain__item" tabindex="0"><span class="pain__bullet" aria-hidden="true"></span>The moment you stop advertising, interest in your brand disappears.</li>
-      <li class="pain__item" tabindex="0"><span class="pain__bullet" aria-hidden="true"></span>Each new task means another agency to find.</li>
-      <li class="pain__item" tabindex="0"><span class="pain__bullet" aria-hidden="true"></span>Every new media campaign feels like another blind guess.</li>
+      <li class="pain__item" tabindex="0"><span class="pain__bullet" aria-hidden="true"></span>Every new task means another blind guess and another agency to find.</li>
     </ul>
     </div>
     </div>
