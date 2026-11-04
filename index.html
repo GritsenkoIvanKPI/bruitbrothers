@@ -37,8 +37,8 @@ window.__touchDither = matchMedia('(hover: none), (pointer: coarse)').matches;
   --t-sans-h: clamp(28px, 3.9vw, 80px);     /* one size for every sans-serif heading */
   --t-lead: clamp(24px, 3.3vw, 68px);       /* big left-hand statements on screens 2 and 3 */
   --w-lead: 500;
-  --t-bar: clamp(18px, 1.5vw, 28px);        /* label bars ('Includes:', 'What you always get') + service description */
-  --t-bar-sub: clamp(16px, 1.25vw, 23px);   /* one step smaller: list items, bar descriptions */
+  --t-bar: clamp(16px, 1.25vw, 23px);       /* service description + label bars ('Includes:', 'What you always get') */
+  --t-bar-sub: clamp(14px, 1.05vw, 19px);   /* one step smaller: list items, bar descriptions */
   --t-h1: clamp(42px, 6.6vw, 126px);   /* all section headings use the first-screen size */
   --t-h2: var(--t-h1);
   --t-h3: clamp(34px, 4.8vw, 90px);   /* service names, one step below */
@@ -468,7 +468,7 @@ html.drawer-open { overflow: hidden; }
 .service__title { font-size: clamp(49px, 14vw, 76px); line-height: 0.95; margin-top: var(--s1); text-wrap: balance; }
 .service__cols { display: grid; gap: var(--s3); }
 /* service type: description and 'Includes:' share size + weight (Light, as on screens 1 and 3); list items one step smaller */
-.service__text { font-size: var(--t-bar); font-weight: 300; line-height: 1.25; }
+.service__text { font-size: var(--t-bar); font-weight: 300; line-height: 1.35; }
 .service__text p + p { margin-top: 1em; }
 .service__num { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2vw, 36px); line-height: 1; letter-spacing: -0.02em; opacity: 0.6; }
 /* list label: cream bar running to the right edge, like the 'What you always get' titles */
