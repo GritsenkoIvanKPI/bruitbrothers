@@ -502,7 +502,7 @@ html.drawer-open { overflow: hidden; }
   padding: 0.3em var(--g) 0.3em 0.6em; /* identical to the 'Includes:' bar: size, weight, height, inner padding */
   font-family: var(--text);
   font-size: var(--t-bar);
-  font-weight: 300;
+  font-weight: 400; /* version 1: one step bolder than Light */
   line-height: var(--lh-text);
   letter-spacing: 0;
   color: #15209f;
@@ -510,6 +510,8 @@ html.drawer-open { overflow: hidden; }
 }
 .gets__bar::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #f0ede5; transform-origin: right; }
 .gets__bar span { display: block; }
+/* TEMP: version 2 (two steps bolder), only with ?bar=2. Keep the chosen weight above and delete this line + the matching script. */
+.bar-v2 .gets__bar { font-weight: 500; }
 /* description: one step smaller, starts in line with the bar text (like the list under 'Includes:') */
 .gets__item p { margin: var(--s1) var(--g) 0 calc(var(--t-bar) * 0.6); max-width: 52ch; font-size: var(--t-bar-sub); font-weight: 300; line-height: var(--lh-text); }
 .gets__item { --i: 0; }
@@ -1245,6 +1247,9 @@ html.drawer-open { overflow: hidden; }
 })();
 </script>
 <script>
+/* TEMP: ?bar=2 shows the Medium version of the 'What you always get' titles */
+if (new URLSearchParams(location.search).get('bar') === '2') document.documentElement.classList.add('bar-v2');
+
 /* TEMP visual variant switcher (all services).
    Hidden unless the URL has ?variants. Each image with data-variants gets ‹ › controls;
    choices live in the URL (e.g. ?variants&campaign=v5&media=v2) and reload the page so the dither redraws.
