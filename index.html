@@ -138,20 +138,18 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   transition: transform 0.6s var(--ease);
 }
 .btn--cream::before { background: var(--blue); opacity: 0.08; }
-/* text roll: label slides up, a copy rolls in from below */
-.btn__roll { position: relative; display: block; overflow: hidden; line-height: 1.3; }
-.btn__roll > span, .btn__roll::after { display: block; transition: transform 0.6s var(--ease); }
-.btn__roll::after { content: attr(data-text); position: absolute; left: 0; right: 0; top: 100%; }
+/* label stays put; only the arrow nudges right on hover */
+.btn__label { display: block; line-height: 1.3; }
+.btn__arrow { display: inline-block; transition: transform 0.45s var(--ease); }
 @media (max-width: 359px) { .header__cta .btn__arrow { display: none; } } /* keeps the logo full size on the smallest phones */
 .btn:hover::before, .btn:focus-visible::before { transform: scaleY(1); }
-.btn:hover .btn__roll > span, .btn:hover .btn__roll::after,
-.btn:focus-visible .btn__roll > span, .btn:focus-visible .btn__roll::after { transform: translateY(-100%); }
+.btn:hover .btn__arrow, .btn:focus-visible .btn__arrow { transform: translateX(0.35em); }
 .btn:active { transform: scale(0.98); transition-duration: 0.1s; }
 .btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 .btn--cream { background: var(--cream); color: var(--blue); }
 .btn--cream:focus-visible { outline-color: var(--cream); }
 @media (prefers-reduced-motion: reduce) {
-  .btn::before, .btn__roll > span, .btn__roll::after { transition: none; }
+  .btn::before, .btn__arrow { transition: none; }
 }
 .btn--block { display: flex; width: 100%; min-height: clamp(56px, 4.4vw, 76px); }
 
@@ -815,7 +813,7 @@ html.drawer-open { overflow: hidden; }
     <button class="header__burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-drawer">
       <span></span><span></span><span></span>
     </button>
-    <a class="btn header__cta" href="#audit"><span class="btn__roll" data-text="Book a free brand audit&nbsp;→"><span>Book a free brand audit<span class="btn__arrow" aria-hidden="true">&nbsp;→</span></span></span></a>
+    <a class="btn header__cta" href="#audit"><span class="btn__label">Book a free brand audit&nbsp;<span class="btn__arrow" aria-hidden="true">→</span></span></a>
   </div>
 </header>
 
@@ -899,7 +897,7 @@ html.drawer-open { overflow: hidden; }
       <p class="pain__answer-text"><span>We’re ready to identify what's holding your brand back and deliver what's missing</span> <span>to make it people's first choice.</span></p>
       <div class="pain__cta">
         <p class="pain__audit">Get a 30-min expert audit to reveal what's wrong and what to do next.</p>
-        <a class="btn btn--block" href="#audit"><span class="btn__roll" data-text="Book a free brand audit&nbsp;→"><span>Book a free brand audit<span class="btn__arrow" aria-hidden="true">&nbsp;→</span></span></span></a>
+        <a class="btn btn--block" href="#audit"><span class="btn__label">Book a free brand audit&nbsp;<span class="btn__arrow" aria-hidden="true">→</span></span></a>
       </div>
       </div>
     </div>
@@ -1110,7 +1108,7 @@ html.drawer-open { overflow: hidden; }
   <div class="footer__main wrap">
     <div class="footer__cta">
       <h2 class="footer__title" data-reveal><span>They are ready to listen.</span> <span>Let’s give them something worth hearing.</span></h2>
-      <a class="btn footer__btn" href="mailto:office@bruitbrothers.com?subject=Free%20brand%20audit"><span class="btn__roll" data-text="Book a free brand audit&nbsp;→"><span>Book a free brand audit<span class="btn__arrow" aria-hidden="true">&nbsp;→</span></span></span></a>
+      <a class="btn footer__btn" href="mailto:office@bruitbrothers.com?subject=Free%20brand%20audit"><span class="btn__label">Book a free brand audit&nbsp;<span class="btn__arrow" aria-hidden="true">→</span></span></a>
     </div>
     <div class="footer__info">
       <p class="footer__legal">© Bruit Brothers 2026<span class="footer__sep"> /</span> <span class="footer__rights">All Rights Reserved</span></p>
