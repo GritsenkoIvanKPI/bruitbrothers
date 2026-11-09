@@ -496,21 +496,25 @@ html.drawer-open { overflow: hidden; }
   overflow: hidden;
 }
 .gets__bar::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #f0ede5; transform-origin: right; }
-.gets__bar span { display: block; }
+.gets__bar > span { display: block; }
 /* description: one step smaller, starts in line with the bar text (like the list under 'Includes:') */
 .gets__item p { margin: var(--s1) var(--g) 0 calc(var(--t-body) * 1.4); /* same step-in as the Solutions lists */ max-width: 52ch; font-size: var(--t-bar); /* same as the Solutions descriptions */ font-weight: 300; line-height: var(--lh-text); }
 .gets__item { --i: 0; }
 .gets__item:nth-child(2) { --i: 1; }
 .gets__item:nth-child(3) { --i: 2; }
 .gets__item:nth-child(4) { --i: 3; }
-/* entrance: bar sweeps in from the right edge, title rises into it, description fades in */
-.js .gets__bar::before { transform: scaleX(0); transition: transform 0.9s cubic-bezier(0.7, 0, 0.2, 1); transition-delay: calc(var(--i) * 0.12s); }
-.js .gets__bar span { opacity: 0; transform: translateY(70%); transition: opacity 0.6s var(--ease), transform 0.8s var(--ease); transition-delay: calc(var(--i) * 0.12s + 0.45s); }
-.js .gets__item p { opacity: 0; transform: translateY(12px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); transition-delay: calc(var(--i) * 0.12s + 0.65s); }
-.js .gets__item.is-in .gets__bar::before { transform: none; }
-.js .gets__item.is-in .gets__bar span, .js .gets__item.is-in p { opacity: 1; transform: none; }
+/* entrance: the cream bar assembles from square pixels (left to right), the title resolves
+   out of scrambled symbols, then the description fades in. Cells are drawn on a canvas by the script below. */
+.gets__px { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+.js .gets__bar::before { opacity: 0; }
+.js .gets__bar.is-built::before { opacity: 1; }
+.js .gets__bar > span { opacity: 0; }
+.js .gets__bar.is-typing > span { opacity: 1; }
+.js .gets__item p { opacity: 0; transform: translateY(10px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); transition-delay: calc(var(--i) * 0.12s + 0.55s); }
+.js .gets__item.is-in p { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  .js .gets__bar::before, .js .gets__bar span, .js .gets__item p { transform: none; opacity: 1; transition: none; }
+  .js .gets__bar::before, .js .gets__bar > span, .js .gets__item p { transform: none; opacity: 1; transition: none; }
+}
 }
 .gets__nos {
   display: grid;
@@ -1278,11 +1282,80 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
 })();
 </script>
 <script>
-/* What you always get: each promise plays its entrance once it is in view */
+/* What you always get: each promise plays its entrance once it is in view.
+   Bar: cream square cells pop in, sweeping left to right with a little jitter (canvas, then the solid bar takes over).
+   Title: every letter starts as a random symbol and they resolve one by one from the start. */
 (() => {
-  const items = document.querySelectorAll('.gets__item');
-  if (!('IntersectionObserver' in window)) { items.forEach(el => el.classList.add('is-in')); return; }
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -15% 0px' });
+  const items = [...document.querySelectorAll('.gets__item')];
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+';
+  const BUILD = 650, TYPE_AT = 260, STEP = 26;
+
+  const parts = items.map(item => {
+    const bar = item.querySelector('.gets__bar'), label = bar.querySelector(':scope > span');
+    if (still) return { bar, cells: [] };
+    const text = label.textContent;
+    bar.setAttribute('aria-label', text); label.setAttribute('aria-hidden', 'true'); label.textContent = '';
+    const cells = []; let word = null;
+    [...text].forEach(ch => {
+      if (/\s/.test(ch)) { label.append(ch); word = null; return; }
+      if (!word) { word = document.createElement('span'); word.className = 'dc-word'; label.append(word); }
+      const cell = document.createElement('span'); cell.className = 'dc-cell is-scrambled';
+      const c = document.createElement('span'); c.className = 'dc-char'; c.textContent = ch;
+      const g = document.createElement('span'); g.className = 'dc-glyph';
+      cell.append(c, g); word.append(cell); cells.push({ cell, c, g });
+    });
+    return { bar, cells };
+  });
+
+  const scramble = it => {
+    it.g.textContent = POOL[Math.floor(Math.random() * POOL.length)];
+    const need = it.g.offsetWidth, room = it.c.offsetWidth;
+    it.g.style.setProperty('--sq', need > room ? (room / need).toFixed(3) : 1);
+  };
+
+  function build(bar) {
+    const r = bar.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+    const cv = document.createElement('canvas'); cv.className = 'gets__px'; cv.setAttribute('aria-hidden', 'true');
+    cv.width = Math.ceil(r.width * d); cv.height = Math.ceil(r.height * d); bar.prepend(cv);
+    const ctx = cv.getContext('2d'); ctx.scale(d, d); ctx.fillStyle = getComputedStyle(bar, '::before').backgroundColor;
+    const S = Math.max(6, Math.round(r.height / 5)), cols = Math.ceil(r.width / S), rows = Math.ceil(r.height / S);
+    const cells = [];
+    for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) cells.push({ x, y, t: (x / cols) * 0.72 + Math.random() * 0.28 });
+    cells.sort((a, b) => a.t - b.t);
+    let n = 0; const t0 = performance.now();
+    const frame = now => {
+      const p = (now - t0) / BUILD;
+      while (n < cells.length && cells[n].t <= p) { const c = cells[n++]; ctx.fillRect(c.x * S, c.y * S, S, S); }
+      if (n < cells.length) return requestAnimationFrame(frame);
+      bar.classList.add('is-built'); cv.remove();
+    };
+    requestAnimationFrame(frame);
+  }
+
+  function type(bar, cells) {
+    cells.forEach(scramble);
+    bar.classList.add('is-typing');
+    let k = 0;
+    const timer = setInterval(() => {
+      if (k < cells.length) cells[k++].cell.classList.remove('is-scrambled');
+      for (let j = k; j < cells.length; j++) scramble(cells[j]);
+      if (k >= cells.length) clearInterval(timer);
+    }, STEP);
+  }
+
+  function play(item, idx) {
+    item.classList.add('is-in');
+    const { bar, cells } = parts[idx];
+    if (still) { bar.classList.add('is-built', 'is-typing'); return; }
+    const delay = (parseFloat(getComputedStyle(item).getPropertyValue('--i')) || 0) * 120;
+    setTimeout(() => { build(bar); setTimeout(() => type(bar, cells), TYPE_AT); }, delay);
+  }
+
+  if (!('IntersectionObserver' in window)) { items.forEach(play); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { play(e.target, items.indexOf(e.target)); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -15% 0px' });
   items.forEach(el => io.observe(el));
 })();
 </script>
