@@ -579,22 +579,26 @@ html.drawer-open { overflow: hidden; }
   z-index: 100;
   display: none;
   place-items: center;
-  background: var(--blue);
-  transition: transform 0.9s var(--ease);
 }
+/* blue backdrop on its own layer so it can fade while the wordmark flies to the header */
+.preloader::before { content: ""; position: absolute; inset: 0; background: var(--blue); transition: opacity 0.7s ease 0.45s; }
 .js .preloader { display: grid; }
 .preloader__inner { --pl-w: clamp(180px, 18vw, 300px); display: grid; width: var(--pl-w); opacity: 0; transform: translateY(12px); animation: preloader-in 0.7s var(--ease) forwards; }
-.preloader__logo { position: relative; width: 100%; }
+.preloader__inner { position: relative; z-index: 1; }
+.preloader__logo { position: relative; width: 100%; transform-origin: 0 0; }
+.preloader.is-flying .preloader__logo { transition: transform 1.1s cubic-bezier(0.76, 0, 0.24, 1); }
 .preloader__img { display: block; width: 100%; height: auto; }
 .preloader__img--base { opacity: 0.18; }
 /* solid copy revealed left to right with the progress value */
 .preloader__img--fill { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--p, 0) * 100%) 0 0); }
-.preloader.is-done { transform: translateY(-100%); }
+.preloader.is-done::before { opacity: 0; }
+html.is-loading .header__logo img { opacity: 0; } /* the preloader wordmark lands here, then hands over */
 .preloader.is-gone { display: none; }
 @keyframes preloader-in { to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
   .preloader { transition: opacity 0.3s linear; }
-  .preloader.is-done { transform: none; opacity: 0; }
+  .preloader.is-done { opacity: 0; }
+  .preloader.is-flying .preloader__logo { transition: none; }
   .preloader__inner { animation: none; opacity: 1; transform: none; }
 }
 
@@ -1226,11 +1230,21 @@ html.drawer-open { overflow: hidden; }
       if (shown < 1) return requestAnimationFrame(tick);
       if (finished) return; finished = true;
       setTimeout(() => {
+        // shrink the wordmark and move it onto the header logo, while the blue backdrop fades
+        const mark = pre.querySelector('.preloader__logo'), target = document.querySelector('.header__logo img');
+        const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (mark && target && !still) {
+          const a = mark.getBoundingClientRect(), b = target.getBoundingClientRect();
+          pre.classList.add('is-flying');
+          mark.style.transform = `translate(${b.left - a.left}px, ${b.top - a.top}px) scale(${b.height / a.height})`;
+        }
         pre.classList.add('is-done');
-        document.documentElement.classList.remove('is-loading');
         window.lenis?.start();
-        setTimeout(revealHero, 250);
-        setTimeout(() => pre.classList.add('is-gone'), 1000);
+        setTimeout(revealHero, 500);
+        setTimeout(() => {
+          document.documentElement.classList.remove('is-loading'); // header logo takes over, same spot
+          pre.classList.add('is-gone');
+        }, still ? 300 : 1150);
       }, 250);
     };
     requestAnimationFrame(tick);
