@@ -125,33 +125,19 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   color: var(--btn-fg);
   overflow: hidden;
   isolation: isolate;
-  transition: transform 0.35s var(--ease), color 0.35s ease;
-}
-/* hover: colours invert (fill and text swap) with a soft crossfade; a thin outline in the
-   original fill colour keeps the button's shape on a same-colour background */
-.btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--btn-fg);
-  box-shadow: inset 0 0 0 1px var(--btn-bg);
-  opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: transform 0.35s var(--ease);
 }
 .btn--cream { --btn-bg: var(--cream); --btn-fg: var(--blue); }
-/* label stays put; only the arrow nudges right on hover */
+/* hover: colours and label stay put; only the arrow glides right */
 .btn__label { display: block; line-height: 1.3; }
-.btn__arrow { display: inline-block; transition: transform 0.45s var(--ease); }
+.btn__arrow { display: inline-block; transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1); }
 @media (max-width: 359px) { .header__cta .btn__arrow { display: none; } } /* keeps the logo full size on the smallest phones */
-.btn:hover::before, .btn:focus-visible::before { opacity: 1; }
-.btn:hover, .btn:focus-visible { color: var(--btn-bg); }
-.btn:hover .btn__arrow, .btn:focus-visible .btn__arrow { transform: translateX(0.35em); }
+.btn:hover .btn__arrow, .btn:focus-visible .btn__arrow { transform: translateX(0.5em); }
 .btn:active { transform: scale(0.98); transition-duration: 0.1s; }
 .btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 .btn--cream:focus-visible { outline-color: var(--cream); }
 @media (prefers-reduced-motion: reduce) {
-  .btn, .btn::before, .btn__arrow { transition: none; }
+  .btn, .btn__arrow { transition: none; }
 }
 .btn--block { display: flex; width: 100%; min-height: clamp(56px, 4.4vw, 76px); }
 
