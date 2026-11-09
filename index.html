@@ -405,7 +405,7 @@ html.drawer-open { overflow: hidden; }
   display: grid;
   gap: var(--s3);
   margin-top: var(--s5);
-  padding: var(--s4) var(--g);
+  padding: calc(var(--s4) * 1.5) var(--g); /* +10% of the block height top and bottom */
   margin-left: calc(-1 * var(--g));
   margin-right: calc(-1 * var(--g));
   background: var(--blue);
@@ -727,7 +727,7 @@ html.drawer-open { overflow: hidden; }
 
   .trust__grid { grid-template-columns: repeat(4, 1fr); }
   .trust__head { grid-column: auto; padding: 0 var(--g); }
-  .pain__answer { padding: var(--s4) var(--g); }
+  .pain__answer { padding: calc(var(--s4) * 1.5) var(--g); }
   .pain__answer-text span { display: block; } /* break after 'missing', as in the layout */
 }
 @media (min-width: 900px) {
