@@ -680,8 +680,20 @@ html.drawer-open { overflow: hidden; }
 .js [data-reveal][data-d="1"] { transition-delay: 0.1s; }
 .js [data-reveal][data-d="2"] { transition-delay: 0.2s; }
 .js [data-reveal][data-d="3"] { transition-delay: 0.3s; }
+/* fog reveal (intro heading): words emerge from a soft blur, staggered; no upward slide */
+.js [data-reveal][data-fog] { opacity: 1; transform: none; transition: none; }
+.fog-w { display: inline-block; }
+.fog-g { white-space: nowrap; }
+.js [data-fog] .fog-w {
+  opacity: 0;
+  filter: blur(14px);
+  transition: opacity 1.4s cubic-bezier(0.25, 0.1, 0.25, 1), filter 1.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition-delay: calc(var(--i) * 70ms);
+}
+.js [data-fog].is-in .fog-w { opacity: 1; filter: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .js [data-fog] .fog-w { opacity: 1; filter: none; transition: none; }
   .js [data-reveal] { opacity: 1; transform: none; transition: none; }
 }
 
@@ -859,11 +871,37 @@ html.drawer-open { overflow: hidden; }
 
   <!-- What we do -->
   <section class="on-blue intro wrap" id="about" aria-labelledby="intro-title">
-    <h2 class="intro__statement" id="intro-title" data-reveal>
+    <h2 class="intro__statement" id="intro-title" data-reveal data-fog>
       <span class="intro__line">Strategy, Creative, and Digital Advertising</span>
       <span class="intro__for">for</span>
       <span class="intro__line">Food &amp; Beverages, Alcohol, Tobacco, <span class="intro__and">and</span> OTC Medicines</span>
     </h2>
+    <script>
+    /* fog reveal: wrap each word so it can emerge from a blur, one after another */
+    (() => {
+      const h = document.getElementById('intro-title'); let i = 0;
+      const walk = n => [...n.childNodes].forEach(c => {
+        if (c.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          c.textContent.split(/([ \t\n]+)/).forEach(part => {
+            if (!part) return;
+            if (/^[ \t\n]+$/.test(part)) { frag.append(part); return; }
+            // words glued with nbsp stay unbreakable as a group, but each fades in on its own
+            const g = part.includes('\u00a0') ? document.createElement('span') : frag;
+            if (g !== frag) { g.className = 'fog-g'; frag.append(g); }
+            part.split('\u00a0').forEach((word, k) => {
+              if (k) g.append('\u00a0');
+              if (!word) return;
+              const w = document.createElement('span'); w.className = 'fog-w'; w.textContent = word;
+              w.style.setProperty('--i', i++); g.append(w);
+            });
+          });
+          c.replaceWith(frag);
+        } else if (c.nodeType === 1) walk(c);
+      });
+      walk(h);
+    })();
+    </script>
     <span class="intro__rule" aria-hidden="true"></span>
     <div class="intro__bottom">
     <div class="intro__copy">
