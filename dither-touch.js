@@ -164,8 +164,11 @@ export function initTouchDither({ colorDark = '#15209f', colorLight = '#f0ede5',
     item.el.style.opacity = '0';
     const sw = item.isVideo ? source.videoWidth : source.naturalWidth, shh = item.isVideo ? source.videoHeight : source.naturalHeight;
     const ta = sw / shh, pa = item.w / item.h;
-    if (ta > pa) { gl.uniform2f(u.scale, pa / ta, 1); gl.uniform2f(u.offset, (1 - pa / ta) / 2, 0); }
-    else { gl.uniform2f(u.scale, 1, ta / pa); gl.uniform2f(u.offset, 0, (1 - ta / pa) / 2); }
+    // honour the img's CSS object-position (percentages), like object-fit: cover would
+    const op = getComputedStyle(item.el).objectPosition.split(' ').map(v => v.endsWith('%') ? parseFloat(v) / 100 : 0.5);
+    const px = op[0] ?? 0.5, py = op[1] ?? 0.5;
+    if (ta > pa) { gl.uniform2f(u.scale, pa / ta, 1); gl.uniform2f(u.offset, (1 - pa / ta) * px, 0); }
+    else { gl.uniform2f(u.scale, 1, ta / pa); gl.uniform2f(u.offset, 0, (1 - ta / pa) * py); }
     if (!item.entered) { item.entered = true; item.enterStart = t; }
     const p = easeOut(Math.min((t - item.enterStart) / ENTER, 1));
     gl.uniform2f(u.res, item.w, item.h);

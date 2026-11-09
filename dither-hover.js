@@ -93,6 +93,7 @@ uniform float uScaleResolution;
 uniform float uOpacity;
 uniform float uZoom;
 uniform vec2 uZoomCenter;
+uniform vec2 uPos;
 uniform float uPixelSize;
 uniform float uPixelSizeMultiplier;
 uniform float uTime;
@@ -216,11 +217,11 @@ void main() {
   if (textureAspect > planeAspect) {
     float s = planeAspect / textureAspect;
     scale  = vec2(s, 1.0);
-    offset = vec2((1.0 - s) * 0.5, 0.0);
+    offset = vec2((1.0 - s) * uPos.x, 0.0);
   } else {
     float s = textureAspect / planeAspect;
     scale  = vec2(1.0, s);
-    offset = vec2(0.0, (1.0 - s) * 0.5);
+    offset = vec2(0.0, (1.0 - s) * (1.0 - uPos.y));
   }
 
   // zoom around uZoomCenter (default (0,1) = top-left, as before)
@@ -481,6 +482,7 @@ export function initDitherHover(options = {}) {
         uOpacity: { value: 0 },
         uZoom: { value: PARAMS.zoom },
         uZoomCenter: { value: new THREE.Vector2(0, 1) },
+        uPos: { value: new THREE.Vector2(0.5, 0.5) },
         uPixelSize: { value: PARAMS.enterPixelSize },
         uPixelSizeMultiplier: { value: PARAMS.pixelSizeMultiplier },
         uTime: { value: 0 },
@@ -589,6 +591,9 @@ export function initDitherHover(options = {}) {
     // optional per-element zoom: data-zoom="1.4" data-zoom-center="0.28,0.62" (x,y from top-left)
     const z = parseFloat(m.img.dataset.zoom);
     m.material.uniforms.uZoom.value = z > 0 ? z : PARAMS.zoom;
+    // honour the img's CSS object-position (percentages), like object-fit: cover would
+    const op = getComputedStyle(m.img).objectPosition.split(' ').map(v => v.endsWith('%') ? parseFloat(v) / 100 : 0.5);
+    m.material.uniforms.uPos.value.set(op[0] ?? 0.5, op[1] ?? 0.5);
     const c = (m.img.dataset.zoomCenter || '').split(',').map(Number);
     if (c.length === 2 && !c.some(isNaN)) m.material.uniforms.uZoomCenter.value.set(c[0], 1 - c[1]);
   }
