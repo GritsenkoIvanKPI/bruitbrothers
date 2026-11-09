@@ -1334,7 +1334,9 @@ html.drawer-open { overflow: hidden; }
 </script>
 <script>
 /* Audit panel background: a grid of square blocks, each filled with one pattern
-   (empty, small dots, crosses, big dots). Every ~1s one block crossfades to a new pattern.
+   (empty, small dots, crosses, big dots). Every ~1s one block crossfades to a new pattern,
+   a slow halftone wave drifts across (dots swell and brighten as it passes),
+   and dots near the pointer light up, like the dither trail on the images.
    Kept faint on the left where the text sits. Static under reduced motion; paused off-screen. */
 (() => {
   const cv = document.querySelector('.pain__answer-bg');
@@ -1344,6 +1346,7 @@ html.drawer-open { overflow: hidden; }
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const FADE = 1400, EVERY = 900;
   let W, H, cols, rows, rects = [], color, raf = 0, visible = false, last = 0;
+  let T = 0, mx = -1e4, my = -1e4, px = -1e4, py = -1e4, pg = 0, pIn = false; // time, pointer target, smoothed pointer, its strength
   const pick = () => { const r = Math.random(); return r < .3 ? 0 : r < .62 ? 1 : r < .84 ? 2 : 3; };
   const ease = t => t < .5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
 
@@ -1372,14 +1375,18 @@ html.drawer-open { overflow: hidden; }
     if (!kind || alpha <= 0) return;
     for (let j = rc.y; j < rc.y + rc.h; j++) for (let i = rc.x; i < rc.x + rc.w; i++) {
       const cx = i * P + P / 2, cy = j * P + P / 2;
-      ctx.globalAlpha = alpha * weight(cx);
-      if (kind === 1) { ctx.fillRect(cx - 1, cy - 1, 2, 2); }
-      else if (kind === 2) { ctx.fillRect(cx - 2.5, cy - .5, 5, 1); ctx.fillRect(cx - .5, cy - 2.5, 1, 5); }
-      else { ctx.beginPath(); ctx.arc(cx, cy, P * .4, 0, 6.2832); ctx.fill(); }
+      const wv = .5 + .5 * Math.sin((cx * .8 + cy * .6) / 170 - T * .0008);          // drifting wave 0..1
+      const dd = Math.hypot(cx - px, cy - py), g = pg * Math.max(0, 1 - dd / 200) ** 2; // pointer glow 0..1
+      const sz = .7 + .45 * wv + .8 * g;
+      ctx.globalAlpha = Math.min(1, alpha * weight(cx) * (.55 + .6 * wv + 2.4 * g));
+      if (kind === 1) { const q = 2 * sz; ctx.fillRect(cx - q / 2, cy - q / 2, q, q); }
+      else if (kind === 2) { const q = 2.5 * sz; ctx.fillRect(cx - q, cy - .5, q * 2, 1); ctx.fillRect(cx - .5, cy - q, 1, q * 2); }
+      else { ctx.beginPath(); ctx.arc(cx, cy, P * .4 * Math.min(1.2, sz), 0, 6.2832); ctx.fill(); }
     }
   }
   const BASE = [0, .55, .5, .32];     // per-pattern opacity, big dots lightest
   function draw(now) {
+    T = still ? 0 : now;
     ctx.clearRect(0, 0, W, H); ctx.fillStyle = color;
     let busy = false;
     for (const rc of rects) {
@@ -1397,12 +1404,20 @@ html.drawer-open { overflow: hidden; }
       const rc = rects[Math.floor(Math.random() * rects.length)];
       if (rc.b === null) { let n; do n = pick(); while (n === rc.a); rc.b = n; rc.t0 = now; }
     }
+    // pointer eases toward the mouse; glow fades in/out
+    px += (mx - px) * .12; py += (my - py) * .12; pg += ((pIn ? 1 : 0) - pg) * .06;
     draw(now);
     raf = visible ? requestAnimationFrame(loop) : 0;
   }
   build();
   new ResizeObserver(() => { build(); }).observe(box);
   if (still) return;
+  box.addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
+    const r = box.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top;
+    if (!pIn) { px = mx; py = my; pIn = true; }
+  });
+  box.addEventListener('pointerleave', () => { pIn = false; });
   new IntersectionObserver(([en]) => {
     visible = en.isIntersecting;
     if (visible && !raf) raf = requestAnimationFrame(loop);
