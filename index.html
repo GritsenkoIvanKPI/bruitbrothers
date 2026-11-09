@@ -578,15 +578,17 @@ html.drawer-open { overflow: hidden; }
   inset: 0;
   z-index: 100;
   display: none;
-  place-items: center;
+  place-items: center start; /* logo sits on the left, in line with the header logo */
 }
 /* blue backdrop on its own layer so it can fade while the wordmark flies to the header */
 .preloader::before { content: ""; position: absolute; inset: 0; background: var(--blue); transition: opacity 0.7s ease 0.45s; }
 .js .preloader { display: grid; }
 .preloader__inner { --pl-w: clamp(180px, 18vw, 300px); display: grid; width: var(--pl-w); opacity: 0; transform: translateY(12px); animation: preloader-in 0.7s var(--ease) forwards; }
-.preloader__inner { position: relative; z-index: 1; }
-.preloader__logo { position: relative; width: 100%; transform-origin: 0 0; }
-.preloader.is-flying .preloader__logo { transition: transform 1.1s cubic-bezier(0.76, 0, 0.24, 1); }
+.preloader__inner { position: relative; z-index: 1; width: auto; margin-left: var(--pl-x, var(--g)); }
+/* the logo sits in its own blue box, a scaled-up copy of the header logo box; the whole box flies into the header */
+.preloader__box { display: flex; align-items: center; justify-content: center; width: var(--pl-bw, auto); height: var(--pl-bh, auto); background: var(--blue); transform-origin: 0 0; }
+.preloader__logo { position: relative; width: var(--pl-w); }
+.preloader.is-flying .preloader__box { transition: transform 1.1s cubic-bezier(0.76, 0, 0.24, 1); }
 .preloader__img { display: block; width: 100%; height: auto; }
 .preloader__img--base { opacity: 0.18; }
 /* solid copy revealed left to right with the progress value */
@@ -598,7 +600,7 @@ html.is-loading .header__logo img { opacity: 0; } /* the preloader wordmark land
 @media (prefers-reduced-motion: reduce) {
   .preloader { transition: opacity 0.3s linear; }
   .preloader.is-done { opacity: 0; }
-  .preloader.is-flying .preloader__logo { transition: none; }
+  .preloader.is-flying .preloader__box { transition: none; }
   .preloader__inner { animation: none; opacity: 1; transform: none; }
 }
 
@@ -803,9 +805,11 @@ html.is-loading .header__logo img { opacity: 0; } /* the preloader wordmark land
 
 <div class="preloader" aria-hidden="true">
   <div class="preloader__inner">
+    <div class="preloader__box">
     <div class="preloader__logo">
       <img class="preloader__img preloader__img--base" src="assets/brand/wordmark-cream-sm.png" alt="" width="600" height="256">
       <img class="preloader__img preloader__img--fill" src="assets/brand/wordmark-cream-sm.png" alt="" width="600" height="256">
+    </div>
     </div>
   </div>
 </div>
@@ -831,6 +835,19 @@ html.is-loading .header__logo img { opacity: 0; } /* the preloader wordmark land
     <a class="btn header__cta" href="#audit"><span class="btn__label">Book a free brand audit&nbsp;<span class="btn__arrow" aria-hidden="true">→</span></span></a>
   </div>
 </header>
+<script>
+/* preloader box: same proportions as the header logo box, scaled up; same left edge as the header logo */
+(() => {
+  const pre = document.querySelector('.preloader'), box = document.querySelector('.header__logo'), img = box && box.querySelector('img');
+  const logo = pre && pre.querySelector('.preloader__logo');
+  if (!pre || !img || !logo) return;
+  const b = box.getBoundingClientRect(), ih = parseFloat(getComputedStyle(img).height);
+  const lh = logo.getBoundingClientRect().width * 256 / 600, k = lh / ih;
+  pre.style.setProperty('--pl-bw', b.width * k + 'px');
+  pre.style.setProperty('--pl-bh', b.height * k + 'px');
+  pre.style.setProperty('--pl-x', b.left + 'px');
+})();
+</script>
 
 <div class="drawer" id="site-drawer" aria-hidden="true">
   <div class="drawer__veil" data-close></div>
@@ -1231,7 +1248,7 @@ html.is-loading .header__logo img { opacity: 0; } /* the preloader wordmark land
       if (finished) return; finished = true;
       setTimeout(() => {
         // shrink the wordmark and move it onto the header logo, while the blue backdrop fades
-        const mark = pre.querySelector('.preloader__logo'), target = document.querySelector('.header__logo img');
+        const mark = pre.querySelector('.preloader__box'), target = document.querySelector('.header__logo');
         const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (mark && target && !still) {
           const a = mark.getBoundingClientRect(), b = target.getBoundingClientRect();
