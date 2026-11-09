@@ -423,6 +423,9 @@ html.drawer-open { overflow: hidden; }
 .pain__answer .btn--block { width: auto; }
 .pain__answer .btn, .footer__btn { font-size: clamp(14px, 1vw, 16px); } /* one step above the header button */
 .pain__answer-main { display: grid; gap: var(--s3); align-content: start; }
+/* square-pattern background: blocks of dots / crosses / big dots that slowly swap; faint behind the text, stronger on the empty right */
+.pain__answer { position: relative; isolation: isolate; overflow: hidden; }
+.pain__answer-bg { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
 
 /* ============ Trusted by ============ */
 .trust { background: var(--blue); color: var(--cream); padding: var(--s4) 0; }
@@ -890,6 +893,7 @@ html.drawer-open { overflow: hidden; }
     </div>
     </div>
     <div class="pain__answer" data-reveal>
+      <canvas class="pain__answer-bg" aria-hidden="true"></canvas>
       <div class="pain__answer-main">
       <p class="pain__answer-text"><span>We’re ready to identify what's holding your brand back and deliver what's missing</span> <span>to make it people's first choice.</span></p>
       <div class="pain__cta">
@@ -1289,6 +1293,83 @@ html.drawer-open { overflow: hidden; }
     ui.children[0].onclick = () => go(-1); ui.children[1].onclick = () => go(1);
     img.closest('figure').appendChild(ui);
   });
+})();
+</script>
+<script>
+/* Audit panel background: a grid of square blocks, each filled with one pattern
+   (empty, small dots, crosses, big dots). Every ~1s one block crossfades to a new pattern.
+   Kept faint on the left where the text sits. Static under reduced motion; paused off-screen. */
+(() => {
+  const cv = document.querySelector('.pain__answer-bg');
+  if (!cv) return;
+  const box = cv.parentElement, ctx = cv.getContext('2d');
+  const P = 12;                       // cell pitch, px
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const FADE = 1400, EVERY = 900;
+  let W, H, cols, rows, rects = [], color, raf = 0, visible = false, last = 0;
+  const pick = () => { const r = Math.random(); return r < .3 ? 0 : r < .62 ? 1 : r < .84 ? 2 : 3; };
+  const ease = t => t < .5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
+
+  function split(x, y, w, h, out) {   // random binary split of the grid into blocks
+    const big = w > 22 || h > 9, can = w > 8 || h > 5;
+    if (can && (big || Math.random() < .35)) {
+      if (w / 2.2 > h ? true : h > 4 && Math.random() < .35 ? false : w > 6) {
+        const c = 3 + Math.floor(Math.random() * (w - 5)); split(x, y, c, h, out); split(x + c, y, w - c, h, out);
+      } else {
+        const c = 2 + Math.floor(Math.random() * (h - 3)); split(x, y, w, c, out); split(x, y + c, w, h - c, out);
+      }
+    } else out.push({ x, y, w, h, a: pick(), b: null, t0: 0 });
+  }
+  function build() {
+    const r = box.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; cv.width = Math.round(W * d); cv.height = Math.round(H * d);
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+    cols = Math.ceil(W / P); rows = Math.ceil(H / P);
+    rects = []; split(0, 0, cols, rows, rects);
+    color = getComputedStyle(box).color;
+    draw(performance.now());
+  }
+  // strength by x: faint under the text (left ~60%), up to full on the right; phones: faint everywhere (text is full width)
+  const weight = x => { if (W < 700) return .3; const u = Math.min(1, Math.max(0, (x / W - .5) / .4)); return .22 + .78 * u * u * (3 - 2 * u); };
+  function cells(rc, kind, alpha) {
+    if (!kind || alpha <= 0) return;
+    for (let j = rc.y; j < rc.y + rc.h; j++) for (let i = rc.x; i < rc.x + rc.w; i++) {
+      const cx = i * P + P / 2, cy = j * P + P / 2;
+      ctx.globalAlpha = alpha * weight(cx);
+      if (kind === 1) { ctx.fillRect(cx - 1, cy - 1, 2, 2); }
+      else if (kind === 2) { ctx.fillRect(cx - 2.5, cy - .5, 5, 1); ctx.fillRect(cx - .5, cy - 2.5, 1, 5); }
+      else { ctx.beginPath(); ctx.arc(cx, cy, P * .4, 0, 6.2832); ctx.fill(); }
+    }
+  }
+  const BASE = [0, .55, .5, .32];     // per-pattern opacity, big dots lightest
+  function draw(now) {
+    ctx.clearRect(0, 0, W, H); ctx.fillStyle = color;
+    let busy = false;
+    for (const rc of rects) {
+      if (rc.b === null) { cells(rc, rc.a, BASE[rc.a]); continue; }
+      const t = Math.min(1, (now - rc.t0) / FADE), e = ease(t);
+      cells(rc, rc.a, BASE[rc.a] * (1 - e)); cells(rc, rc.b, BASE[rc.b] * e);
+      if (t >= 1) { rc.a = rc.b; rc.b = null; } else busy = true;
+    }
+    ctx.globalAlpha = 1;
+    return busy;
+  }
+  function loop(now) {
+    if (now - last > EVERY) {
+      last = now;
+      const rc = rects[Math.floor(Math.random() * rects.length)];
+      if (rc.b === null) { let n; do n = pick(); while (n === rc.a); rc.b = n; rc.t0 = now; }
+    }
+    draw(now);
+    raf = visible ? requestAnimationFrame(loop) : 0;
+  }
+  build();
+  new ResizeObserver(() => { build(); }).observe(box);
+  if (still) return;
+  new IntersectionObserver(([en]) => {
+    visible = en.isIntersecting;
+    if (visible && !raf) raf = requestAnimationFrame(loop);
+  }).observe(box);
 })();
 </script>
 <script>
