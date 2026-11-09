@@ -759,7 +759,7 @@ html.drawer-open { overflow: hidden; }
   .services__list { display: grid; grid-auto-rows: 1fr; row-gap: var(--s5); }
   .service + .service { margin-top: 0; }
   /* number + heading across the top; the photo drops to the text row, level with the description */
-  .service { grid-template-columns: 7fr 18fr; grid-template-rows: auto 1fr; row-gap: var(--s3); min-height: 0; }
+  .service { grid-template-columns: 7fr 18fr; grid-template-rows: auto 1fr; row-gap: calc(var(--s3) * 1.5); min-height: 0; } /* a little more air under the heading */
   .service__body { display: contents; }
   .service__body > div:first-child { grid-column: 2; grid-row: 1; padding: var(--g) var(--s2) 0; }
   .service__cols { grid-column: 2; grid-row: 2; padding: 0 var(--s2) var(--g); }
@@ -787,7 +787,7 @@ html.drawer-open { overflow: hidden; }
   .service__body, .service__body > div:first-child { display: contents; }
   .service__num { order: 1; }
   .service__title { order: 2; margin: var(--s1) 0 0; }
-  .service__media { order: 3; margin: var(--s3) 0 0; }
+  .service__media { order: 3; margin: calc(var(--s3) * 1.5) 0 0; }
   .service__cols { order: 4; margin-top: var(--s3); }
   .header .header__cta { padding: 0 var(--s1); }
   .header__logo { padding: 0 12px; }
