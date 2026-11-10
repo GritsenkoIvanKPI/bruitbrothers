@@ -601,10 +601,10 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
 .footer__mark {
   grid-column: 2;
   align-self: end;
-  width: min(56vw, 290px);
+  width: min(47.6vw, 246px);
   aspect-ratio: 870 / 734;
   margin-bottom: 0;
-  /* feet stand exactly on the bottom edge of the page, nothing cut */
+  transform: translateY(2.5%); /* soles trimmed a little by the page edge so they stand on the ground (footer clips) */
   background: var(--blue);
   -webkit-mask: url("assets/brand/brothers-crop.png") center top / contain no-repeat;
   mask: url("assets/brand/brothers-crop.png") center top / contain no-repeat;
@@ -625,7 +625,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .footer__sep { display: none; }
   .footer__rights { display: block; }
   .footer__legal { white-space: nowrap; }
-  .footer__mark { width: 44vw; }
+  .footer__mark { width: 37.4vw; }
   .footer__info { font-size: 12px; }
 }
 @media (max-width: 379px) { .footer__info { font-size: 11px; } .footer__legal { white-space: normal; } }
@@ -639,7 +639,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .footer__mark { grid-row: 2 / 4; }
   .footer__cta { align-self: start; grid-column: 1 / -1; }
   .footer__mark { grid-column: 2; }
-  .footer__mark { width: min(36.5vw, 54vh, 578px); margin-right: var(--s3); } /* -15% */
+  .footer__mark { width: min(31vw, 46vh, 491px); margin-right: var(--s3); } /* -15% again */
 }
 
 
