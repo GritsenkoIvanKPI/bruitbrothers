@@ -133,6 +133,8 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 .btn--cream { --btn-bg: var(--cream); --btn-fg: var(--blue); }
 /* hover: colours and label stay put; only the arrow glides right */
 .btn__label { display: block; line-height: 1.3; }
+.btn__icon { display: none; } /* shown instead of the label in the phone header */
+@keyframes burger-in { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: none; } }
 .btn__arrow { display: inline-block; transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1); }
 @media (max-width: 359px) { .header__cta .btn__arrow { display: none; } } /* keeps the logo full size on the smallest phones */
 .btn:hover .btn__arrow, .btn:focus-visible .btn__arrow { transform: translateX(0.5em); }
@@ -554,7 +556,7 @@ html.drawer-open { overflow: hidden; }
   .header .header__cta { padding: 0 8px; font-size: 12px; letter-spacing: 0; white-space: nowrap; }
   .header__right { gap: 4px; }
   .header__burger { width: 46px; }
-  .header .header__logo { padding: 0 8px; }
+  .header .header__logo { padding: 0 15px; } /* (52 - 22) / 2 */
   .header .header__logo img { height: 22px; }
   :root { --t-h1: 34px; --t-h3: 30px; }
 }
@@ -766,9 +768,14 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .service__cols { grid-template-columns: 1fr; }
 }
 @media (max-width: 899px) {
-  /* header on phones: logo, menu and CTA join into one floating bar, so no page text slips through narrow gaps */
-  .header__logo { flex: 1 1 auto; justify-content: flex-start; }
-  .header__right, .header .header__right { gap: 0; }
+  /* header on phones: logo box hugs the logo with equal space on every side; CTA is an icon square;
+     the menu button only appears once the first screen has scrolled away */
+  .header .header__cta { width: 52px; padding: 0; justify-content: center; }
+  .header .header__burger { width: 52px; } /* same square as the CTA (room is back now the CTA is an icon) */
+  .header .header__cta .btn__label { display: none; }
+  .header .header__cta .btn__icon { display: block; }
+  .header:not(.is-past-hero) .header__burger { display: none !important; }
+  .header.is-past-hero .header__burger { animation: burger-in 0.45s var(--ease); }
   /* services on phones: number + title, image, then text; one clean divider between blocks */
   .service { min-height: 0; padding: var(--s3) 0 var(--s4); }
   .service__body, .service__body > div:first-child { display: contents; }
@@ -777,7 +784,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .service__media { order: 3; margin: calc(var(--s3) * 1.5) 0 0; }
   .service__cols { order: 4; margin-top: var(--s3); }
   .header .header__cta { padding: 0 var(--s1); }
-  .header__logo { padding: 0 12px; }
+  .header__logo { padding: 0 13px; } /* (52 - 26) / 2: same space as above and below the logo */
   .header__logo img { height: 26px; }
 }
 </style>
@@ -811,7 +818,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
     <button class="header__burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-drawer">
       <span></span><span></span><span></span>
     </button>
-    <a class="btn header__cta" href="#audit"><span class="btn__label">Book a free brand audit&nbsp;<span class="btn__arrow" aria-hidden="true">→</span></span></a>
+    <a class="btn header__cta" href="#audit" aria-label="Book a free brand audit"><svg class="btn__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 9.5h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.6 14.6l2.3 2.3 4.6-4.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="btn__label">Book a free brand audit&nbsp;<span class="btn__arrow" aria-hidden="true">→</span></span></a>
   </div>
 </header>
 
@@ -1164,7 +1171,11 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
 <script>
 (() => {
   const h = document.getElementById('site-header');
-  const set = () => h.classList.toggle('is-scrolled', scrollY > 40);
+  const hero = document.querySelector('.hero');
+  const set = () => {
+    h.classList.toggle('is-scrolled', scrollY > 40);
+    h.classList.toggle('is-past-hero', !!hero && scrollY > hero.offsetTop + hero.offsetHeight - h.offsetHeight - 40);
+  };
   addEventListener('scroll', set, { passive: true }); set();
 
   // menu drawer
