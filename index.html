@@ -598,7 +598,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
 .footer__cta { grid-column: 1 / -1; }
 .footer__cta { display: flex; flex-direction: column; align-items: flex-start; }
 .footer__title > span { display: block; text-wrap: balance; }
-.footer__btn { margin-top: var(--s4); min-width: min(100%, 420px); min-height: clamp(56px, 4.4vw, 76px); } /* same as the answer-panel button */
+.footer__btn { margin-top: calc(var(--t-lead) * 0.13); /* last baseline to button = gap between the heading's lines (0.38em) */ min-width: min(100%, 420px); min-height: clamp(56px, 4.4vw, 76px); } /* same as the answer-panel button */
 /* the brothers stand on the bottom edge; legal + privacy sit in a column opposite them */
 .footer__mark {
   grid-column: 2;
@@ -636,7 +636,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .footer__main { padding-top: var(--s4); grid-template-rows: auto auto 1fr; }
   .footer__cta { display: contents; }
   .footer__title { grid-column: 1 / -1; grid-row: 1; }
-  .footer__btn { grid-column: 1; grid-row: 2; justify-self: start; margin-top: 0; }
+  .footer__btn { grid-column: 1; grid-row: 2; justify-self: start; margin-top: calc(var(--t-lead) * 0.13 - var(--s3)); } /* cancels the row gap: same 0.38em rhythm as between the heading's lines */
   .footer__info { grid-row: 3; }
   .footer__mark { grid-row: 2 / 4; }
   .footer__cta { align-self: start; grid-column: 1 / -1; }
