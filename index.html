@@ -531,7 +531,7 @@ html.drawer-open { overflow: hidden; }
 /* lines stop short of the edges: one above the strip, one between the sentences */
 .gets__nos::before { content: ""; position: absolute; top: 0; left: var(--g); right: var(--g); height: 1px; background: rgba(240, 237, 229, 0.3); }
 .gets__nos li { position: relative; padding: var(--s2) 0; }
-.gets__nos li + li::before { content: ""; position: absolute; top: 0; left: 15%; right: 15%; height: 1px; background: rgba(240, 237, 229, 0.3); }
+.gets__nos li + li::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: rgba(240, 237, 229, 0.3); } /* phones: same full width as the line above the strip */
 
 /* ============ Closing line + video ============ */
 @media (min-width: 900px) {
