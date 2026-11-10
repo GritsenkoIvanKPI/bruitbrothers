@@ -775,7 +775,9 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   /* copy starts exactly at the right edge of the header logo box: logo width (26px tall, 600:256) + 13px padding each side */
   :root { --logo-box: calc(26px * 600 / 256 + 26px); }
   .intro__copy { margin-left: var(--logo-box); }
-  .service__list { padding-left: var(--logo-box); } /* lists start on the logo box's right edge too */
+  /* list bars start on the logo box's right edge; the items step in from the bar text the same way as on desktop */
+  .service__list-title { margin-left: var(--logo-box); }
+  .service__list { padding-left: calc(var(--logo-box) + 1.4em); }
   .intro__rule { display: block; height: var(--s5); margin: var(--s3) 0 var(--s3) var(--rule-x, 22%); border-left: 1px solid currentColor; }
   .intro__rule--end { height: var(--s4); margin-bottom: 0; }
   /* big statements on phones: ~20% larger (24 -> 29px at 390); line-height is relative so spacing stays the same;
