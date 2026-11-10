@@ -766,6 +766,9 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .service__cols { grid-template-columns: 1fr; }
 }
 @media (max-width: 899px) {
+  /* header on phones: logo, menu and CTA join into one floating bar, so no page text slips through narrow gaps */
+  .header__logo { flex: 1 1 auto; justify-content: flex-start; }
+  .header__right, .header .header__right { gap: 0; }
   /* services on phones: number + title, image, then text; one clean divider between blocks */
   .service { min-height: 0; padding: var(--s3) 0 var(--s4); }
   .service__body, .service__body > div:first-child { display: contents; }
@@ -1013,7 +1016,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
         <div class="service__cols">
           <div class="service__text" data-reveal>
             <p>Being visible online is easy. Being visible in the right place is what most brands still haven’t learned to do.</p>
-            <p>For your brand, we launch multi-channel campaigns across the top-tier placements others miss (or just can’t access).</p>
+            <p>For your brand, we launch <span class="nowrap">multi-channel</span> campaigns across the <span class="nowrap">top-tier</span> placements others miss (or just can’t access).</p>
             <p>Using real-time intent signals and predictive targeting, we reach the people who matter most to you at the moment they're actually paying attention.</p>
           </div>
           <div data-reveal data-d="1">
