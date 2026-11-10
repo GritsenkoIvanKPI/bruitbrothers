@@ -768,6 +768,10 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .service__cols { grid-template-columns: 1fr; }
 }
 @media (max-width: 899px) {
+  /* big statements on phones: ~20% larger (24 -> 29px at 390); line-height is relative so spacing stays the same;
+     capped at 30px so it meets the desktop size smoothly at 900px */
+  :root { --t-lead: clamp(26px, 7.4vw, 30px); }
+  .intro__statement, .pain__title, .footer__title { hyphens: manual; overflow-wrap: normal; }
   /* header on phones: logo box hugs the logo with equal space on every side; CTA is an icon square;
      the menu button only appears once the first screen has scrolled away */
   .header .header__cta { width: 52px; padding: 0; justify-content: center; }
