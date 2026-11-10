@@ -1279,7 +1279,12 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
     el.addEventListener('click', () => place(el));
   });
   addEventListener('resize', () => place(active, true));
-  document.fonts?.ready.then(() => place(active, true));
+  // re-place when the cards change size (late web font in Safari, re-wrap), not only on fonts.ready
+  const again = () => requestAnimationFrame(() => place(active, true));
+  document.fonts?.ready.then(again);
+  document.fonts?.addEventListener?.('loadingdone', again);
+  addEventListener('load', again);
+  if ('ResizeObserver' in window) { const ro = new ResizeObserver(again); items.forEach(i => ro.observe(i)); }
   place(active, true);
 })();
 </script>
@@ -1373,7 +1378,13 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   };
   place();
   addEventListener('resize', place);
-  document.fonts?.ready.then(place);
+  // Safari can report fonts as ready before the web font is in, so also re-measure whenever
+  // the heading actually changes size (font swap, re-wrap) and once everything has loaded
+  const again = () => requestAnimationFrame(place);
+  document.fonts?.ready.then(again);
+  document.fonts?.addEventListener?.('loadingdone', again);
+  addEventListener('load', again);
+  if ('ResizeObserver' in window) { const ro = new ResizeObserver(again); ro.observe(intro.querySelector('.intro__statement')); ro.observe(word); }
 })();
 
 /* TEMP visual variant switcher (all services).
