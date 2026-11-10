@@ -595,7 +595,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
 .footer__main { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr; column-gap: var(--s2); row-gap: var(--s3); padding-top: var(--s4); }
 .footer__cta { grid-column: 1 / -1; }
 .footer__cta { display: flex; flex-direction: column; align-items: flex-start; }
-.footer__title span { display: block; text-wrap: balance; }
+.footer__title > span { display: block; text-wrap: balance; }
 .footer__btn { margin-top: var(--s4); min-width: min(100%, 420px); min-height: clamp(56px, 4.4vw, 76px); } /* same as the answer-panel button */
 /* the brothers stand on the bottom edge; legal + privacy sit in a column opposite them */
 .footer__mark {
@@ -861,8 +861,8 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
     </h2>
     <script>
     /* fog reveal: wrap each word so it can emerge from a blur, one after another */
-    (() => {
-      const h = document.getElementById('intro-title'); let i = 0;
+    /* shared by every [data-fog] heading (intro, footer): call window.__fog(el) right after the heading */
+    window.__fog = h => { let i = 0;
       const walk = n => [...n.childNodes].forEach(c => {
         if (c.nodeType === 3) {
           const frag = document.createDocumentFragment();
@@ -883,7 +883,8 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
         } else if (c.nodeType === 1) walk(c);
       });
       walk(h);
-    })();
+    };
+    window.__fog(document.getElementById('intro-title'));
     </script>
     <span class="intro__rule" aria-hidden="true"></span>
     <div class="intro__bottom">
@@ -1128,7 +1129,8 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
 <footer class="footer" id="audit">
   <div class="footer__main wrap">
     <div class="footer__cta">
-      <h2 class="footer__title" data-reveal><span>They are ready to listen.</span> <span>Let’s give them something worth hearing.</span></h2>
+      <h2 class="footer__title" data-reveal data-fog><span>They are ready to listen.</span> <span>Let’s give them something worth hearing.</span></h2>
+      <script>window.__fog(document.querySelector('.footer__title'));</script>
       <a class="btn footer__btn" href="mailto:office@bruitbrothers.com?subject=Free%20brand%20audit"><span class="btn__label">Book a free brand audit&nbsp;<span class="btn__arrow" aria-hidden="true">→</span></span></a>
     </div>
     <div class="footer__info">
