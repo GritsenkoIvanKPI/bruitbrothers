@@ -768,6 +768,12 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .service__cols { grid-template-columns: 1fr; }
 }
 @media (max-width: 899px) {
+  /* intro on phones: copy steps in to the right (diagonal, as on desktop) and the thin rules come back,
+     running from the heading down to the copy and from the copy to the bottom, on the copy's left edge */
+  .intro { gap: 0; padding-bottom: 0; }
+  .intro__copy { margin-left: 22%; }
+  .intro__rule { display: block; height: var(--s5); margin: var(--s3) 0 var(--s3) 22%; border-left: 1px solid currentColor; }
+  .intro__rule--end { height: var(--s4); margin-bottom: 0; }
   /* big statements on phones: ~20% larger (24 -> 29px at 390); line-height is relative so spacing stays the same;
      capped at 30px so it meets the desktop size smoothly at 900px */
   :root { --t-lead: clamp(26px, 7.4vw, 30px); }
