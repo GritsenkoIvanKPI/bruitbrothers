@@ -557,6 +557,7 @@ html.drawer-open { overflow: hidden; }
   .header__right { gap: 4px; }
   .header__burger { width: 46px; }
   .header .header__logo { padding: 0 15px; } /* (52 - 22) / 2 */
+  .intro .intro__copy { --logo-box: calc(22px * 600 / 256 + 30px); } /* same match for the smaller logo */
   .header .header__logo img { height: 22px; }
   :root { --t-h1: 34px; --t-h3: 30px; }
 }
@@ -771,7 +772,8 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   /* intro on phones: copy steps in to the right (diagonal, as on desktop) and the thin rules come back,
      running from the heading down to the copy and from the copy to the bottom, on the copy's left edge */
   .intro { gap: 0; padding-bottom: 0; }
-  .intro__copy { margin-left: 22%; }
+  /* copy starts exactly at the right edge of the header logo box: logo width (26px tall, 600:256) + 13px padding each side */
+  .intro__copy { --logo-box: calc(26px * 600 / 256 + 26px); margin-left: var(--logo-box); }
   .intro__rule { display: block; height: var(--s5); margin: var(--s3) 0 var(--s3) var(--rule-x, 22%); border-left: 1px solid currentColor; }
   .intro__rule--end { height: var(--s4); margin-bottom: 0; }
   /* big statements on phones: ~20% larger (24 -> 29px at 390); line-height is relative so spacing stays the same;
