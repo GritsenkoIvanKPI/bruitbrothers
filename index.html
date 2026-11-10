@@ -506,17 +506,14 @@ html.drawer-open { overflow: hidden; }
 .gets__item:nth-child(2) { --i: 1; }
 .gets__item:nth-child(3) { --i: 2; }
 .gets__item:nth-child(4) { --i: 3; }
-/* entrance: the cream bar assembles from square pixels (left to right), the title resolves
-   out of scrambled symbols, then the description fades in. Cells are drawn on a canvas by the script below. */
-.gets__px { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
-.js .gets__bar::before { opacity: 0; }
-.js .gets__bar.is-built::before { opacity: 1; }
+/* entrance: the cream bars are there from the start; only the text animates:
+   the title resolves out of scrambled symbols, then the description fades in */
 .js .gets__bar > span { opacity: 0; }
 .js .gets__bar.is-typing > span { opacity: 1; }
-.js .gets__item p { opacity: 0; transform: translateY(10px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); transition-delay: calc(var(--i) * 0.12s + 0.55s); }
+.js .gets__item p { opacity: 0; transform: translateY(10px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); transition-delay: calc(var(--i) * 0.12s + 0.35s); }
 .js .gets__item.is-in p { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  .js .gets__bar::before, .js .gets__bar > span, .js .gets__item p { transform: none; opacity: 1; transition: none; }
+  .js .gets__bar > span, .js .gets__item p { transform: none; opacity: 1; transition: none; }
 }
 .gets__nos {
   display: grid;
@@ -1281,14 +1278,13 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
 })();
 </script>
 <script>
-/* What you always get: each promise plays its entrance once it is in view.
-   Bar: cream square cells pop in, sweeping left to right with a little jitter (canvas, then the solid bar takes over).
-   Title: every letter starts as a random symbol and they resolve one by one from the start. */
+/* What you always get: when a promise comes into view its title decodes:
+   every letter starts as a random symbol and they resolve one by one from the start. The bar itself is static. */
 (() => {
   const items = [...document.querySelectorAll('.gets__item')];
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+';
-  const BUILD = 650, TYPE_AT = 260, STEP = 26;
+  const STEP = 26;
 
   const parts = items.map(item => {
     const bar = item.querySelector('.gets__bar'), label = bar.querySelector(':scope > span');
@@ -1313,25 +1309,6 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
     it.g.style.setProperty('--sq', need > room ? (room / need).toFixed(3) : 1);
   };
 
-  function build(bar) {
-    const r = bar.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
-    const cv = document.createElement('canvas'); cv.className = 'gets__px'; cv.setAttribute('aria-hidden', 'true');
-    cv.width = Math.ceil(r.width * d); cv.height = Math.ceil(r.height * d); bar.prepend(cv);
-    const ctx = cv.getContext('2d'); ctx.scale(d, d); ctx.fillStyle = getComputedStyle(bar, '::before').backgroundColor;
-    const S = Math.max(6, Math.round(r.height / 5)), cols = Math.ceil(r.width / S), rows = Math.ceil(r.height / S);
-    const cells = [];
-    for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) cells.push({ x, y, t: (x / cols) * 0.72 + Math.random() * 0.28 });
-    cells.sort((a, b) => a.t - b.t);
-    let n = 0; const t0 = performance.now();
-    const frame = now => {
-      const p = (now - t0) / BUILD;
-      while (n < cells.length && cells[n].t <= p) { const c = cells[n++]; ctx.fillRect(c.x * S, c.y * S, S, S); }
-      if (n < cells.length) return requestAnimationFrame(frame);
-      bar.classList.add('is-built'); cv.remove();
-    };
-    requestAnimationFrame(frame);
-  }
-
   function type(bar, cells) {
     cells.forEach(scramble);
     bar.classList.add('is-typing');
@@ -1346,9 +1323,9 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   function play(item, idx) {
     item.classList.add('is-in');
     const { bar, cells } = parts[idx];
-    if (still) { bar.classList.add('is-built', 'is-typing'); return; }
+    if (still) { bar.classList.add('is-typing'); return; }
     const delay = (parseFloat(getComputedStyle(item).getPropertyValue('--i')) || 0) * 120;
-    setTimeout(() => { build(bar); setTimeout(() => type(bar, cells), TYPE_AT); }, delay);
+    setTimeout(() => type(bar, cells), delay);
   }
 
   if (!('IntersectionObserver' in window)) { items.forEach(play); return; }
