@@ -645,14 +645,6 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .footer__mark { width: min(36.5vw, 54vh, 578px); margin-right: var(--s3); } /* -15% */
 }
 
-/* TEMP: Campaign visual variant switcher (only with ?campaign=…) */
-.variant-switch { position: absolute; z-index: 5; right: 8px; bottom: 8px; display: flex; gap: 4px; opacity: 0.8; transition: opacity 0.3s var(--ease); }
-.variant-switch:hover, .variant-switch:focus-within { opacity: 1; }
-.variant-switch button { width: 26px; height: 26px; padding: 0; border: 0; background: #15209f; color: #f0ede5; font: 400 16px/1 var(--text); cursor: pointer; }
-.variant-switch button:hover { background: #f0ede5; color: #15209f; }
-.variant-switch button:active { transform: scale(0.94); }
-.variant-switch button:focus-visible { outline: 2px solid #f0ede5; outline-offset: 2px; }
-@media (pointer: coarse) { .variant-switch button { width: 40px; height: 40px; } }
 
 /* Header hover: decrypted-text effect (letters scramble, then resolve left to right) */
 .dc-word { white-space: nowrap; }
@@ -1043,7 +1035,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
 
     <article class="service" aria-labelledby="s4">
       <figure class="service__media">
-        <img src="assets/img/measurement.jpg" srcset="assets/img/measurement-m.jpg 960w, assets/img/measurement.jpg 1600w" sizes="(min-width: 900px) 28vw, 55vw" data-variant-key="measurement" data-variants="v1,v3,v4,v5" alt="Double profile of a head crossed by a bundle of sound waves, over measurement rings on cream paper" data-dither loading="lazy" width="1600" height="1200">
+        <img src="assets/img/measurement.jpg" srcset="assets/img/measurement-m.jpg 960w, assets/img/measurement.jpg 1600w" sizes="(min-width: 900px) 28vw, 55vw" alt="Head profile crossed by a bundle of sound waves, over measurement rings and grid lines" data-dither loading="lazy" width="1600" height="1200">
       </figure>
       <div class="service__body">
         <div>
@@ -1387,35 +1379,6 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   if ('ResizeObserver' in window) { const ro = new ResizeObserver(again); ro.observe(intro.querySelector('.intro__statement')); ro.observe(word); }
 })();
 
-/* TEMP visual variant switcher (all services).
-   Hidden unless the URL has ?variants. Each image with data-variants gets ‹ › controls;
-   choices live in the URL (e.g. ?variants&campaign=v5&media=v2) and reload the page so the dither redraws.
-   To finish: set the chosen file as the img src, then delete this script, the data-variant* attributes and the .variant-switch CSS. */
-(() => {
-  const params = new URLSearchParams(location.search);
-  document.querySelectorAll('img[data-variants]').forEach(img => {
-    const key = img.dataset.variantKey;
-    const list = ['current', ...img.dataset.variants.split(',')];
-    let i = Math.max(0, list.indexOf(params.get(key) || 'current'));
-    if (list[i] !== 'current') {
-      img.removeAttribute('srcset');
-      img.src = `assets/img/${key}-${list[i]}${window.__touchDither ? '-m' : ''}.jpg`;
-      img.loading = 'eager';
-    }
-    const go = d => {
-      const p = new URLSearchParams(location.search); p.delete('variants');
-      const next = list[(i + d + list.length) % list.length];
-      if (next === 'current') p.delete(key); else p.set(key, next);
-      const qs = p.toString();
-      location.href = (qs ? '?' + qs : location.pathname) + '#' + img.closest('.service').querySelector('h3').id;
-    };
-    const ui = document.createElement('div');
-    ui.className = 'variant-switch';
-    ui.innerHTML = `<button type="button" aria-label="Previous photo" title="${key}: ${list[i]}">‹</button><button type="button" aria-label="Next photo" title="${key}: ${list[i]}">›</button>`;
-    ui.children[0].onclick = () => go(-1); ui.children[1].onclick = () => go(1);
-    img.closest('figure').appendChild(ui);
-  });
-})();
 </script>
 <script>
 /* Audit panel background: a grid of square blocks, each filled with one pattern
