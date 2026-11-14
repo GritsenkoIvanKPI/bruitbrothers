@@ -778,6 +778,8 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .intro { gap: 0; padding-bottom: 0; }
   /* copy starts exactly at the right edge of the header logo box: logo width (26px tall, 600:256) + 13px padding each side */
   :root { --logo-box: calc(26px * 600 / 256 + 26px); }
+  /* one body size on phones: service descriptions and list bars = the 18px used in the hero, intro and challenges; lists one step under (16px) */
+  :root { --t-bar: 18px; --t-bar-sub: 16px; }
   .intro__copy { margin-left: var(--logo-box); }
   /* list bars start on the logo box's right edge; the items step in from the bar text the same way as on desktop */
   /* list bars start on the line under 'and' (screen 2) and run to the screen edge; items step in from the bar text */
