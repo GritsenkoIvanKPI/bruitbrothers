@@ -782,6 +782,9 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .service__list { padding-left: calc(var(--logo-box) + 1.4em); }
   .intro__rule { display: block; height: var(--s5); margin: var(--s3) 0 var(--s3) var(--rule-x, 22%); border-left: 1px solid currentColor; }
   .intro__rule--end { height: var(--s4); margin-bottom: 0; }
+  /* hero slogan on phones: four lines, as large as the widest line ('to make your brand') allows */
+  .hero__title { font-size: calc((100vw - 2 * var(--g)) / 6.75); }
+  .hero__l4 { display: block; }
   /* big statements on phones: ~20% larger (24 -> 29px at 390); line-height is relative so spacing stays the same;
      capped at 30px so it meets the desktop size smoothly at 900px */
   :root { --t-lead: clamp(26px, 7.4vw, 30px); }
@@ -876,7 +879,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
       </picture>
     </div>
     <div class="hero__text">
-      <h1 class="hero__title display" id="hero-title" data-reveal data-d="1"><span>We are here</span> <span>to make your brand</span> <span>the obvious choice on the shelf.</span></h1>
+      <h1 class="hero__title display" id="hero-title" data-reveal data-d="1"><span>We are here</span> <span>to make your brand</span> <span>the obvious choice <span class="hero__l4">on the shelf.</span></span></h1>
       <p class="hero__sub" data-reveal data-d="2">At Bruit Brothers, we help FMCG brands become impossible to ignore.<br>Even the highly regulated ones.</p>
     </div>
   </section>
