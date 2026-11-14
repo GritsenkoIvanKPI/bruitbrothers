@@ -312,6 +312,7 @@ html.drawer-open { overflow: hidden; }
 .hero__title { font-size: clamp(26px, 8.4vw, 76px); line-height: 0.98; }
 @media (min-width: 900px) { .hero__title { font-size: min(8.5vw, 168px); } }
 .hero__title span { display: block; white-space: nowrap; }
+.hero__title .hero__l4 { display: inline; } /* desktop: 'on the shelf.' stays on the third line */
 .hero__sub {
   max-width: 60ch;
   margin-top: var(--s3);
@@ -341,12 +342,12 @@ html.drawer-open { overflow: hidden; }
 .intro__line { display: block; max-width: 30ch; text-wrap: balance; }
 .intro__for {
   display: block;
-  margin: 0 0 0 0.06em; /* a full, regular line: same line spacing as the rest of the heading (and screen 3) */
+  margin: -0.13em 0 0.21em 0.06em; /* centred by ink: f top to line above = f tail to line below */
   font-family: var(--display);
   font-style: italic;
   font-weight: 600;
   font-size: 0.9em;
-  line-height: 1.2; /* 0.9em x 1.2 = 1.08em: the heading's own line pitch */
+  line-height: 1.1;
   letter-spacing: 0;
 }
 .intro__bottom { display: grid; gap: var(--s4); }
@@ -786,9 +787,11 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   /* hero description on phones: same size as the intro copy on screen 2, three lines */
   .hero__sub { font-size: clamp(18px, 1.5vw, 28px); }
   .br-m { display: inline; }
+  /* screen 2 heading on phones: 'for' is a regular line, so every line has the same spacing as screen 3 */
+  .intro__for { margin: 0 0 0 0.06em; line-height: 1.2; } /* 0.9em x 1.2 = 1.08em */
   /* hero slogan on phones: four lines, as large as the widest line ('to make your brand') allows */
   .hero__title { font-size: calc((100vw - 2 * var(--g)) / 6.75); }
-  .hero__l4 { display: block; }
+  .hero__title .hero__l4 { display: block; }
   /* big statements on phones: ~20% larger (24 -> 29px at 390); line-height is relative so spacing stays the same;
      capped at 30px so it meets the desktop size smoothly at 900px */
   :root { --t-lead: clamp(26px, 7.4vw, 30px); }

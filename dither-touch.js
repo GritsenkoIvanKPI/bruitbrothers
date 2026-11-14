@@ -106,10 +106,12 @@ void main(){
   vec2 cell = mix(pixel, pixel * 7.7, trail) / res;
   vec3 c = texture2D(tex, (floor(st / cell) * cell) * scale + offset).rgb;
   float lum = dot(c, vec3(0.2126, 0.7152, 0.0722));
-  // animated threshold: desktop bias noise (scale 1.4, speed 94, weight 0.77) + pulse (3.1, 0.87), strength 0.29
-  float n = cnoise(vec3(cuv * 1.4, time * 94.0));
-  float pulse = sin(time * 3.1) * 0.5 + 0.5;
-  float ab = bias + (n * 0.77 + pulse * 0.87) * 0.29;
+  // animated threshold, desktop pattern (noise scale 1.4, weights 0.77 / 0.87), toned down below
+  // phones: same shimmer pattern as desktop but much calmer (strength 0.29 -> 0.07, slower drift and pulse),
+  // because on a phone screen the full-strength flicker reads as flashing
+  float n = cnoise(vec3(cuv * 1.4, time * 2.0));
+  float pulse = sin(time * 1.2) * 0.5 + 0.5;
+  float ab = bias + (n * 0.77 + pulse * 0.87) * 0.07;
   float th = trail < 0.5 ? b4(gl_FragCoord.xy) : b8(gl_FragCoord.xy);
   float v = th + ab * (1.0 + 2.0 * trail);
   gl_FragColor = vec4(lum >= v ? light : dark, 1.0);
