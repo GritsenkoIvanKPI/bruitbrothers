@@ -787,13 +787,11 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   :root { --t-lead: clamp(26px, 7.4vw, 30px); }
   .intro__statement, .pain__title, .footer__title { hyphens: manual; overflow-wrap: normal; }
   /* header on phones: logo box hugs the logo with equal space on every side; CTA is an icon square;
-     the menu button only appears once the first screen has scrolled away */
+     the menu button is always visible */
   .header .header__cta { width: 52px; padding: 0; justify-content: center; }
   .header .header__burger { width: 52px; } /* same square as the CTA (room is back now the CTA is an icon) */
   .header .header__cta .btn__label { display: none; }
   .header .header__cta .btn__icon { display: block; }
-  .header:not(.is-past-hero) .header__burger { display: none !important; }
-  .header.is-past-hero .header__burger { animation: burger-in 0.45s var(--ease); }
   /* services on phones: number + title, image, then text; one clean divider between blocks */
   .service { min-height: 0; padding: 0 0 calc(var(--s3) * 0.75); } /* last list line hangs ~24px low; this evens the space around the divider */
   /* tighter rhythm between services on phones: ~40px above and below the divider */
