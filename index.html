@@ -1383,12 +1383,8 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
 (() => {
   const intro = document.querySelector('.intro'), and = document.querySelector('.intro__and');
   if (!intro || !and) return;
-  // phones: the rules sit under the middle of 'Medicines' (the 'and' starts a line there)
-  const med = [...intro.querySelectorAll('.fog-w')].find(w => w.textContent === 'Medicines');
-  const phone = matchMedia('(max-width: 899px)');
-  let word = and;
+  const word = and; // phones and desktop: under the middle of 'and'
   const place = () => {
-    word = phone.matches && med ? med : and;
     const box = intro.getBoundingClientRect(), pad = parseFloat(getComputedStyle(intro).paddingLeft);
     const r = word.getBoundingClientRect();
     intro.style.setProperty('--rule-x', (r.left + r.width / 2 - box.left - pad - 0.5).toFixed(1) + 'px');
