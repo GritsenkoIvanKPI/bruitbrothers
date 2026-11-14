@@ -341,12 +341,12 @@ html.drawer-open { overflow: hidden; }
 .intro__line { display: block; max-width: 30ch; text-wrap: balance; }
 .intro__for {
   display: block;
-  margin: -0.13em 0 0.21em 0.06em; /* centred by ink: f top to line above = f tail to line below */
+  margin: 0 0 0 0.06em; /* a full, regular line: same line spacing as the rest of the heading (and screen 3) */
   font-family: var(--display);
   font-style: italic;
   font-weight: 600;
   font-size: 0.9em;
-  line-height: 1.1;
+  line-height: 1.2; /* 0.9em x 1.2 = 1.08em: the heading's own line pitch */
   letter-spacing: 0;
 }
 .intro__bottom { display: grid; gap: var(--s4); }
