@@ -799,6 +799,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
      capped at 30px so it meets the desktop size smoothly at 900px */
   :root { --t-lead: clamp(26px, 7.4vw, 30px); }
   .intro__statement, .pain__title, .footer__title { hyphens: manual; overflow-wrap: normal; }
+  .pain__board { margin-top: calc(var(--t-lead) * 0.9); } /* list follows the heading at the same gap as between its two sentences: reads as one unit */
   /* header on phones: logo box hugs the logo with equal space on every side; CTA is an icon square;
      the menu button is always visible */
   .header .header__cta { width: 52px; padding: 0; justify-content: center; }
