@@ -544,6 +544,7 @@ html.drawer-open { overflow: hidden; }
 /* the brothers stand at the bottom edge and are cut off by it */
 /* comfortable tap targets without changing the visual rhythm */
 .nowrap { white-space: nowrap; }
+.br-m { display: none; } /* line break used on phones only */
 @media (min-width: 600px) and (max-width: 899px) {
   .pain__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } /* four problems: 2 x 2, like desktop */
   .pain__item + .pain__item::after { left: 0; right: auto; top: var(--s2); bottom: var(--s2); width: 1px; height: auto; }
@@ -782,6 +783,9 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .service__list { padding-left: calc(var(--logo-box) + 1.4em); }
   .intro__rule { display: block; height: var(--s5); margin: var(--s3) 0 var(--s3) var(--rule-x, 22%); border-left: 1px solid currentColor; }
   .intro__rule--end { height: var(--s4); margin-bottom: 0; }
+  /* hero description on phones: same size as the intro copy on screen 2, three lines */
+  .hero__sub { font-size: clamp(18px, 1.5vw, 28px); }
+  .br-m { display: inline; }
   /* hero slogan on phones: four lines, as large as the widest line ('to make your brand') allows */
   .hero__title { font-size: calc((100vw - 2 * var(--g)) / 6.75); }
   .hero__l4 { display: block; }
@@ -880,7 +884,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
     </div>
     <div class="hero__text">
       <h1 class="hero__title display" id="hero-title" data-reveal data-d="1"><span>We are here</span> <span>to make your brand</span> <span>the obvious choice <span class="hero__l4">on the shelf.</span></span></h1>
-      <p class="hero__sub" data-reveal data-d="2">At Bruit Brothers, we help FMCG brands become impossible to ignore.<br>Even the highly regulated ones.</p>
+      <p class="hero__sub" data-reveal data-d="2">At Bruit Brothers, we help <span class="nowrap">FMCG brands</span><br class="br-m"> become impossible to ignore.<br>Even the highly regulated ones.</p>
     </div>
   </section>
 
