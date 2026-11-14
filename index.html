@@ -810,6 +810,8 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .service { min-height: 0; padding: 0 0 calc(var(--s3) * 0.75); } /* last list line hangs ~24px low; this evens the space around the divider */
   /* tighter rhythm between services on phones: ~40px above and below the divider */
   .service + .service { margin-top: calc(var(--s3) * 2.5); }
+  .service { grid-template-columns: minmax(0, 1fr); } /* the long list bars must not widen the column past the screen */
+  .service:first-child { margin-top: calc(var(--s3) * 1.25); } /* air between 'Five solutions we deliver' and 01 */
   .service + .service::before { top: calc(var(--s3) * -1.25); }
   .service__body, .service__body > div:first-child { display: contents; }
   .service__num { order: 1; }
