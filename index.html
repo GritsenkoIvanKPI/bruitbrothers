@@ -1266,6 +1266,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
         setTimeout(revealHero, 300);
         setTimeout(() => {
           document.documentElement.classList.remove('is-loading'); // header logo takes over, same spot
+          dispatchEvent(new Event('page:ready')); // image reveals start now
           pre.classList.add('is-gone');
         }, still ? 300 : 1150);
       }, 250);

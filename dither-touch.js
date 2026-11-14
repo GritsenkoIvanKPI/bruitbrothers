@@ -230,8 +230,11 @@ export function initTouchDither({ colorDark = '#15209f', colorLight = '#f0ede5',
     const px = op[0] ?? 0.5, py = op[1] ?? 0.5;
     if (ta > pa) { gl.uniform2f(u.scale, pa / ta, 1); gl.uniform2f(u.offset, (1 - pa / ta) * px, 0); }
     else { gl.uniform2f(u.scale, 1, ta / pa); gl.uniform2f(u.offset, 0, (1 - ta / pa) * py); }
-    if (!item.entered) { item.entered = true; item.enterStart = t; }
-    const p = easeOut(Math.min((t - item.enterStart) / ENTER, 1));
+    // reveal (as on the reference): waits until the image's top is 15% into the screen and the preloader is gone,
+    // then pixels 20 -> 1, threshold 1 -> bias and opacity 0 -> 1 over 2s, power4.out
+    if (item.armed && !item.entered) { item.entered = true; item.enterStart = t; }
+    const p = item.entered ? easeOut(Math.min((t - item.enterStart) / ENTER, 1)) : 0;
+    item.canvas.style.opacity = p.toFixed(3);
     gl.uniform2f(u.res, item.w, item.h);
     gl.uniform1f(u.pixel, ENTER_PIXEL + (1 - ENTER_PIXEL) * p); // ends at 1 buffer px, like desktop pixelSize
     gl.uniform1f(u.bias, 1 + (bias - 1) * p);
@@ -255,7 +258,14 @@ export function initTouchDither({ colorDark = '#15209f', colorLight = '#f0ede5',
     const it = byEl.get(e.target); it.visible = e.isIntersecting;
     if (it.isVideo) it.visible ? it.el.play().catch(() => {}) : it.el.pause();
   }));
-  items.forEach(it => { nearIO.observe(it.el); visIO.observe(it.el); });
+  const pageReady = () => !document.documentElement.classList.contains('is-loading');
+  const armIO = new IntersectionObserver(es => es.forEach(e => {
+    const it = byEl.get(e.target);
+    if (!e.isIntersecting || it.armed) return;
+    const arm = () => { it.armed = true; armIO.unobserve(it.el); };
+    if (pageReady()) arm(); else addEventListener('page:ready', arm, { once: true });
+  }), { rootMargin: '0px 0px -15% 0px' });
+  items.forEach(it => { nearIO.observe(it.el); visIO.observe(it.el); armIO.observe(it.el); });
 
   // Render on demand: during the reveal, while a finger trail is fading, for video frames (max 30 fps),
   // and once after any size change. A still image costs nothing after it has been drawn.

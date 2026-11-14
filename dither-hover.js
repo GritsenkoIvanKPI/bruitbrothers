@@ -451,9 +451,14 @@ export function initDitherHover(options = {}) {
       if (m && e.isIntersecting && !m.entered && m.loaded) enter(m);
       if (m) m.inView = e.isIntersecting;
     }
-  }, { threshold: 0.15 });
+  }, { rootMargin: '0px 0px -15% 0px' }); // starts when the image's top is 15% into the screen, like the reference
 
   function enter(m) {
+    // wait for the preloader to leave, so the first screen reveals in front of the visitor
+    if (document.documentElement.classList.contains('is-loading')) {
+      if (!m.waiting) { m.waiting = true; addEventListener('page:ready', () => { m.waiting = false; if (!m.entered) enter(m); }, { once: true }); }
+      return;
+    }
     m.entered = true;
     const u = m.material.uniforms;
     tween(u.uBias, PARAMS.bias, PARAMS.enterDuration, ease.power4Out, PARAMS.enterBias);
