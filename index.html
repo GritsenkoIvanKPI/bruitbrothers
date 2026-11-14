@@ -780,8 +780,9 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   :root { --logo-box: calc(26px * 600 / 256 + 26px); }
   .intro__copy { margin-left: var(--logo-box); }
   /* list bars start on the logo box's right edge; the items step in from the bar text the same way as on desktop */
-  .service__list-title { margin-left: var(--logo-box); }
-  .service__list { padding-left: calc(var(--logo-box) + 1.4em); }
+  /* list bars start on the line under 'and' (screen 2) and run to the screen edge; items step in from the bar text */
+  .service__list-title { margin-left: calc(var(--and-x, 40vw) - var(--g)); }
+  .service__list { padding-left: calc(var(--and-x, 40vw) - var(--g) + 1.4em); }
   .intro__rule { display: block; height: var(--s5); margin: var(--s3) 0 var(--s3) var(--rule-x, 22%); border-left: 1px solid currentColor; }
   .intro__rule--end { height: var(--s4); margin-bottom: 0; }
   /* hero description on phones: same size as the intro copy on screen 2, three lines */
@@ -816,7 +817,8 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .service__body, .service__body > div:first-child { display: contents; }
   .service__num { order: 1; }
   .service__title { order: 2; margin: var(--s1) 0 0; }
-  .service__media { order: 3; width: 100%; margin: calc(var(--s3) * 1.5) 0 0; } /* full column width: edges on the page gutters, like the text */
+  /* image as decoration: from the line under 'and' (screen 2) to the right screen edge, like the list bars */
+  .service__media { order: 3; width: auto; margin: calc(var(--s3) * 1.5) calc(-1 * var(--g)) 0 calc(var(--and-x, 40vw) - var(--g)); }
   .service__cols { order: 4; margin-top: var(--s3); }
   .header .header__cta { padding: 0 var(--s1); }
   .header__logo { padding: 0 13px; } /* (52 - 26) / 2: same space as above and below the logo */
@@ -1413,6 +1415,8 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
     const box = intro.getBoundingClientRect(), pad = parseFloat(getComputedStyle(intro).paddingLeft);
     const r = word.getBoundingClientRect();
     intro.style.setProperty('--rule-x', (r.left + r.width / 2 - box.left - pad - 0.5).toFixed(1) + 'px');
+    // same line, measured from the page edge: phones line up the service images and list bars on it
+    document.documentElement.style.setProperty('--and-x', (r.left + r.width / 2 - 0.5).toFixed(1) + 'px');
   };
   place();
   addEventListener('resize', place);
