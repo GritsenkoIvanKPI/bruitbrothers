@@ -789,6 +789,9 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .br-m { display: inline; }
   /* screen 2 heading on phones: 'for' is a regular line, so every line has the same spacing as screen 3 */
   .intro__for { margin: 0 0 0 0.06em; line-height: 1.2; } /* 0.9em x 1.2 = 1.08em */
+  /* fixed four-line layout on every phone: the longest line ('Tobacco, and OTC Medicines', 12.46em) fills the width */
+  .intro .intro__statement { font-size: calc((100vw - 2 * var(--g)) / 12.6); }
+  .intro__line { white-space: nowrap; }
   /* hero slogan on phones: four lines, as large as the widest line ('to make your brand') allows */
   .hero__title { font-size: calc((100vw - 2 * var(--g)) / 6.75); }
   .hero__title .hero__l4 { display: block; }
@@ -896,7 +899,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
     <h2 class="intro__statement" id="intro-title" data-reveal data-fog>
       <span class="intro__line">Strategy, Creative,<br class="br-m"> and Digital Advertising</span>
       <span class="intro__for">for</span>
-      <span class="intro__line">Food &amp; Beverages,<br class="br-m"> Alcohol, Tobacco,<br class="br-m"> <span class="intro__and">and</span> OTC Medicines</span>
+      <span class="intro__line">Food &amp; Beverages, Alcohol,<br class="br-m"> Tobacco, <span class="intro__and">and</span> OTC Medicines</span>
     </h2>
     <script>
     /* fog reveal: wrap each word so it can emerge from a blur, one after another */
