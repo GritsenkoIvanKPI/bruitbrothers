@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bruit Brothers — Integrated Brand Growth Agency</title>
 <meta name="description" content="Strategy, Creative, and Digital Advertising for Food & Beverage, Alcohol, Tobacco, and OTC Medicines. We help FMCG brands become impossible to ignore.">
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -170,6 +170,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   justify-content: space-between;
   align-items: flex-start;
   padding: var(--g) var(--g) 0;
+  padding-top: calc(var(--g) + env(safe-area-inset-top, 0px)); /* iPhone: photo runs under the status bar, header sits below it */
   pointer-events: none;
 }
 .header > * { pointer-events: auto; }
@@ -210,6 +211,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
   display: flex; flex-direction: column;
   width: min(100%, 720px);
   padding: var(--g) var(--g) var(--s3);
+  padding-top: calc(var(--g) + env(safe-area-inset-top, 0px));
   background: #f0ede5; color: #15209f;
   overflow-y: auto;
   transform: translateX(100%);
