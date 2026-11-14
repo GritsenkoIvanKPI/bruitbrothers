@@ -1291,7 +1291,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
 })();
 </script>
 <script>
-/* Challenges: one fill moves to the hovered / focused / tapped card */
+/* Challenges: one fill moves to the hovered / focused / tapped card; on phones it also follows the scroll */
 (() => {
   const board = document.querySelector('.pain__board');
   if (!board) return;
@@ -1325,6 +1325,22 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   addEventListener('load', again);
   if ('ResizeObserver' in window) { const ro = new ResizeObserver(again); items.forEach(i => ro.observe(i)); }
   place(active, true);
+
+  // phones: the blue card follows the scroll. The card under a reading line at 55% of the screen
+  // becomes active (above the list: the first card, below it: the last), and the fill glides there.
+  const phone = matchMedia('(max-width: 899px)');
+  let ticking = false;
+  const follow = () => {
+    ticking = false;
+    if (!phone.matches) return;
+    const b = board.getBoundingClientRect();
+    if (b.bottom < 0 || b.top > innerHeight) return;
+    const line = innerHeight * 0.55;
+    let pick = items[0];
+    for (const it of items) if (it.getBoundingClientRect().top <= line) pick = it;
+    if (pick !== active) place(pick);
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(follow); } }, { passive: true });
 })();
 </script>
 <script>
