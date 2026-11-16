@@ -784,6 +784,14 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   /* one body size on phones: service descriptions and list bars = the 18px used in the hero, intro and challenges; lists one step under (16px) */
   :root { --t-bar: 18px; --t-bar-sub: 16px; }
   .gets__item p { font-size: 19px; }
+  /* footer: the brothers stand on a thin ground line; legal + privacy sit on one row under it */
+  .footer__main { grid-template-columns: minmax(0, 1fr); }
+  .footer__mark { grid-column: 1; grid-row: 2; justify-self: end; margin-top: var(--s2); margin-bottom: calc(-1 * var(--s3)); transform: translateY(2.5%); }
+  .footer__info { grid-column: 1; grid-row: 3; position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; column-gap: var(--s2);
+    padding: 2px 0 6px; border-top: 1px solid currentColor; background: #f0ede5; font-size: 11px; }
+  .footer__info .footer__sep { display: inline; }
+  .footer__info .footer__rights { display: inline; }
+  .footer__info .footer__legal { white-space: nowrap; }
   /* 'No ...' strip as a ticker: one line, slowly scrolling, no separators; edge to edge under the top rule */
   .gets__nos { display: block; overflow: hidden; padding: 0; }
   .gets__track { display: inline-flex; white-space: nowrap; animation: nos-tick 26s linear infinite; }
