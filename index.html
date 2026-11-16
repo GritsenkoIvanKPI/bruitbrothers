@@ -795,7 +795,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   /* 'No ...' strip as a ticker: one line, slowly scrolling, no separators; edge to edge under the top rule */
   .gets__nos { display: block; overflow: hidden; padding: 0; }
   .gets__track { display: inline-flex; white-space: nowrap; animation: nos-tick 26s linear infinite; }
-  .gets__track li, .gets__track .is-copy { display: block; padding: var(--s2) 1.6em var(--s2) 0; }
+  .gets__track li, .gets__track .is-copy { display: block; flex: none; white-space: nowrap; text-wrap: nowrap; padding: var(--s2) 1.6em var(--s2) 0; } /* each phrase on one line (Chrome lets text-wrap override nowrap) */
   .gets__track li::before { display: none !important; }
   @media (prefers-reduced-motion: reduce) {
     .gets__track { animation: none; display: flex; flex-wrap: wrap; justify-content: center; white-space: normal; }
