@@ -797,8 +797,10 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .intro__copy { margin-left: var(--logo-box); }
   /* list bars start on the logo box's right edge; the items step in from the bar text the same way as on desktop */
   /* list bars start on the line under 'and' (screen 2) and run to the screen edge; items step in from the bar text */
-  .service__list-title { margin-left: calc(var(--and-x, 40vw) - var(--g)); }
-  .service__list { padding-left: calc(var(--and-x, 40vw) - var(--g) + 1.4em); }
+  /* ...but never so far right that the longest item ('TikTok Clipping & Overlay Sticker', ~265px with its step-in) wraps */
+  :root { --list-x: min(calc(var(--and-x, 40vw) - var(--g)), calc(100vw - 2 * var(--g) - 272px)); }
+  .service__list-title { margin-left: var(--list-x); }
+  .service__list { padding-left: calc(var(--list-x) + 1.4em); }
   .intro__rule { display: block; height: var(--s5); margin: var(--s3) 0 var(--s3) var(--rule-x, 22%); border-left: 1px solid currentColor; }
   .intro__rule--end { height: var(--s4); margin-bottom: 0; }
   /* hero description on phones: same size as the intro copy on screen 2, three lines */
