@@ -548,6 +548,7 @@ html.drawer-open { overflow: hidden; }
 /* the brothers stand at the bottom edge and are cut off by it */
 /* comfortable tap targets without changing the visual rhythm */
 .nowrap { white-space: nowrap; }
+@media (max-width: 899px) { .nw-m { white-space: nowrap; } } /* phones keep this phrase together; desktop may break it */
 .br-m { display: none; } /* line break used on phones only */
 @media (min-width: 600px) and (max-width: 899px) {
   .pain__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } /* four problems: 2 x 2, like desktop */
@@ -1065,7 +1066,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
         </div>
         <div class="service__cols">
           <div class="service__text" data-reveal>
-            <p>Your brand has only 1.3 seconds to capture attention, so before a single ad goes live, you need to know exactly what to say and where to do it.</p>
+            <p>Your brand has only 1.3 seconds to capture attention, so before a single ad goes live, you need to know exactly what <span class="nw-m">to say and where to do it.</span></p>
             <p>We develop messages that are instantly clear, identify the highest-potential placements, and create unmissable advertising materials that spark desire.</p>
             <p>It comes together as a complete campaign kit, ready to launch.</p>
           </div>
