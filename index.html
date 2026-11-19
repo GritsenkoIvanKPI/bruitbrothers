@@ -790,7 +790,8 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .footer__mark { grid-column: 1; grid-row: 2; justify-self: end; margin-top: var(--s2); margin-bottom: calc(-1 * var(--s3)); transform: translateY(2.5%); }
   .footer__info { grid-column: 1; grid-row: 3; position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; column-gap: var(--s2);
     padding: 2px 0 6px; border-top: 1px solid currentColor; background: #f0ede5; font-size: 11px; }
-  .footer__info .footer__sep { display: inline; }
+  .footer__info .footer__sep { display: inline; font-size: 0; } /* the slash is swapped for a straight bar on phones */
+  .footer__info .footer__sep::after { content: "|"; font-size: 11px; margin-left: 0.6em; } /* the space after it in the text balances the gap */
   .footer__info .footer__rights { display: inline; }
   .footer__info .footer__legal { white-space: nowrap; }
   /* 'No ...' strip as a ticker: one line, slowly scrolling, no separators; edge to edge under the top rule */
