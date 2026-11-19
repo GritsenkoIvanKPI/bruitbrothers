@@ -847,6 +847,9 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .service__title { order: 2; margin: var(--s1) 0 0; }
   /* image as decoration: from the line under 'and' (screen 2) to the right screen edge, like the list bars */
   .service__media { order: 3; width: auto; margin: calc(var(--s3) * 1.5) calc(-1 * var(--g)) 0 calc(var(--and-x, 40vw) - var(--g)); }
+  /* 03 Media Activation, 04 Brand Measurement: no descenders in the heading, so the image comes up ~21px
+     to keep heading-image = image-text (about 35px of visible space each) */
+  .service:nth-child(3) .service__media, .service:nth-child(4) .service__media { margin-top: calc(var(--s3) * 1.5 - 21px); }
   .service__cols { order: 4; margin-top: var(--s3); }
   .header .header__cta { padding: 0 var(--s1); }
   .header__logo { padding: 0 13px; } /* (52 - 26) / 2: same space as above and below the logo */
