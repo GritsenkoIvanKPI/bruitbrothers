@@ -109,8 +109,8 @@ void main(){
   // animated threshold, desktop pattern (noise scale 1.4, weights 0.77 / 0.87), toned down below
   // phones: same shimmer pattern as desktop but much calmer (strength 0.29 -> 0.07, slower drift and pulse),
   // because on a phone screen the full-strength flicker reads as flashing
-  float n = cnoise(vec3(cuv * 1.4, time * 2.0));
-  float pulse = sin(time * 1.2) * 0.5 + 0.5;
+  float n = cnoise(vec3(cuv * 1.4, time * 0.4));
+  float pulse = sin(time * 0.35) * 0.5 + 0.5;
   float ab = bias + (n * 0.77 + pulse * 0.87) * 0.07;
   float th = trail < 0.5 ? b4(gl_FragCoord.xy) : b8(gl_FragCoord.xy);
   float v = th + ab * (1.0 + 2.0 * trail);
