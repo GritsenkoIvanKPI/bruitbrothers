@@ -176,6 +176,8 @@ export function initTouchDither({ colorDark = '#15209f', colorLight = '#f0ede5',
     item.host.appendChild(canvas);
     const gl = canvas.getContext('webgl', { alpha: false, antialias: false, premultipliedAlpha: false });
     if (!gl) { canvas.remove(); return false; }
+    // phones drop WebGL contexts (app switch, lock screen, memory pressure): note it and rebuild on the next frame
+    canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); item.lost = true; });
     const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); return o; };
     const prog = gl.createProgram();
     gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS));
@@ -205,7 +207,8 @@ export function initTouchDither({ colorDark = '#15209f', colorLight = '#f0ede5',
 
   function destroyGL(item) {
     if (!item.gl) return;
-    item.gl.getExtension('WEBGL_lose_context')?.loseContext();
+    if (!item.lost && !item.gl.isContextLost()) item.gl.getExtension('WEBGL_lose_context')?.loseContext();
+    item.lost = false;
     item.canvas.remove();
     Object.assign(item, { canvas: null, gl: null, uploaded: false });
     item.el.style.opacity = '';
@@ -275,6 +278,10 @@ export function initTouchDither({ colorDark = '#15209f', colorLight = '#f0ede5',
     requestAnimationFrame(loop);
     const t = performance.now() / 1000;
     for (const it of items) {
+      // recovery: a lost context is thrown away (the plain photo shows meanwhile) and rebuilt;
+      // a context the browser refused (too many open) is retried once a second
+      if (it.gl && (it.lost || it.gl.isContextLost())) destroyGL(it);
+      if (it.near && !it.gl && t > (it.retryAt || 0)) { if (createGL(it) === false) it.retryAt = t + 1; }
       if (!it.visible || !it.gl) continue;
       const sizeChanged = Math.round(it.host.clientWidth * DPR) !== it.w || Math.round(it.host.clientHeight * DPR) !== it.h;
       const entering = !it.entered || t - it.enterStart < ENTER + 0.05;
