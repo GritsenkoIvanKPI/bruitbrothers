@@ -850,6 +850,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   /* 03 Media Activation, 04 Brand Measurement: no descenders in the heading, so the image comes up ~21px
      to keep heading-image = image-text (about 35px of visible space each) */
   .service:nth-child(3) .service__media, .service:nth-child(4) .service__media { margin-top: calc(var(--s3) * 1.5 - 21px); }
+  .service:nth-child(2) .service__title { line-height: 1.1; } /* 'Campaign / Development': the g/p tails no longer touch the D and l below */
   .service__cols { order: 4; margin-top: var(--s3); }
   .header .header__cta { padding: 0 var(--s1); }
   .header__logo { padding: 0 13px; } /* (52 - 26) / 2: same space as above and below the logo */
