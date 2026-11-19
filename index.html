@@ -783,7 +783,8 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   :root { --logo-box: calc(26px * 600 / 256 + 26px); }
   /* one body size on phones: service descriptions and list bars = the 18px used in the hero, intro and challenges; lists one step under (16px) */
   :root { --t-bar: 18px; --t-bar-sub: 16px; }
-  .pain__answer .btn { margin-top: calc(var(--s3) * 1.5); } /* button lower: ~15% of the panel height below the audit text */
+  .pain__answer .btn { margin-top: calc(var(--s3) * 1.5); }
+  .footer__btn { margin-top: calc(var(--s3) * 1.5 + var(--s2) + 3px); } /* same text-to-button gap as the audit panel (63px) */ /* button lower: ~15% of the panel height below the audit text */
   /* footer: the brothers stand on a thin ground line; legal + privacy sit on one row under it */
   .footer__main { grid-template-columns: minmax(0, 1fr); }
   .footer__mark { grid-column: 1; grid-row: 2; justify-self: end; margin-top: var(--s2); margin-bottom: calc(-1 * var(--s3)); transform: translateY(2.5%); }
