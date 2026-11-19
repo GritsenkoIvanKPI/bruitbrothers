@@ -646,7 +646,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .footer__cta { display: contents; }
   .footer__title { grid-column: 1 / -1; grid-row: 1; }
   .footer__btn { grid-column: 1; grid-row: 2; justify-self: start; margin-top: 0; }
-  .footer__info { grid-row: 3; }
+  .footer__info { grid-row: 3; display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--s3); } /* legal + privacy on one line */
   .footer__mark { grid-row: 2 / 4; }
   .footer__cta { align-self: start; grid-column: 1 / -1; }
   .footer__mark { grid-column: 2; }
