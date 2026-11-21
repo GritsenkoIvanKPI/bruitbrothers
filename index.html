@@ -797,13 +797,9 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .footer__info .footer__sep::after { content: "|"; font-size: 11px; margin-left: 0.6em; } /* the space after it in the text balances the gap */
   .footer__info .footer__rights { display: inline; }
   .footer__info .footer__legal { white-space: nowrap; }
-  /* one line on every phone: text shrinks to fit (11px max, 9.5px min); below ~385px '| All Rights Reserved' is dropped (© covers it) */
-  .footer__info { flex-wrap: nowrap; column-gap: 12px; font-size: clamp(9.5px, calc((100vw - 2 * var(--g) - 12px) / 34.8), 11px); }
+  /* full text on one line on every phone: the size scales with the width (11px max) */
+  .footer__info { flex-wrap: nowrap; column-gap: 12px; font-size: min(11px, calc((100vw - 2 * var(--g) - 12px) / 34.8)); }
   .footer__info .footer__privacy { white-space: nowrap; }
-}
-@media (max-width: 384px) {
-  .footer__info .footer__sep, .footer__info .footer__rights { display: none; }
-  .footer__info { font-size: 11px; }
   /* 'No ...' strip as a ticker: one line, slowly scrolling, no separators; edge to edge under the top rule */
   .gets__nos { display: block; overflow: hidden; padding: 0; }
   .gets__track { display: inline-flex; white-space: nowrap; will-change: transform; backface-visibility: hidden; animation: nos-tick 14s linear infinite; /* twice the earlier speed; stays on the GPU layer */ }
