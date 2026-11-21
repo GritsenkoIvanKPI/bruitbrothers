@@ -787,7 +787,8 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .pain__answer .btn { margin-top: calc(var(--s3) * 1.5); }
   .gets__bar { font-size: 21px; } /* cream bar headings two steps up (19 to 21px) */
   .service__text p + p { margin-top: 0.92em; } /* paragraph gap ~15% larger (0.8 to 0.92em) */
-  .footer__btn { margin-top: calc(var(--s3) * 1.5 + var(--s2) + 3px); } /* same text-to-button gap as the audit panel (63px) */ /* button lower: ~15% of the panel height below the audit text */
+  .footer__btn { margin-top: calc(var(--s3) * 1.5 + var(--s2) + 1px); }
+  .footer__title > span { text-wrap: wrap; } /* fixed break below instead of balanced lines */ /* same text-to-button gap as the audit panel (63px) */ /* button lower: ~15% of the panel height below the audit text */
   /* footer: the brothers stand on a thin ground line; legal + privacy sit on one row under it */
   .footer__main { grid-template-columns: minmax(0, 1fr); }
   .footer__mark { grid-column: 1; grid-row: 2; justify-self: end; margin-top: var(--s2); margin-bottom: calc(-1 * var(--s3)); transform: translateY(2.5%); }
@@ -1233,7 +1234,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
 <footer class="footer" id="audit">
   <div class="footer__main wrap">
     <div class="footer__cta">
-      <h2 class="footer__title" data-reveal data-fog><span>They are ready to listen.</span> <span>Let’s give them something worth hearing.</span></h2>
+      <h2 class="footer__title" data-reveal data-fog><span>They are ready to listen.</span> <span>Let’s give them something<br class="br-m"> worth hearing.</span></h2>
       <script>window.__fog(document.querySelector('.footer__title'));</script>
       <a class="btn footer__btn" href="mailto:office@bruitbrothers.com?subject=Free%20brand%20audit"><span class="btn__label">Book a free brand audit&nbsp;<span class="btn__arrow" aria-hidden="true">→</span></span></a>
     </div>
