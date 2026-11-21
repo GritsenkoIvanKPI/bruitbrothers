@@ -823,6 +823,8 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .intro__for { margin: 0 0 0 0.06em; line-height: 1.2; } /* 0.9em x 1.2 = 1.08em */
   /* fixed four-line layout on every phone: the longest line ('Tobacco, and OTC Medicines', 12.46em) fills the width */
   .intro .intro__statement { font-size: calc((100vw - 2 * var(--g)) / 12.6); }
+  .intro .intro__statement { line-height: 1.22; } /* ~13% more line spacing (was 1.08) */
+  .intro .intro__for { line-height: 1.36; } /* 'for' line scaled the same way */
   .intro__line { white-space: nowrap; }
   /* hero slogan on phones: four lines, as large as the widest line ('to make your brand') allows */
   .hero__title { font-size: calc((100vw - 2 * var(--g)) / 6.75); }
