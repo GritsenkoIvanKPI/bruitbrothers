@@ -134,7 +134,7 @@ h1, h2, h3, .display, p, li, .label { text-wrap: pretty; }
 /* hover: colours and label stay put; only the arrow glides right */
 .btn__label { display: block; line-height: 1.3; }
 .btn__icon { display: none; } /* shown instead of the label in the phone header */
-@keyframes nos-tick { to { transform: translateX(-50%); } }
+@keyframes nos-tick { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
 .gets__track { display: contents; } /* desktop: the track is invisible to the grid */
 .gets__track .is-copy { display: none; }
 @keyframes burger-in { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: none; } }
@@ -799,7 +799,7 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
   .footer__info .footer__legal { white-space: nowrap; }
   /* 'No ...' strip as a ticker: one line, slowly scrolling, no separators; edge to edge under the top rule */
   .gets__nos { display: block; overflow: hidden; padding: 0; }
-  .gets__track { display: inline-flex; white-space: nowrap; animation: nos-tick 14s linear infinite; /* twice the earlier speed */ }
+  .gets__track { display: inline-flex; white-space: nowrap; will-change: transform; backface-visibility: hidden; animation: nos-tick 14s linear infinite; /* twice the earlier speed; stays on the GPU layer */ }
   .gets__track li, .gets__track .is-copy { display: block; flex: none; white-space: nowrap; text-wrap: nowrap; padding: var(--s2) 3em var(--s2) 0; } /* each phrase on one line (Chrome lets text-wrap override nowrap) */
   .gets__track li::before { display: none !important; }
   @media (prefers-reduced-motion: reduce) {
@@ -1216,6 +1216,14 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
       items.forEach(li => track.appendChild(li));
       items.forEach(li => { const c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.classList.add('is-copy'); track.appendChild(c); });
       ul.appendChild(track);
+      // the loop must be a whole number of pixels, or the text re-snaps to the pixel grid on every restart (a visible flicker)
+      const lastA = items[items.length - 1], lastB = track.lastElementChild;
+      const snap = () => {
+        lastA.style.marginRight = lastB.style.marginRight = '';
+        const half = track.getBoundingClientRect().width / 2, extra = Math.ceil(half) - half;
+        if (extra > 0.001) lastA.style.marginRight = lastB.style.marginRight = extra + 'px';
+      };
+      snap(); document.fonts?.ready.then(snap); addEventListener('resize', snap);
     })();
     </script>
   </section>
