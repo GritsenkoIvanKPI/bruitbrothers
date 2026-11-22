@@ -1211,22 +1211,36 @@ html.is-loading .header__logo { opacity: 0; } /* corner stays empty until the sh
       <li>No unexpected delays</li>
     </ul>
     <script>
-    /* phones: the three lines become a slow ticker; a hidden copy makes the loop seamless (desktop ignores the track) */
+    /* phones: the three lines become a slow ticker. The phrases repeat until one half of the track is wider than
+       the screen, then that half is copied; the animation moves exactly one half, so the loop never shows a gap.
+       Each half is a whole number of pixels, so the text doesn't re-snap (flicker) when the loop restarts. */
     (() => {
       const ul = document.querySelector('.gets__nos'); if (!ul) return;
-      const track = document.createElement('div'); track.className = 'gets__track';
       const items = [...ul.children];
+      const track = document.createElement('div'); track.className = 'gets__track';
       items.forEach(li => track.appendChild(li));
-      items.forEach(li => { const c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.classList.add('is-copy'); track.appendChild(c); });
       ul.appendChild(track);
-      // the loop must be a whole number of pixels, or the text re-snaps to the pixel grid on every restart (a visible flicker)
-      const lastA = items[items.length - 1], lastB = track.lastElementChild;
-      const snap = () => {
-        lastA.style.marginRight = lastB.style.marginRight = '';
-        const half = track.getBoundingClientRect().width / 2, extra = Math.ceil(half) - half;
-        if (extra > 0.001) lastA.style.marginRight = lastB.style.marginRight = extra + 'px';
+      const copy = li => { const c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.classList.add('is-copy'); return c; };
+      const build = () => {
+        track.querySelectorAll('.is-copy').forEach(c => c.remove());
+        items.forEach(li => li.style.marginRight = '');
+        if (getComputedStyle(track).display === 'contents') return;          // desktop: plain row, no ticker
+        const set = items.reduce((w, li) => w + li.getBoundingClientRect().width, 0);
+        if (!set) return;
+        const reps = Math.max(1, Math.ceil((ul.clientWidth + 1) / set));      // one half must cover the whole strip
+        const half = [];
+        for (let r = 0; r < reps; r++) items.forEach(li => half.push(r ? copy(li) : li));
+        half.slice(items.length).forEach(c => track.appendChild(c));
+        half.forEach(li => track.appendChild(copy(li)));                      // second, identical half
+        const w = set * reps, extra = Math.ceil(w) - w;                       // round each half up to whole pixels
+        track.style.animationDuration = (Math.ceil(w) / 42).toFixed(2) + 's';  // same speed on every width: 42px/s
+        if (extra > 0.001) {
+          half[half.length - 1].style.marginRight = extra + 'px';
+          track.lastElementChild.style.marginRight = extra + 'px';
+        }
       };
-      snap(); document.fonts?.ready.then(snap); addEventListener('resize', snap);
+      build(); document.fonts?.ready.then(build);
+      let t; addEventListener('resize', () => { clearTimeout(t); t = setTimeout(build, 150); });
     })();
     </script>
   </section>
