@@ -11,168 +11,8 @@
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <link rel="stylesheet" href="https://use.typekit.net/rix1cmb.css">
 <script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="page.css">
 <style>
-/* ============ Tokens (same as the homepage) ============ */
-:root {
-  --blue: #15209f;
-  --cream: #f0ede5;
-  --display: "meno-display-condensed", Georgia, serif;
-  --text: "host-grotesk", "Helvetica Neue", Arial, sans-serif;
-  --mono: "ibm-plex-mono", "SFMono-Regular", Menlo, monospace;
-  --gb: clamp(16px, 1.25vw, 24px);
-  --g: clamp(20px, 1.54vw, 30px);
-  --s1: calc(var(--gb) * 0.5);
-  --s2: var(--gb);
-  --s3: calc(var(--gb) * 2);
-  --s4: calc(var(--gb) * 4);
-  --s5: calc(var(--gb) * 6);
-  --header: 64px;
-  --t-label: clamp(12px, 0.8vw, 13px);
-  --t-body: clamp(15px, 1.05vw, 18px);
-  --t-sans-h: clamp(28px, 3.9vw, 80px);
-  --lh-text: 1.2;
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-}
-.on-blue { --blue: #f0ede5; --cream: #15209f; background: var(--cream); color: var(--blue); }
-
-/* ============ Base ============ */
-*, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; background: #f0ede5; }
-body {
-  margin: 0;
-  background: #f0ede5;
-  color: var(--blue);
-  font-family: var(--text);
-  font-size: var(--t-body);
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: clip;
-}
-img { display: block; max-width: 100%; }
-h1, h2, p, ul { margin: 0; }
-a { color: inherit; text-decoration: none; }
-address { font-style: normal; }
-::selection { background: var(--blue); color: var(--cream); }
-:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
-.label { font-size: var(--t-label); font-weight: 500; line-height: 1.5; letter-spacing: 0.06em; text-transform: uppercase; }
-.display { font-family: var(--display); font-weight: 600; letter-spacing: -0.035em; line-height: 0.88; }
-.wrap { padding-left: var(--g); padding-right: var(--g); }
-h1, h2, p { text-wrap: pretty; }
-.nowrap { white-space: nowrap; }
-.br-m { display: none; }
-
-/* ============ Buttons & links ============ */
-.btn {
-  position: relative; display: inline-flex; align-items: center; justify-content: center;
-  min-height: 44px; padding: 0 var(--s2);
-  font-size: var(--t-label); letter-spacing: 0.02em; text-transform: uppercase;
-  --btn-bg: var(--blue); --btn-fg: var(--cream);
-  background: var(--btn-bg); color: var(--btn-fg);
-  overflow: hidden; isolation: isolate;
-  transition: transform 0.35s var(--ease);
-}
-.btn__label { display: block; line-height: 1.3; }
-.btn__icon { display: none; }
-.btn__arrow { display: inline-block; transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1); }
-.btn:hover .btn__arrow, .btn:focus-visible .btn__arrow { transform: translateX(0.5em); }
-.btn:active { transform: scale(0.98); transition-duration: 0.1s; }
-.btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
-@media (max-width: 359px) { .header__cta .btn__arrow { display: none; } }
-.link { position: relative; display: inline-block; }
-.link:active { opacity: 0.6; }
-.link--plain:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
-
-/* ============ Header (same as the homepage) ============ */
-.header {
-  position: fixed; z-index: 50; inset: 0 0 auto 0;
-  display: flex; justify-content: space-between; align-items: flex-start;
-  padding: var(--g) var(--g) 0;
-  padding-top: calc(var(--g) + env(safe-area-inset-top, 0px));
-  pointer-events: none;
-}
-.header > * { pointer-events: auto; }
-.header__logo { display: inline-flex; align-items: center; height: 52px; padding: 0 18px; background: #15209f; transition: transform 0.4s var(--ease); }
-.header__logo img { height: 30px; width: auto; }
-.header__logo:active { transform: scale(0.98); }
-.header__logo:focus-visible { outline: 2px solid #f0ede5; outline-offset: 3px; }
-.header .header__cta { height: 52px; min-height: 0; --btn-bg: #15209f; --btn-fg: #f0ede5; }
-.header .header__cta:focus-visible { outline-color: #f0ede5; }
-.header__menu { display: none; }
-.header__right { display: flex; gap: 6px; }
-.header__burger {
-  display: inline-flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
-  width: 52px; height: 52px; padding: 0; border: 1px solid #15209f; cursor: pointer;
-  background: #f0ede5; transition: transform 0.35s var(--ease);
-}
-.header__burger span { display: block; width: 20px; height: 2px; background: #15209f; transition: transform 0.35s var(--ease); }
-.header__burger:hover span:nth-child(1) { transform: translateX(-3px); }
-.header__burger:hover span:nth-child(3) { transform: translateX(3px); }
-.header__burger:active { transform: scale(0.95); }
-.header__burger:focus-visible { outline: 2px solid #f0ede5; outline-offset: 3px; }
-.header__menu a:active, .header .header__cta:active { opacity: 0.7; }
-.header__menu a:focus-visible { outline: 2px solid #f0ede5; outline-offset: 4px; }
-.header__menu a[aria-current="page"] { opacity: 0.55; }
-@media (pointer: coarse) {
-  .header .header__menu { display: none !important; }
-  .header .header__burger { display: inline-flex !important; }
-}
-
-/* drawer: slides in from the right */
-.drawer { position: fixed; inset: 0; z-index: 120; visibility: hidden; transition: visibility 0s linear 0.6s; }
-.drawer.is-open { visibility: visible; transition: none; }
-.drawer__veil { position: absolute; inset: 0; background: rgba(21, 32, 159, 0.55); opacity: 0; transition: opacity 0.5s var(--ease); }
-.drawer__panel {
-  position: absolute; inset: 0 0 0 auto; display: flex; flex-direction: column;
-  width: min(100%, 720px);
-  padding: var(--g) var(--g) var(--s3);
-  padding-top: calc(var(--g) + env(safe-area-inset-top, 0px));
-  background: #f0ede5; color: #15209f; overflow-y: auto;
-  transform: translateX(100%); transition: transform 0.6s var(--ease);
-}
-.drawer.is-open .drawer__veil { opacity: 1; }
-.drawer.is-open .drawer__panel { transform: none; }
-.drawer__top { display: flex; justify-content: flex-end; align-items: center; min-height: 52px; }
-.drawer__close { min-height: 44px; padding: 0 var(--s2); border: 1px solid #15209f; background: transparent; color: #15209f; cursor: pointer; transition: background 0.3s var(--ease), color 0.3s var(--ease); }
-.drawer__close:hover { background: #15209f; color: #f0ede5; }
-.drawer__close:active { opacity: 0.7; }
-.drawer__close:focus-visible { outline: 2px solid #15209f; outline-offset: 3px; }
-.drawer__nav { display: grid; margin: var(--s4) 0 var(--s4); }
-.drawer__nav a { justify-self: start; font-size: clamp(28px, 2.8vw, 46px); font-weight: 400; line-height: 1.2; letter-spacing: -0.03em; transition: transform 0.45s var(--ease), opacity 0.3s var(--ease); }
-.drawer__nav a:hover { transform: translateX(-10px); }
-.drawer__nav a:active { opacity: 0.6; }
-.drawer__nav a:focus-visible { outline: 2px solid #15209f; outline-offset: 4px; }
-.drawer__info { display: grid; gap: var(--s2); padding-top: var(--s3); border-top: 1px solid #15209f; }
-.drawer__label { font-family: var(--mono); font-weight: 400; }
-.drawer__contacts { display: grid; justify-items: start; gap: var(--s1); font-size: clamp(17px, 1.4vw, 22px); line-height: var(--lh-text); }
-.drawer__contacts > * { display: inline-flex; align-items: center; min-height: 32px; }
-.btn, .header__menu, .drawer__close { font-family: var(--mono); font-weight: 400; letter-spacing: 0.02em; }
-.btn { -webkit-text-stroke: 0.4px currentColor; }
-html.drawer-open { overflow: hidden; }
-@media (min-width: 600px) { .drawer__info { grid-template-columns: 1fr 1fr; align-items: baseline; } }
-@media (prefers-reduced-motion: reduce) { .drawer__panel, .drawer__veil, .btn, .btn__arrow { transition: none; } }
-
-/* letter-scramble hover */
-.dc-word { white-space: nowrap; }
-.dc-cell { position: relative; display: inline-block; }
-.dc-cell.is-scrambled > .dc-char { visibility: hidden; }
-.dc-glyph { position: absolute; top: 0; left: 50%; transform: translateX(-50%) scaleX(var(--sq, 1)); opacity: 0.55; }
-.dc-cell:not(.is-scrambled) > .dc-glyph { display: none; }
-
-/* ============ Reveal (transform + opacity only) ============ */
-.js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
-.js [data-reveal].is-in { opacity: 1; transform: none; }
-.js [data-reveal][data-d="1"] { transition-delay: 0.15s; }
-.js [data-reveal][data-d="2"] { transition-delay: 0.3s; }
-.js [data-reveal][data-fog] { opacity: 1; transform: none; transition: none; }
-.fog-w { display: inline-block; }
-.fog-g { white-space: nowrap; }
-.js [data-fog] .fog-w { opacity: 0; filter: blur(14px); transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), filter 0.95s cubic-bezier(0.25, 0.1, 0.25, 1); transition-delay: calc(var(--i) * 45ms); }
-.js [data-fog].is-in .fog-w { opacity: 1; filter: none; }
-@media (prefers-reduced-motion: reduce) {
-  .js [data-fog] .fog-w { opacity: 1; filter: none; transition: none; }
-  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
-}
-
 /* ============ Contact ============ */
 /* One screen, like a building site: the promise in a blue band across the top,
    then a cream ground split by one thin rule: the call to action (2/3) and the contact details (1/3). */
@@ -187,13 +27,6 @@ html.drawer-open { overflow: hidden; }
 .contact__ground { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr); }
 .contact__cell { padding: var(--s3) var(--g); }
 /* the secondary phrase and the button are one unit: same column, same width, a tight gap */
-.contact__pitch { display: inline-grid; justify-items: stretch; max-width: 100%; }
-.contact__lead {
-  font-family: var(--text); font-weight: 600; font-size: var(--t-sans-h);
-  line-height: 1.08; letter-spacing: -0.03em;
-}
-.contact__btn { margin-top: 17px; min-height: clamp(56px, 4.4vw, 76px); justify-content: space-between; padding: 0 var(--s2); }
-.contact__btn .btn__label { display: flex; width: 100%; justify-content: space-between; align-items: center; }
 /* contact details: quiet, flush left */
 .contact__details { display: grid; justify-items: start; align-content: start; gap: var(--s2); font-size: 18px; line-height: var(--lh-text); }
 .contact__details p { margin: 0; }
@@ -203,36 +36,13 @@ html.drawer-open { overflow: hidden; }
 .contact__cell--info { border-top: 1px solid var(--blue); }
 
 @media (max-width: 899px) {
-  /* header on phones: logo box hugs the logo, CTA is an icon square (same as the homepage) */
-  .header .header__cta { width: 52px; padding: 0; justify-content: center; }
-  .header .header__burger { width: 52px; }
-  .header .header__cta .btn__label { display: none; }
-  .header .header__cta .btn__icon { display: block; width: 25px; height: 25px; }
-  .header__logo { padding: 0 13px; }
-  .header__logo img { height: 26px; }
-  .br-m { display: inline; }
-  .br-d { display: none; }
   /* three lines on phones: 'Let’s make your / brand people’s / first choice.' */
   .contact__top { min-height: 58svh; display: flex; flex-direction: column; justify-content: flex-end; }
   .contact__title { font-size: calc((100vw - 2 * var(--g)) / 5.5); }
-  .contact__pitch { display: grid; }
   .contact__cell--pitch { padding-top: var(--s3); padding-bottom: var(--s3); }
   .contact__cell--info { padding-top: var(--s2); padding-bottom: var(--s3); margin: 0 var(--g); padding-left: 0; padding-right: 0; }
 }
-@media (max-width: 379px) {
-  .header__right { gap: 4px; }
-  .header .header__logo { padding: 0 15px; }
-  .header .header__logo img { height: 22px; }
-}
 @media (min-width: 900px) {
-  :root { --header: 72px; --g: clamp(24px, 1.85vw, 36px); }
-  .header__logo, .header .header__cta { height: 60px; }
-  .header__logo img { height: 34px; }
-  .header__burger { width: 60px; height: 60px; }
-  .header__menu { display: flex; align-items: center; position: absolute; top: var(--g); left: 50%; height: 60px; color: #f0ede5; font-size: clamp(13px, 0.9vw, 14.5px); }
-  .header__menu ul { display: flex; align-items: center; column-gap: var(--s3); margin: 0; padding: 0; list-style: none; white-space: nowrap; }
-  .header__menu a { display: inline-flex; align-items: center; min-height: 22px; }
-
   .contact__top { padding-top: calc(var(--g) + 60px + var(--s4)); }
   /* two lines; also never taller than ~38% of the screen, so the ground below keeps its room */
   .contact__title { font-size: min(calc((100vw - 2 * var(--g)) / 7.6), 19svh); }
@@ -241,15 +51,7 @@ html.drawer-open { overflow: hidden; }
   .contact__cell--info { border-top: 0; border-left: 1px solid var(--blue); }
   /* details line up with the top of the phrase */
   .contact__details { padding-top: 0.35em; font-size: clamp(17px, 1.35vw, 24px); }
-  .contact__btn { margin-top: var(--s3); }
 }
-@media (min-width: 900px) and (max-width: 1279px) {
-  .header__menu { display: none !important; }
-}
-@media (min-width: 1280px) and (pointer: fine) {
-  .header__burger { display: none; }
-}
-@media (min-width: 1280px) and (max-width: 1439px) { .header .header__menu ul { column-gap: var(--s2); } }
 </style>
 </head>
 <body>
@@ -262,7 +64,7 @@ html.drawer-open { overflow: hidden; }
     <ul>
       <li><a href="index.html#solutions" data-decrypt>Solutions</a></li>
       <li><a href="index.html#always" data-decrypt>What you get</a></li>
-      <li><a href="index.html#about" data-decrypt>About us</a></li>
+      <li><a href="about.html" data-decrypt>About us</a></li>
       <li><a href="contact.html" aria-current="page" data-decrypt>Contact</a></li>
     </ul>
   </nav>
@@ -283,7 +85,7 @@ html.drawer-open { overflow: hidden; }
     <nav class="drawer__nav" aria-label="Menu">
       <a href="index.html#solutions">Solutions</a>
       <a href="index.html#always">What you get</a>
-      <a href="index.html#about">About us</a>
+      <a href="about.html">About us</a>
       <a href="contact.html" aria-current="page" data-close>Contact</a>
     </nav>
     <div class="drawer__info">
@@ -305,10 +107,10 @@ html.drawer-open { overflow: hidden; }
 
   <div class="contact__ground">
     <section class="contact__cell contact__cell--pitch" aria-label="Schedule a call">
-      <div class="contact__pitch" data-reveal data-d="1">
-        <h2 class="contact__lead">We take the mess&nbsp;–<br> you take the win.</h2>
+      <div class="contact__pitch cta-pitch" data-reveal data-d="1">
+        <h2 class="cta-pitch__lead">We take the mess&nbsp;–<br> you take the win.</h2>
         <!-- TODO: swap for the booking link (Calendly / Cal.com) once there is one -->
-        <a class="btn contact__btn" href="mailto:hello@bruitbrothers.com?subject=Schedule%20a%20call"><span class="btn__label">Schedule a call <span class="btn__arrow" aria-hidden="true">→</span></span></a>
+        <a class="btn cta-pitch__btn" href="mailto:hello@bruitbrothers.com?subject=Schedule%20a%20call"><span class="btn__label">Schedule a call <span class="btn__arrow" aria-hidden="true">→</span></span></a>
       </div>
     </section>
 
@@ -325,102 +127,6 @@ html.drawer-open { overflow: hidden; }
   </div>
 </main>
 
-<script>
-/* fog reveal: wrap each word so it can emerge from a blur, one after another (same as the homepage) */
-(() => {
-  const h = document.getElementById('contact-title'); let i = 0;
-  const walk = n => [...n.childNodes].forEach(c => {
-    if (c.nodeType === 3) {
-      const frag = document.createDocumentFragment();
-      c.textContent.split(/([ \t\n]+)/).forEach(part => {
-        if (!part) return;
-        if (/^[ \t\n]+$/.test(part)) { frag.append(part); return; }
-        const g = part.includes(' ') ? document.createElement('span') : frag;
-        if (g !== frag) { g.className = 'fog-g'; frag.append(g); }
-        part.split(' ').forEach((word, k) => {
-          if (k) g.append(' ');
-          if (!word) return;
-          const w = document.createElement('span'); w.className = 'fog-w'; w.textContent = word;
-          w.style.setProperty('--i', i++); g.append(w);
-        });
-      });
-      c.replaceWith(frag);
-    } else if (c.nodeType === 1) walk(c);
-  });
-  walk(h);
-})();
-</script>
-<script>
-/* menu drawer + reveals */
-(() => {
-  const drawer = document.getElementById('site-drawer');
-  const burger = document.querySelector('.header__burger');
-  let last = null;
-  const open = () => {
-    last = document.activeElement;
-    drawer.classList.add('is-open'); drawer.setAttribute('aria-hidden', 'false');
-    burger.setAttribute('aria-expanded', 'true');
-    document.documentElement.classList.add('drawer-open');
-    setTimeout(() => drawer.querySelector('.drawer__nav a')?.focus(), 50);
-  };
-  const close = () => {
-    drawer.classList.remove('is-open'); drawer.setAttribute('aria-hidden', 'true');
-    burger.setAttribute('aria-expanded', 'false');
-    document.documentElement.classList.remove('drawer-open');
-    (last || burger).focus?.({ preventScroll: true });
-  };
-  burger.addEventListener('click', open);
-  drawer.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', close));
-  addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.classList.contains('is-open')) close(); });
-
-  // reveal once fonts are in, so the headline doesn't re-wrap mid-animation
-  const go = () => document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-in'));
-  Promise.race([document.fonts?.ready || Promise.resolve(), new Promise(r => setTimeout(r, 1200))])
-    .then(() => requestAnimationFrame(() => requestAnimationFrame(go)));
-})();
-</script>
-<script>
-/* Decrypted-text hover for [data-decrypt] (same as the homepage) */
-(() => {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+';
-  const SPEED = 45;
-  document.querySelectorAll('[data-decrypt]').forEach(el => {
-    const text = el.textContent.trim();
-    el.setAttribute('aria-label', text);
-    el.textContent = '';
-    const wrap = document.createElement('span'); wrap.setAttribute('aria-hidden', 'true');
-    const cells = []; let word = null;
-    [...text].forEach(ch => {
-      if (/\s/.test(ch)) { wrap.append(ch); word = null; return; }
-      if (!word) { word = document.createElement('span'); word.className = 'dc-word'; wrap.append(word); }
-      const cell = document.createElement('span'); cell.className = 'dc-cell';
-      const c = document.createElement('span'); c.className = 'dc-char'; c.textContent = ch;
-      const g = document.createElement('span'); g.className = 'dc-glyph';
-      cell.append(c, g); word.append(cell); cells.push({ cell, c, g });
-    });
-    el.append(wrap);
-    let timer = null, queue = [];
-    const scramble = item => {
-      item.g.textContent = POOL[Math.floor(Math.random() * POOL.length)];
-      const need = item.g.offsetWidth, room = item.c.offsetWidth;
-      item.g.style.setProperty('--sq', need > room ? (room / need).toFixed(3) : 1);
-    };
-    const stop = () => { clearInterval(timer); timer = null; cells.forEach(i => i.cell.classList.remove('is-scrambled')); };
-    const tick = () => {
-      const next = queue.shift();
-      if (next) next.cell.classList.remove('is-scrambled');
-      cells.forEach(i => { if (i.cell.classList.contains('is-scrambled')) scramble(i); });
-      if (!queue.length) stop();
-    };
-    el.addEventListener('mouseenter', () => {
-      if (timer) return;
-      cells.forEach(i => { i.cell.classList.add('is-scrambled'); scramble(i); });
-      queue = [...cells]; timer = setInterval(tick, SPEED);
-    });
-    el.addEventListener('mouseleave', stop);
-  });
-})();
-</script>
+<script src="page.js"></script>
 </body>
 </html>

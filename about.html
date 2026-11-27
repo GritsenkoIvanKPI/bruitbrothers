@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>About — Bruit Brothers</title>
+<meta name="description" content="Bruit Brothers is an integrated brand growth agency helping FMCG brands become known, trusted, remembered, and chosen. That goes for highly regulated categories too.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/brand/favicon-512.png">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<link rel="stylesheet" href="https://use.typekit.net/rix1cmb.css">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="page.css">
+<style>
+/* ============ About ============ */
+/* Five short blocks, alternating paper and ink: the claim, who we are, how the services connect,
+   three principles, the call. Motion is only the homepage's quiet fade-up and the fog on the big claim. */
+
+/* 1. The claim: blue band, label + big display line */
+.ab-hero { display: flex; flex-direction: column; justify-content: flex-end; min-height: 72vh; min-height: 72svh;
+  padding-top: calc(var(--g) + env(safe-area-inset-top, 0px) + 52px + var(--s4)); padding-bottom: var(--s3); }
+.ab-hero__label { font-family: var(--mono); font-weight: 400; margin-bottom: var(--s2); }
+.ab-hero__title { font-size: calc((100vw - 2 * var(--g)) / 7.2); line-height: 0.9; white-space: nowrap; } /* fixed line breaks */
+.ab-hero__title .fog-w { padding-bottom: 0.06em; margin-bottom: -0.06em; }
+
+/* 2. Who we are: two large paragraphs */
+.ab-intro { padding-top: var(--s4); padding-bottom: var(--s4); }
+.ab-intro__copy { display: grid; gap: 0.7em; max-width: 34ch; font-size: clamp(22px, 2.3vw, 42px); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; }
+
+/* 3. The connected system: heading + a chain of service bars joined by arrows */
+.ab-system { padding-top: var(--s4); padding-bottom: var(--s4); border-top: 1px solid var(--blue); margin: 0 var(--g); padding-left: 0; padding-right: 0; }
+.ab-h2 { font-family: var(--text); font-weight: 600; font-size: var(--t-sans-h); line-height: 1.08; letter-spacing: -0.03em; }
+.ab-chain { margin: var(--s3) 0 0; padding: 0; list-style: none; font-size: 18px; line-height: var(--lh-text); }
+.ab-step { max-width: 36ch; margin: 0; }
+/* the service name sits in a blue bar, like the 'Includes:' bars on the homepage; the sentence runs on under it */
+.ab-name { display: inline-block; margin-bottom: 0.45em; padding: 0.3em 0.55em 0.32em; background: var(--blue); color: var(--cream); font-weight: 400; }
+.ab-arrow { display: block; margin: 0.5em 0 0.55em 0.55em; font-family: var(--mono); font-size: 22px; line-height: 1; }
+/* Visual Identity: outlined, not filled, set apart below a short rule (joins only when needed) */
+.ab-extra { max-width: 44ch; margin-top: var(--s3); padding-top: var(--s2); border-top: 1px solid var(--blue); font-size: 18px; line-height: var(--lh-text); }
+.ab-extra { line-height: 1.4; }
+.ab-name--line { display: inline; margin: 0; padding: 0.02em 0.3em 0.06em; background: none; color: inherit; box-shadow: inset 0 0 0 1px var(--blue); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+/* 4. Principles: blue band, three columns split by thin rules */
+.ab-principles { display: grid; padding-top: var(--s4); padding-bottom: var(--s4); }
+.ab-principle { padding: var(--s3) 0; }
+.ab-principle + .ab-principle { border-top: 1px solid var(--blue); }
+.ab-principle h2 { font-family: var(--text); font-weight: 600; font-size: clamp(26px, 2.3vw, 42px); line-height: 1.08; letter-spacing: -0.03em; }
+.ab-principle p { margin-top: var(--s2); max-width: 40ch; font-size: 18px; line-height: var(--lh-text); }
+
+/* 5. The call, with the brothers standing on the bottom edge (as in the homepage footer) */
+.ab-cta { display: grid; grid-template-columns: minmax(0, 1fr); padding-top: var(--s4); overflow: hidden; }
+.ab-cta__mark {
+  justify-self: end; width: 31.8vw; aspect-ratio: 870 / 734; margin-top: var(--s2); margin-bottom: calc(-1 * var(--s3));
+  transform: translateY(2.5%); background: var(--blue);
+  -webkit-mask: url("assets/brand/brothers-crop.png") center top / contain no-repeat;
+  mask: url("assets/brand/brothers-crop.png") center top / contain no-repeat;
+}
+.ab-legal { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; column-gap: 12px;
+  padding: 2px 0 6px; border-top: 1px solid currentColor; background: var(--cream); font-family: var(--mono); font-weight: 400;
+  font-size: min(11px, calc((100vw - 2 * var(--g) - 12px) / 34.8)); white-space: nowrap; }
+.ab-legal p { margin: 0; }
+.ab-legal a { display: inline-flex; align-items: center; min-height: 44px; transition: opacity 0.3s var(--ease); }
+.ab-legal a:hover { opacity: 0.7; }
+
+@media (max-width: 899px) {
+  /* claim on phones: four lines ('8 years in / the game. / No blind bets / at your expense.') */
+  .ab-hero { min-height: 62svh; }
+  .ab-hero__title { font-size: calc((100vw - 2 * var(--g)) / 5.45); }
+  .ab-intro__copy { font-size: 22px; }
+}
+@media (min-width: 900px) {
+  .ab-hero { padding-top: calc(var(--g) + 60px + var(--s4)); }
+  .ab-hero__title { font-size: min(calc((100vw - 2 * var(--g)) / 10.3), 17svh); }
+  /* who we are: steps in to the centre line, like the homepage intro copy */
+  .ab-intro { padding-top: var(--s5); padding-bottom: var(--s5); }
+  .ab-intro__copy { margin-left: 50%; max-width: 30ch; font-size: clamp(22px, 1.9vw, 36px); }
+  /* system: heading on the left (stays in view), chain on the right */
+  .ab-system { display: grid; grid-template-columns: 1fr 1fr; align-items: start; padding-top: var(--s4); padding-bottom: var(--s5); }
+  .ab-system .ab-h2 { position: sticky; top: calc(var(--header) + var(--s3)); padding-right: var(--s3); }
+  .ab-chain { margin-top: 0.35em; font-size: clamp(17px, 1.25vw, 23px); }
+  .ab-extra { font-size: clamp(17px, 1.25vw, 23px); }
+  /* principles: three columns with a rule between them */
+  .ab-principles { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-top: var(--s5); padding-bottom: var(--s5); }
+  .ab-principle { padding: 0 var(--g); }
+  .ab-principle:first-child { padding-left: 0; }
+  .ab-principle:last-child { padding-right: 0; }
+  .ab-principle + .ab-principle { border-top: 0; border-left: 1px solid var(--blue); }
+  .ab-principle p { font-size: clamp(17px, 1.25vw, 23px); }
+  /* call: phrase + button on the left, brothers on the right; legal line along the bottom */
+  .ab-cta { grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s2); padding-top: var(--s5); }
+  .ab-cta .cta-pitch { grid-column: 1; grid-row: 1; align-self: start; justify-self: start; } /* button as wide as the phrase */
+  .ab-cta__mark { grid-column: 2; grid-row: 1 / 3; width: min(26.4vw, 39vh, 417px); margin: 0 var(--s3) 0 0; }
+  .ab-legal { grid-column: 1; grid-row: 2; align-self: end; justify-content: flex-start; column-gap: var(--s3); border-top: 0; background: none; font-size: clamp(13px, 0.95vw, 16px); padding: var(--s4) 0 var(--s2); }
+}
+</style>
+</head>
+<body>
+
+<header class="header" id="site-header">
+  <a class="header__logo" href="index.html" aria-label="Bruit Brothers — home">
+    <img src="assets/brand/wordmark-cream-sm.png" alt="Bruit Brothers" width="600" height="256">
+  </a>
+  <nav class="header__menu label" aria-label="Main">
+    <ul>
+      <li><a href="index.html#solutions" data-decrypt>Solutions</a></li>
+      <li><a href="index.html#always" data-decrypt>What you get</a></li>
+      <li><a href="about.html" aria-current="page" data-decrypt>About us</a></li>
+      <li><a href="contact.html" data-decrypt>Contact</a></li>
+    </ul>
+  </nav>
+  <div class="header__right">
+    <button class="header__burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-drawer">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="btn header__cta" href="index.html#audit" aria-label="Book a free brand audit"><svg class="btn__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" d="M6.6 3.5h2.7l1.5 4-2 1.3a10.5 10.5 0 0 0 6.4 6.4l1.3-2 4 1.5v2.7a1.8 1.8 0 0 1-1.9 1.8A15.6 15.6 0 0 1 4.8 5.4 1.8 1.8 0 0 1 6.6 3.5z"/></svg><span class="btn__label">Book a free brand audit&nbsp;<span class="btn__arrow" aria-hidden="true">→</span></span></a>
+  </div>
+</header>
+
+<div class="drawer" id="site-drawer" aria-hidden="true">
+  <div class="drawer__veil" data-close></div>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="drawer__top">
+      <button class="drawer__close label" type="button" data-close>Close</button>
+    </div>
+    <nav class="drawer__nav" aria-label="Menu">
+      <a href="index.html#solutions">Solutions</a>
+      <a href="index.html#always">What you get</a>
+      <a href="about.html" aria-current="page" data-close>About us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="drawer__info">
+      <p class="label drawer__label">Stay in touch</p>
+      <address class="drawer__contacts">
+        <span>71–75 Shelton Street, London</span>
+        <a class="link link--plain" href="mailto:hello@bruitbrothers.com" data-decrypt>hello@bruitbrothers.com</a>
+        <!-- TODO: real LinkedIn URL -->
+        <a class="link link--plain" href="https://www.linkedin.com/" target="_blank" rel="noopener" data-decrypt>LinkedIn</a>
+      </address>
+    </div>
+  </div>
+</div>
+
+<main id="top">
+  <section class="ab-hero on-blue wrap" aria-labelledby="about-title">
+    <h1 class="ab-hero__label label" id="about-title">About Bruit Brothers</h1>
+    <p class="ab-hero__title display" data-reveal data-fog>8&nbsp;years in<br class="br-m"> the game.<br> No blind bets<br class="br-m"> at your expense.</p>
+  </section>
+
+  <section class="ab-intro wrap" aria-label="Who we are">
+    <div class="ab-intro__copy" data-reveal>
+      <p>Bruit Brothers is an integrated brand growth agency helping FMCG brands become known, trusted, remembered, and chosen. That goes for highly regulated categories too.</p>
+      <p>We do it worldwide for food &amp; beverage, alcohol, tobacco, and OTC medicines sold through physical retail.</p>
+    </div>
+  </section>
+
+  <section class="ab-system wrap" aria-labelledby="system-title">
+    <h2 class="ab-h2" id="system-title" data-reveal>Our services work as one connected system.</h2>
+    <div>
+      <ol class="ab-chain" role="list">
+        <li class="ab-step" data-reveal><span class="ab-name">Brand Strategy</span><br> defines what the brand stands for, where it can grow, and how it should compete.</li>
+        <li class="ab-arrow" aria-hidden="true">↓</li>
+        <li class="ab-step" data-reveal><span class="ab-name">Campaign Development</span><br> turns that strategy into unmissable messages and ads.</li>
+        <li class="ab-arrow" aria-hidden="true">↓</li>
+        <li class="ab-step" data-reveal><span class="ab-name">Media Activation</span><br> takes it all live through digital advertising.</li>
+        <li class="ab-arrow" aria-hidden="true">↓</li>
+        <li class="ab-step" data-reveal><span class="ab-name">Brand Measurement</span><br> quantifies the impact and anticipates the next move.</li>
+      </ol>
+      <p class="ab-extra" data-reveal>The <span class="ab-name ab-name--line">Visual Identity</span> service joins the sequence only when actually needed, whether that means developing an entirely new identity or refining the existing one. If the current visual system already serves your brand well, we respect and stick to it.</p>
+    </div>
+  </section>
+
+  <section class="ab-principles on-blue wrap" aria-label="How we work">
+    <article class="ab-principle" data-reveal>
+      <h2>Cultivating desire that lasts beyond the ads.</h2>
+      <p>We specialize in strategic brand marketing aimed at sustained brand growth. That means operating at a fundamental level, earning trust and building an emotional connection so people genuinely want your products and keep choosing them long after all the media campaigns end.</p>
+    </article>
+    <article class="ab-principle" data-reveal data-d="1">
+      <h2>Evidence behind every idea.</h2>
+      <p>Our vision for brand building is grounded in the Ehrenberg-Bass Institute’s principles and verified consumer insights. Each decision has its clear reason, with real human needs, buying behavior, and purchase motivations at the core. “It just feels right” is not our approach.</p>
+    </article>
+    <article class="ab-principle" data-reveal data-d="2">
+      <h2>Highly regulated? We’re highly prepared.</h2>
+      <p>For regulated industries, our work is built around legal standards, age-gating requirements, and platform policies from day one. The entire process is compliance-ready from creative development to campaign launch, yet they remain bold and distinctive.</p>
+    </article>
+  </section>
+</main>
+
+<footer class="ab-cta wrap">
+  <div class="cta-pitch" data-reveal>
+    <h2 class="cta-pitch__lead">We take the mess&nbsp;–<br> you take the win.</h2>
+    <!-- TODO: swap for the booking link (Calendly / Cal.com) once there is one -->
+    <a class="btn cta-pitch__btn" href="mailto:hello@bruitbrothers.com?subject=Schedule%20a%20call"><span class="btn__label">Schedule a call <span class="btn__arrow" aria-hidden="true">→</span></span></a>
+  </div>
+  <div class="ab-cta__mark" role="img" aria-label="The two Bruit Brothers"></div>
+  <div class="ab-legal">
+    <p>© Bruit Brothers 2026 | All Rights Reserved</p>
+    <!-- TODO: link to the real Privacy Policy page -->
+    <a class="link link--plain" href="#privacy" data-decrypt>Privacy Policy</a>
+  </div>
+</footer>
+
+<script src="page.js"></script>
+</body>
+</html>
