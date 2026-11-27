@@ -204,3 +204,17 @@ html.drawer-open { overflow: hidden; }
 .cta-pitch__btn .btn__label { display: flex; width: 100%; justify-content: space-between; align-items: center; }
 @media (max-width: 899px) { .cta-pitch { display: grid; } }
 @media (min-width: 900px) { .cta-pitch__btn { margin-top: var(--s3); } }
+
+/* Blue opening band, identical on every inner page: the title stands on the bottom of the band.
+   Title = the homepage first-screen slogan: same size and line spacing. */
+.page-band { position: relative; display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: 50vh; min-height: 50svh;
+  padding-top: calc(var(--g) + env(safe-area-inset-top, 0px) + 52px + var(--s4)); padding-bottom: var(--s3); }
+.page-band__label { position: absolute; left: var(--g); top: calc(var(--g) + env(safe-area-inset-top, 0px) + 52px + var(--s2)); font-family: var(--mono); font-weight: 400; }
+.page-title { font-size: calc((100vw - 2 * var(--g)) / 6.75); line-height: 0.98; white-space: nowrap; } /* fixed line breaks */
+.page-title .fog-w { padding-bottom: 0.06em; margin-bottom: -0.06em; } /* descenders are not clipped by the blur layer */
+@media (min-width: 900px) {
+  .page-band { padding-top: calc(var(--g) + 60px + var(--s4)); }
+  .page-band__label { top: calc(var(--g) + 60px + var(--s2)); }
+  .page-title { font-size: min(8vw, 158px); } /* = homepage first-screen slogan */
+}

@@ -18,11 +18,6 @@
    three principles, the call. Motion is only the homepage's quiet fade-up and the fog on the big claim. */
 
 /* 1. The claim: blue band, label + big display line */
-.ab-hero { display: flex; flex-direction: column; justify-content: flex-end; min-height: 72vh; min-height: 72svh;
-  padding-top: calc(var(--g) + env(safe-area-inset-top, 0px) + 52px + var(--s4)); padding-bottom: var(--s3); }
-.ab-hero__label { font-family: var(--mono); font-weight: 400; margin-bottom: var(--s2); }
-.ab-hero__title { font-size: calc((100vw - 2 * var(--g)) / 7.2); line-height: 0.9; white-space: nowrap; } /* fixed line breaks */
-.ab-hero__title .fog-w { padding-bottom: 0.06em; margin-bottom: -0.06em; }
 
 /* 2. Who we are: two large paragraphs */
 .ab-intro { padding-top: var(--s4); padding-bottom: var(--s4); }
@@ -64,14 +59,9 @@
 .ab-legal a:hover { opacity: 0.7; }
 
 @media (max-width: 899px) {
-  /* claim on phones: four lines ('8 years in / the game. / No blind bets / at your expense.') */
-  .ab-hero { min-height: 62svh; }
-  .ab-hero__title { font-size: calc((100vw - 2 * var(--g)) / 5.45); }
   .ab-intro__copy { font-size: 22px; }
 }
 @media (min-width: 900px) {
-  .ab-hero { padding-top: calc(var(--g) + 60px + var(--s4)); }
-  .ab-hero__title { font-size: min(calc((100vw - 2 * var(--g)) / 10.3), 17svh); }
   /* who we are: steps in to the centre line, like the homepage intro copy */
   .ab-intro { padding-top: var(--s5); padding-bottom: var(--s5); }
   .ab-intro__copy { margin-left: 50%; max-width: 30ch; font-size: clamp(22px, 1.9vw, 36px); }
@@ -142,9 +132,9 @@
 </div>
 
 <main id="top">
-  <section class="ab-hero on-blue wrap" aria-labelledby="about-title">
-    <h1 class="ab-hero__label label" id="about-title">About Bruit Brothers</h1>
-    <p class="ab-hero__title display" data-reveal data-fog>8&nbsp;years in<br class="br-m"> the game.<br> No blind bets<br class="br-m"> at your expense.</p>
+  <section class="ab-hero page-band on-blue wrap" aria-labelledby="about-title">
+    <h1 class="page-band__label label" id="about-title">About Bruit Brothers</h1>
+    <p class="ab-hero__title page-title display" data-reveal data-fog>8&nbsp;years in<br class="br-m"> the game.<br> No blind bets<br class="br-m"> at your expense.</p>
   </section>
 
   <section class="ab-intro wrap" aria-label="Who we are">
