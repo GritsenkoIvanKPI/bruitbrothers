@@ -127,7 +127,7 @@
 .rw-num { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2vw, 36px); line-height: 1; letter-spacing: -0.02em; opacity: 0.6; }
 .rw-name { margin: var(--s1) 0 0; font-family: var(--display); font-weight: 600; font-size: clamp(49px, 14vw, 76px); line-height: 0.95; letter-spacing: -0.035em; text-wrap: balance; }
 .rw-text { max-width: 36ch; font-size: 18px; font-weight: 300; line-height: var(--lh-text); }
-.rw-note { padding: var(--s4) var(--g) var(--s5); max-width: calc(44ch + 2 * var(--g)); font-size: 18px; font-weight: 300; line-height: var(--lh-text); opacity: 0.6; text-wrap: balance; }
+.rw-note { padding: var(--s4) var(--g) var(--s5); max-width: calc(44ch + 2 * var(--g)); font-size: 18px; font-weight: 300; line-height: var(--lh-text); text-wrap: balance; }
 @media (prefers-reduced-motion: reduce) { .rw-row, .rw-row::before { transition: none; } }
 @media (min-width: 900px) {
   .rw-title { font-size: clamp(24px, 3.3vw, 68px); }
@@ -135,7 +135,7 @@
   .rw-name { font-size: min(8vw, 158px); }
   .rw-text, .rw-note { font-size: clamp(16px, 1.25vw, 23px); }
   .rw-text { max-width: 44ch; }
-  .rw-note { max-width: calc(44ch + 2 * var(--g)); } /* same left edge as the names and descriptions */
+  .rw-note { margin-left: 50%; padding-left: 0; max-width: calc(44ch + var(--g)); } /* starts on the centre grid line, as the homepage intro copy */
 }
 @media (min-width: 1181px) { .rw-name { white-space: nowrap; } }
 </style>
