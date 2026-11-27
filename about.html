@@ -79,7 +79,7 @@
   .ab-principle p { font-size: clamp(17px, 1.25vw, 23px); }
   /* call: phrase + button on the left, brothers on the right; legal line along the bottom */
   .ab-cta { grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s2); padding-top: var(--s5); }
-  .ab-cta .cta-pitch { grid-column: 1; grid-row: 1; align-self: start; justify-self: start; } /* button as wide as the phrase */
+  .ab-cta .cta-pitch { grid-column: 1; grid-row: 1; align-self: start; }
   .ab-cta__mark { grid-column: 2; grid-row: 1 / 3; width: min(26.4vw, 39vh, 417px); margin: 0 var(--s3) 0 0; }
   .ab-legal { grid-column: 1; grid-row: 2; align-self: end; justify-content: flex-start; column-gap: var(--s3); border-top: 0; background: none; font-size: clamp(13px, 0.95vw, 16px); padding: var(--s4) 0 var(--s2); }
 }
@@ -180,7 +180,7 @@
   <div class="cta-pitch" data-reveal>
     <h2 class="cta-pitch__lead">We take the mess&nbsp;–<br> you take the win.</h2>
     <!-- TODO: swap for the booking link (Calendly / Cal.com) once there is one -->
-    <a class="btn cta-pitch__btn" href="mailto:hello@bruitbrothers.com?subject=Schedule%20a%20call"><span class="btn__label">Schedule a call <span class="btn__arrow" aria-hidden="true">→</span></span></a>
+    <a class="btn cta-pitch__btn" href="mailto:hello@bruitbrothers.com?subject=Schedule%20a%20call"><span class="btn__label">Schedule a call&nbsp;<span class="btn__arrow" aria-hidden="true">→</span></span></a>
   </div>
   <div class="ab-cta__mark" role="img" aria-label="The two Bruit Brothers"></div>
   <div class="ab-legal">

@@ -197,14 +197,14 @@ html.drawer-open { overflow: hidden; }
 @keyframes burger-in { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: none; } }
 @media (min-width: 1280px) and (max-width: 1439px) { .header .header__menu ul { column-gap: var(--s2); } }
 
-/* closing call block: phrase + button as one unit (contact and about) */
-.cta-pitch { display: inline-grid; justify-items: stretch; max-width: 100%; }
-.cta-pitch__lead { font-family: var(--text); font-weight: 600; font-size: var(--t-sans-h); line-height: 1.08; letter-spacing: -0.03em; }
-.cta-pitch__btn { margin-top: 17px; min-height: clamp(56px, 4.4vw, 76px); padding: 0 var(--s2); }
-.cta-pitch__btn .btn__label { display: flex; width: 100%; justify-content: space-between; align-items: center; }
-@media (max-width: 899px) { .cta-pitch { display: grid; } }
+/* closing call block (contact and about): the same heading + button as the homepage footer
+   ('They are ready to listen...' / 'Book a free brand audit'): size, weight, button width and gap */
+:root { --t-lead: clamp(24px, 3.3vw, 68px); }
+@media (max-width: 899px) { :root { --t-lead: clamp(26px, 7.4vw, 30px); } }
+.cta-pitch { display: flex; flex-direction: column; align-items: flex-start; }
+.cta-pitch__lead { font-family: var(--text); font-weight: 500; font-size: var(--t-lead); line-height: 1.08; letter-spacing: -0.03em; }
+.cta-pitch__btn { margin-top: 17px; min-width: min(100%, 420px); min-height: clamp(56px, 4.4vw, 76px); font-size: clamp(14px, 1vw, 16px); }
 @media (min-width: 900px) { .cta-pitch__btn { margin-top: var(--s3); } }
-
 /* Blue opening band, identical on every inner page: the title stands on the bottom of the band.
    Title = the homepage first-screen slogan: same size and line spacing. */
 .page-band { position: relative; display: flex; flex-direction: column; justify-content: flex-end;
