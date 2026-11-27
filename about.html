@@ -88,6 +88,10 @@
   .ab-stair__note { grid-column: 3 / 5; grid-row: 5; margin-top: var(--s4); margin-left: 0; max-width: 36ch; }
   /* principles: three columns with a rule between them */
   .ab-principles { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-top: var(--s5); padding-bottom: var(--s5); }
+  /* headings on one row, texts on the next: every text starts at the same height, whatever the heading length */
+  .ab-principles { grid-template-rows: auto auto; }
+  .ab-principle { display: grid; grid-row: span 2; grid-template-rows: subgrid; align-content: start; }
+  .ab-principle h2 { align-self: start; }
   .ab-principle { padding: 0 var(--g); }
   .ab-principle:first-child { padding-left: 0; }
   .ab-principle:last-child { padding-right: 0; }
