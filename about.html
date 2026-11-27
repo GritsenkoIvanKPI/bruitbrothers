@@ -23,18 +23,17 @@
 .ab-intro { padding-top: var(--s4); padding-bottom: var(--s4); }
 .ab-intro__copy { display: grid; gap: 0.7em; max-width: 34ch; font-size: clamp(22px, 2.3vw, 42px); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; }
 
-/* 3. The connected system: heading + a chain of service bars joined by arrows */
-.ab-system { padding-top: var(--s4); padding-bottom: var(--s4); border-top: 1px solid var(--blue); margin: 0 var(--g); padding-left: 0; padding-right: 0; }
-.ab-h2 { font-family: var(--text); font-weight: 600; font-size: var(--t-sans-h); line-height: 1.08; letter-spacing: -0.03em; }
-.ab-chain { margin: var(--s3) 0 0; padding: 0; list-style: none; font-size: 18px; line-height: var(--lh-text); }
-.ab-step { max-width: 36ch; margin: 0; }
-/* the service name sits in a blue bar, like the 'Includes:' bars on the homepage; the sentence runs on under it */
-.ab-name { display: inline-block; margin-bottom: 0.45em; padding: 0.3em 0.55em 0.32em; background: var(--blue); color: var(--cream); font-weight: 400; }
-.ab-arrow { display: block; margin: 0.5em 0 0.55em 0.55em; font-family: var(--mono); font-size: 22px; line-height: 1; }
-/* Visual Identity: outlined, not filled, set apart below a short rule (joins only when needed) */
-.ab-extra { max-width: 44ch; margin-top: var(--s3); padding-top: var(--s2); border-top: 1px solid var(--blue); font-size: 18px; line-height: var(--lh-text); }
-.ab-extra { line-height: 1.4; }
-.ab-name--line { display: inline; margin: 0; padding: 0.02em 0.3em 0.06em; background: none; color: inherit; box-shadow: inset 0 0 0 1px var(--blue); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* 3. The connected system: numbered rows separated by space only (no rules, no arrows, no boxes).
+   Number + service name on the left half, the sentence from the centre line, level with the name. */
+.ab-system { padding-top: var(--s4); padding-bottom: var(--s4); }
+.ab-h2 { max-width: 20ch; font-family: var(--text); font-weight: 600; font-size: var(--t-sans-h); line-height: 1.08; letter-spacing: -0.03em; }
+.ab-rows { display: grid; row-gap: var(--s3); margin: var(--s4) 0 0; padding: 0; list-style: none; }
+.ab-row__num { display: block; font-family: var(--mono); font-size: 14px; line-height: 1; }
+.ab-row__name { margin: var(--s1) 0 0; font-weight: 600; font-size: clamp(26px, 2.6vw, 48px); line-height: 1.05; letter-spacing: -0.03em; }
+.ab-row__text { margin-top: var(--s1); max-width: 42ch; font-size: 18px; line-height: 1.25; }
+.ab-row--extra { margin-top: var(--s2); }
+.ab-row--extra .ab-row__text { margin-top: var(--s1); max-width: 52ch; }
+.ab-row--extra b { font-weight: 600; }
 
 /* 4. Principles: blue band, three columns split by thin rules */
 .ab-principles { display: grid; padding-top: var(--s4); padding-bottom: var(--s4); }
@@ -65,11 +64,13 @@
   /* who we are: steps in to the centre line, like the homepage intro copy */
   .ab-intro { padding-top: var(--s5); padding-bottom: var(--s5); }
   .ab-intro__copy { margin-left: 50%; max-width: 30ch; font-size: clamp(22px, 1.9vw, 36px); }
-  /* system: heading on the left (stays in view), chain on the right */
-  .ab-system { display: grid; grid-template-columns: 1fr 1fr; align-items: start; padding-top: var(--s4); padding-bottom: var(--s5); }
-  .ab-system .ab-h2 { position: sticky; top: calc(var(--header) + var(--s3)); padding-right: var(--s3); }
-  .ab-chain { margin-top: 0.35em; font-size: clamp(17px, 1.25vw, 23px); }
-  .ab-extra { font-size: clamp(17px, 1.25vw, 23px); }
+  /* system rows: name on the left half, sentence from the centre line, bottoms level */
+  .ab-system { padding-top: var(--s5); padding-bottom: var(--s5); }
+  .ab-rows { row-gap: var(--s4); }
+  .ab-row { display: grid; grid-template-columns: 1fr 1fr; align-items: end; }
+  .ab-row__text { margin-top: 0; padding-bottom: 0.2em; font-size: clamp(17px, 1.25vw, 23px); }
+  .ab-row--extra { align-items: start; }
+  .ab-row--extra .ab-row__text { grid-column: 2; margin-top: 0; }
   /* principles: three columns with a rule between them */
   .ab-principles { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-top: var(--s5); padding-bottom: var(--s5); }
   .ab-principle { padding: 0 var(--g); }
@@ -146,18 +147,28 @@
 
   <section class="ab-system wrap" aria-labelledby="system-title">
     <h2 class="ab-h2" id="system-title" data-reveal>Our services work as one connected system.</h2>
-    <div>
-      <ol class="ab-chain" role="list">
-        <li class="ab-step" data-reveal><span class="ab-name">Brand Strategy</span><br> defines what the brand stands for, where it can grow, and how it should compete.</li>
-        <li class="ab-arrow" aria-hidden="true">↓</li>
-        <li class="ab-step" data-reveal><span class="ab-name">Campaign Development</span><br> turns that strategy into unmissable messages and ads.</li>
-        <li class="ab-arrow" aria-hidden="true">↓</li>
-        <li class="ab-step" data-reveal><span class="ab-name">Media Activation</span><br> takes it all live through digital advertising.</li>
-        <li class="ab-arrow" aria-hidden="true">↓</li>
-        <li class="ab-step" data-reveal><span class="ab-name">Brand Measurement</span><br> quantifies the impact and anticipates the next move.</li>
-      </ol>
-      <p class="ab-extra" data-reveal>The <span class="ab-name ab-name--line">Visual Identity</span> service joins the sequence only when actually needed, whether that means developing an entirely new identity or refining the existing one. If the current visual system already serves your brand well, we respect and stick to it.</p>
-    </div>
+    <ol class="ab-rows" role="list">
+      <li class="ab-row" data-reveal>
+        <div class="ab-row__head"><span class="ab-row__num" aria-hidden="true">01</span><h3 class="ab-row__name">Brand Strategy</h3></div>
+        <p class="ab-row__text">defines what the brand stands for, where it can grow, and how it should compete.</p>
+      </li>
+      <li class="ab-row" data-reveal>
+        <div class="ab-row__head"><span class="ab-row__num" aria-hidden="true">02</span><h3 class="ab-row__name">Campaign Development</h3></div>
+        <p class="ab-row__text">turns that strategy into unmissable messages and ads.</p>
+      </li>
+      <li class="ab-row" data-reveal>
+        <div class="ab-row__head"><span class="ab-row__num" aria-hidden="true">03</span><h3 class="ab-row__name">Media Activation</h3></div>
+        <p class="ab-row__text">takes it all live through digital advertising.</p>
+      </li>
+      <li class="ab-row" data-reveal>
+        <div class="ab-row__head"><span class="ab-row__num" aria-hidden="true">04</span><h3 class="ab-row__name">Brand Measurement</h3></div>
+        <p class="ab-row__text">quantifies the impact and anticipates the next move.</p>
+      </li>
+      <li class="ab-row ab-row--extra" data-reveal>
+        <div class="ab-row__head"><span class="ab-row__num" aria-hidden="true">+</span></div>
+        <p class="ab-row__text">The <b>Visual Identity</b> service joins the sequence only when actually needed, whether that means developing an entirely new identity or refining the existing one. If the current visual system already serves your brand well, we respect and stick to it.</p>
+      </li>
+    </ol>
   </section>
 
   <section class="ab-principles on-blue wrap" aria-label="How we work">
