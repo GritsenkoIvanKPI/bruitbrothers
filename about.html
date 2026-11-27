@@ -21,7 +21,8 @@
 
 /* 2. Who we are: two large paragraphs */
 .ab-intro { padding-top: var(--s4); padding-bottom: var(--s4); }
-.ab-intro__copy { display: grid; gap: 0.7em; max-width: 34ch; font-size: clamp(22px, 2.3vw, 42px); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; }
+/* same as the homepage screen-2 copy (.intro__copy): size, weight, line spacing, paragraph gap, width */
+.ab-intro__copy { display: grid; gap: 1.3em; max-width: 44ch; font-size: clamp(18px, 1.5vw, 28px); line-height: var(--lh-text); }
 
 /* 3. The connected system: a staircase. Each service starts one step further right, so the order reads
    without arrows; the Visual Identity note closes it from the centre line, plain and static.
@@ -67,12 +68,15 @@
 .ab-legal a:hover { opacity: 0.7; }
 
 @media (max-width: 899px) {
-  .ab-intro__copy { font-size: 22px; }
+  .ab-intro__copy { margin-left: calc(26px * 600 / 256 + 26px); } /* phones: starts at the logo box's right edge, as on the homepage */
+}
+@media (max-width: 379px) {
+  .ab-intro__copy { margin-left: calc(22px * 600 / 256 + 30px); } /* smaller logo box on the smallest phones */
 }
 @media (min-width: 900px) {
   /* who we are: steps in to the centre line, like the homepage intro copy */
   .ab-intro { padding-top: var(--s5); padding-bottom: var(--s5); }
-  .ab-intro__copy { margin-left: 50%; max-width: 30ch; font-size: clamp(22px, 1.9vw, 36px); }
+  .ab-intro__copy { margin-left: 50%; }
   /* staircase on wide screens: four quarter-wide steps; the note fills the free bottom-left corner, level with the last step */
   .ab-system { padding-top: var(--s5); padding-bottom: var(--s5); }
   .ab-stair { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
