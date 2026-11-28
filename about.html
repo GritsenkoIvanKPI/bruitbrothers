@@ -136,6 +136,8 @@
 @media (prefers-reduced-motion: reduce) { .rw-row, .rw-hl { transition: none; } }
 @media (min-width: 900px) {
   .rw-title { font-size: clamp(24px, 3.3vw, 68px); }
+  /* desktop: 'Our services work as one connected system.' on one line (both versions) */
+  .ab-system .ab-h2, .rw-title { max-width: none; white-space: nowrap; }
   .rw-row { padding-top: var(--s3); padding-bottom: var(--s4); } /* one column: number, name, description under it on the same left edge */
   .rw-name { font-size: min(8vw, 158px); }
   .rw-text, .rw-note { font-size: clamp(16px, 1.25vw, 23px); }
