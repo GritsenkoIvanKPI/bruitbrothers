@@ -96,7 +96,7 @@
      and stand on the bottom edge (soles trimmed a little by the page edge) */
   .ab-cta { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto 1fr; column-gap: var(--s2); padding-top: var(--s5); }
   .ab-cta .cta-pitch { display: contents; }
-  .ab-cta .cta-pitch__lead { grid-column: 1 / -1; grid-row: 1; }
+  .ab-cta .cta-pitch__lead { grid-column: 1 / -1; grid-row: 1; white-space: nowrap; } /* one line on desktop, as on Contact */
   .ab-cta .cta-pitch__btn { grid-column: 1; grid-row: 2; justify-self: start; margin-top: 0; }
   .ab-cta__mark { grid-column: 2; grid-row: 2 / 4; align-self: end; width: min(26.4vw, 39vh, 417px); margin: 0 var(--s3) 0 0; }
   .ab-legal { grid-column: 1; grid-row: 3; align-self: end; justify-content: flex-start; column-gap: var(--s3); border-top: 0; background: none; font-size: clamp(13px, 0.95vw, 16px); padding: 0 0 var(--s2); }
@@ -194,7 +194,7 @@
 
 <footer class="ab-cta wrap">
   <div class="cta-pitch" data-reveal>
-    <h2 class="cta-pitch__lead">We take the mess<br> –&nbsp;you take the win.</h2>
+    <h2 class="cta-pitch__lead">We take the mess<br class="br-m"> –&nbsp;you take the win.</h2>
     <!-- TODO: swap for the booking link (Calendly / Cal.com) once there is one -->
     <a class="btn cta-pitch__btn" href="mailto:hello@bruitbrothers.com?subject=Schedule%20a%20call"><span class="btn__label">Schedule a call&nbsp;<span class="btn__arrow" aria-hidden="true">→</span></span></a>
   </div>
