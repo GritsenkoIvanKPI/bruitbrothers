@@ -51,7 +51,7 @@ document.querySelectorAll('[data-fog]').forEach(h => {
   addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.classList.contains('is-open')) close(); });
 
   // reveal once fonts are in (so headings don't re-wrap mid-animation), then as blocks scroll into view
-  const targets = [...document.querySelectorAll('[data-reveal], [data-stair]')]; // data-stair: the About staircase steps in as one group
+  const targets = [...document.querySelectorAll('[data-reveal], [data-stair]')]; // data-stair: a list whose items arrive one after another (About: connected system)
   const start = () => {
     if (!('IntersectionObserver' in window)) { targets.forEach(el => el.classList.add('is-in')); return; }
     const io = new IntersectionObserver(entries => {

@@ -24,26 +24,25 @@
 /* same as the homepage screen-2 copy (.intro__copy): size, weight, line spacing, paragraph gap, width */
 .ab-intro__copy { display: grid; gap: 1.3em; max-width: 44ch; font-size: clamp(18px, 1.5vw, 28px); line-height: var(--lh-text); }
 
-/* 3. The connected system: a staircase. Each service starts one step further right, so the order reads
-   without arrows; the Visual Identity note closes it from the centre line, plain and static.
-   Motion: when the stairs come into view the steps arrive one after another, each sliding in a little from the left. */
+/* 3. The connected system: one vertical list on the common left edge, no numbers. Arrows between the four
+   services show the sequence; Visual Identity follows after a wider gap, without an arrow (it joins only when needed).
+   Motion: the items arrive one after another, top to bottom, when the list comes into view. */
 .ab-system { padding-top: var(--s4); padding-bottom: var(--s4); }
 .ab-h2 { max-width: 20ch; font-family: var(--text); font-weight: 600; font-size: var(--t-sans-h); line-height: 1.08; letter-spacing: -0.03em; }
-.ab-stair { margin-top: var(--s4); --step: 9%; }
-.ab-stair__steps { display: grid; row-gap: var(--s3); margin: 0; padding: 0; list-style: none; }
-.ab-step { --k: 0; margin-left: calc(var(--k) * var(--step)); }
-.ab-step:nth-child(2) { --k: 1; }
-.ab-step:nth-child(3) { --k: 2; }
-.ab-step:nth-child(4) { --k: 3; }
-.ab-step__num { display: block; font-family: var(--mono); font-size: 14px; line-height: 1; }
-.ab-step__name { margin: var(--s1) 0 0; font-weight: 600; font-size: clamp(24px, 2vw, 38px); line-height: 1.05; letter-spacing: -0.03em; }
-.ab-step__text { margin-top: var(--s1); max-width: 30ch; font-size: 18px; line-height: 1.25; }
-.ab-stair__note { margin-top: var(--s4); max-width: 40ch; font-size: 18px; line-height: 1.3; text-wrap: pretty; }
-.ab-stair__note { margin-left: calc(2 * var(--step)); } /* phones: starts where step 03 starts, as on desktop */
+.ab-flow { margin: var(--s4) 0 0; padding: 0; list-style: none; }
+.ab-flow__item { --k: 0; }
+.ab-flow__name { margin: 0; font-weight: 600; font-size: clamp(24px, 2vw, 38px); line-height: 1.05; letter-spacing: -0.03em; }
+.ab-flow__text { margin-top: var(--s1); max-width: 34ch; font-size: 18px; line-height: 1.25; }
+.ab-flow__arrow { display: block; margin: var(--s2) 0; font-family: var(--mono); font-size: clamp(24px, 1.9vw, 32px); line-height: 1; -webkit-text-stroke: 0.8px currentColor; } /* a touch heavier, to sit with the bold names */
+.ab-flow__item--extra { margin-top: var(--s4); }
+.ab-flow__item--extra .ab-flow__text { max-width: 46ch; text-wrap: balance; }
+.ab-flow > :nth-child(2) { --k: 1; } .ab-flow > :nth-child(3) { --k: 2; } .ab-flow > :nth-child(4) { --k: 3; }
+.ab-flow > :nth-child(5) { --k: 4; } .ab-flow > :nth-child(6) { --k: 5; } .ab-flow > :nth-child(7) { --k: 6; }
+.ab-flow > :nth-child(8) { --k: 7; }
 /* motion: transform + opacity only */
-.js .ab-step { opacity: 0; transform: translate3d(-28px, 0, 0); transition: opacity 0.9s var(--ease), transform 1.1s var(--ease); transition-delay: calc(var(--k, 0) * 0.22s); }
-.js .ab-stair.is-in .ab-step { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .js .ab-step { opacity: 1; transform: none; transition: none; } }
+.js .ab-flow > * { opacity: 0; transform: translate3d(0, 12px, 0); transition: opacity 0.7s var(--ease), transform 0.8s var(--ease); transition-delay: calc(var(--k) * 0.12s); }
+.js .ab-flow.is-in > * { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .js .ab-flow > * { opacity: 1; transform: none; transition: none; } }
 
 /* 4. Principles: blue band, three columns split by thin rules */
 .ab-principles { display: grid; padding-top: var(--s4); padding-bottom: var(--s4); }
@@ -77,19 +76,10 @@
   /* who we are: steps in to the centre line, like the homepage intro copy */
   .ab-intro { padding-top: var(--s5); padding-bottom: 0; }
   .ab-intro__copy { margin-left: 50%; }
-  /* staircase on wide screens: four quarter-wide steps; the note fills the free bottom-left corner, level with the last step */
   .ab-system { padding-top: var(--s5); padding-bottom: var(--s5); }
-  .ab-stair { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .ab-stair__steps { display: contents; }
-  .ab-step { margin-left: 0; padding-right: var(--s3); }
-  .ab-step:nth-child(1) { grid-column: 1; grid-row: 1; }
-  .ab-step:nth-child(2) { grid-column: 2; grid-row: 2; }
-  .ab-step:nth-child(3) { grid-column: 3; grid-row: 3; }
-  .ab-step:nth-child(4) { grid-column: 4; grid-row: 4; }
-  .ab-step + .ab-step { margin-top: var(--s3); }
-  .ab-step__text, .ab-stair__note { font-size: clamp(17px, 1.25vw, 23px); }
-  /* the note closes the stair: its own row below, starting on the centre line (where step 03 starts) */
-  .ab-stair__note { grid-column: 3 / 5; grid-row: 5; margin-top: var(--s4); margin-left: 0; max-width: 36ch; }
+  .ab-system .ab-h2 { max-width: none; white-space: nowrap; } /* 'Our services work as one connected system.' on one line */
+  .ab-flow__text { max-width: none; font-size: clamp(17px, 1.25vw, 23px); }
+  .ab-flow__item--extra .ab-flow__text { max-width: 52ch; }
   /* principles: three columns with a rule between them */
   .ab-principles { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-top: var(--s5); padding-bottom: var(--s5); }
   /* headings on one row, texts on the next: every text starts at the same height, whatever the heading length */
@@ -112,83 +102,6 @@
   .ab-legal { grid-column: 1; grid-row: 3; align-self: end; justify-content: flex-start; column-gap: var(--s3); border-top: 0; background: none; font-size: clamp(13px, 0.95vw, 16px); padding: 0 0 var(--s2); }
 }
 </style>
-<style>
-/* 3b. ALTERNATIVE for review (shown under the staircase): service rows. Left: number + name at the homepage service-title size; right: description.
-   Hover (desktop) / reading line (phones): a blue band rises from the bottom of the row and fills it. */
-.rw { padding-top: var(--s5); }
-.rw-head { padding: 0 var(--g) var(--s4); }
-.rw-title { font-family: var(--text); font-weight: 500; font-size: clamp(26px, 7.4vw, 30px); line-height: 1.08; letter-spacing: -0.03em; max-width: 22ch; }
-.rw-list { position: relative; isolation: isolate; margin: 0; padding: 0; list-style: none; }
-/* one blue band that always sits on a row and glides to the next one (same logic as the homepage challenges board) */
-.rw-hl { position: absolute; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; background: #15209f; pointer-events: none;
-  transform-origin: 0 0; transform: translate3d(0, var(--y, 0), 0) scaleY(var(--sy, 0.25));
-  transition: transform 0.6s cubic-bezier(0.65, 0, 0.25, 1); }
-.rw-row { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s2);
-  padding: var(--s3) var(--g) var(--s4); border-top: 1px solid rgba(21, 32, 159, 0.4); color: #15209f; cursor: default;
-  transition: color 0.3s var(--ease) 0.2s; } /* swap colour as the band arrives (as on the homepage) */
-.rw-row:last-child { border-bottom: 1px solid rgba(21, 32, 159, 0.4); }
-.rw-row.is-on { color: #f0ede5; }
-.rw-row:focus-visible { outline: none; }
-.rw-num { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2vw, 36px); line-height: 1; letter-spacing: -0.02em; opacity: 0.6; }
-.rw-name { margin: var(--s1) 0 0; font-family: var(--display); font-weight: 600; font-size: clamp(49px, 14vw, 76px); line-height: 0.95; letter-spacing: -0.035em; text-wrap: balance; }
-.rw-text { max-width: 36ch; font-size: 18px; font-weight: 300; line-height: var(--lh-text); }
-.rw-note { padding: var(--s4) var(--g) var(--s5); max-width: calc(44ch + 2 * var(--g)); font-size: 18px; font-weight: 300; line-height: var(--lh-text); text-wrap: balance; }
-@media (prefers-reduced-motion: reduce) { .rw-row, .rw-hl { transition: none; } }
-@media (min-width: 900px) {
-  .rw-title { font-size: clamp(24px, 3.3vw, 68px); }
-  /* desktop: 'Our services work as one connected system.' on one line (both versions) */
-  .ab-system .ab-h2, .rw-title { max-width: none; white-space: nowrap; }
-  .rw-row { padding-top: var(--s3); padding-bottom: var(--s4); } /* one column: number, name, description under it on the same left edge */
-  .rw-name { font-size: min(8vw, 158px); }
-  .rw-text, .rw-note { font-size: clamp(16px, 1.25vw, 23px); }
-  .rw-text { max-width: 44ch; }
-  .rw-note { margin-left: 50%; padding-left: 0; max-width: calc(44ch + var(--g)); } /* starts on the centre grid line, as the homepage intro copy */
-}
-@media (min-width: 1181px) { .rw-name { white-space: nowrap; } }
-</style>
-<script>
-/* Service rows: one blue band always sits on a row. Mouse: it glides to the hovered / focused row and stays there.
-   Touch: it follows the scroll, the row under a reading line at 55% of the screen (above the list: the first, below it: the last). */
-document.addEventListener('DOMContentLoaded', () => {
-  const list = document.querySelector('.rw-list');
-  if (!list) return;
-  const rows = [...list.querySelectorAll('.rw-row')];
-  const hl = document.createElement('span'); hl.className = 'rw-hl'; hl.setAttribute('aria-hidden', 'true');
-  list.prepend(hl);
-  let active = rows[0];
-  const place = (r, instant) => {
-    if (instant) hl.style.transition = 'none';
-    const h = list.offsetHeight;
-    hl.style.setProperty('--y', r.offsetTop + 'px');
-    hl.style.setProperty('--sy', (r.offsetHeight / h).toFixed(5));
-    rows.forEach(x => x.classList.toggle('is-on', x === r));
-    active = r;
-    if (instant) { hl.offsetWidth; hl.style.transition = ''; }
-  };
-  rows.forEach(r => {
-    r.addEventListener('mouseenter', () => place(r));
-    r.addEventListener('focus', () => place(r));
-  });
-  const again = () => requestAnimationFrame(() => place(active, true));
-  addEventListener('resize', again);
-  document.fonts?.ready.then(again);
-  if ('ResizeObserver' in window) new ResizeObserver(again).observe(list);
-  place(active, true);
-  const fine = matchMedia('(hover: hover) and (pointer: fine)');
-  let ticking = false;
-  const follow = () => {
-    ticking = false;
-    if (fine.matches) return;
-    const b = list.getBoundingClientRect();
-    if (b.bottom < 0 || b.top > innerHeight) return;
-    const line = innerHeight * 0.55;
-    let pick = rows[0];
-    for (const r of rows) if (r.getBoundingClientRect().top <= line) pick = r;
-    if (pick !== active) place(pick);
-  };
-  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(follow); } }, { passive: true });
-});
-</script>
 
 </head>
 <body>
@@ -251,43 +164,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   <section class="ab-system wrap" aria-labelledby="system-title">
     <h2 class="ab-h2" id="system-title" data-reveal>Our services work as one connected system.</h2>
-    <div class="ab-stair" data-stair>
-      <ol class="ab-stair__steps" role="list">
-      <li class="ab-step">
-        <span class="ab-step__num" aria-hidden="true">01</span>
-        <h3 class="ab-step__name">Brand Strategy</h3>
-        <p class="ab-step__text">defines what the brand stands for, where it can grow, and how it should compete.</p>
-      </li>
-      <li class="ab-step">
-        <span class="ab-step__num" aria-hidden="true">02</span>
-        <h3 class="ab-step__name">Campaign Development</h3>
-        <p class="ab-step__text">turns that strategy into unmissable messages and ads.</p>
-      </li>
-      <li class="ab-step">
-        <span class="ab-step__num" aria-hidden="true">03</span>
-        <h3 class="ab-step__name">Media Activation</h3>
-        <p class="ab-step__text">takes it all live through digital advertising.</p>
-      </li>
-      <li class="ab-step">
-        <span class="ab-step__num" aria-hidden="true">04</span>
-        <h3 class="ab-step__name">Brand Measurement</h3>
-        <p class="ab-step__text">quantifies the impact and anticipates the next move.</p>
-      </li>
-      </ol>
-      <p class="ab-stair__note">The Visual Identity service joins the sequence only when actually needed, whether that means developing an entirely new identity or refining the existing one. If the current visual system already serves your brand well, we respect and stick to it.</p>
-    </div>
-  </section>
-
-  <!-- ALTERNATIVE for review: the same content as hover rows -->
-  <section class="rw" id="rw" aria-labelledby="system-title-rows">
-    <div class="rw-head"><h2 class="rw-title" id="system-title-rows">Our services work as one connected system.</h2></div>
-    <ol class="rw-list" role="list">
-      <li class="rw-row" tabindex="0"><p class="rw-num">01</p><h3 class="rw-name">Brand Strategy</h3><p class="rw-text">defines what the brand stands for, where it can grow, and how it should compete.</p></li>
-      <li class="rw-row" tabindex="0"><p class="rw-num">02</p><h3 class="rw-name">Campaign Development</h3><p class="rw-text">turns that strategy into unmissable messages and ads.</p></li>
-      <li class="rw-row" tabindex="0"><p class="rw-num">03</p><h3 class="rw-name">Media Activation</h3><p class="rw-text">takes it all live through digital advertising.</p></li>
-      <li class="rw-row" tabindex="0"><p class="rw-num">04</p><h3 class="rw-name">Brand Measurement</h3><p class="rw-text">quantifies the impact and anticipates the next move.</p></li>
+    <ol class="ab-flow" role="list" data-stair>
+      <li class="ab-flow__item"><h3 class="ab-flow__name">Brand Strategy</h3><p class="ab-flow__text">defines what the brand stands for, where it can grow, and how it should compete.</p></li>
+      <li class="ab-flow__arrow" aria-hidden="true">↓</li>
+      <li class="ab-flow__item"><h3 class="ab-flow__name">Campaign Development</h3><p class="ab-flow__text">turns that strategy into unmissable messages and ads.</p></li>
+      <li class="ab-flow__arrow" aria-hidden="true">↓</li>
+      <li class="ab-flow__item"><h3 class="ab-flow__name">Media Activation</h3><p class="ab-flow__text">takes it all live through digital advertising.</p></li>
+      <li class="ab-flow__arrow" aria-hidden="true">↓</li>
+      <li class="ab-flow__item"><h3 class="ab-flow__name">Brand Measurement</h3><p class="ab-flow__text">quantifies the impact and anticipates the next move.</p></li>
+      <li class="ab-flow__item ab-flow__item--extra"><h3 class="ab-flow__name">Visual Identity</h3><p class="ab-flow__text">joins the sequence only when actually needed, whether that means developing an entirely new identity or refining the existing one. If the current visual system already serves your brand well, we respect and stick to it.</p></li>
     </ol>
-    <p class="rw-note">The Visual Identity service joins the sequence only when actually needed, whether that means developing an entirely new identity or refining the existing one. If the current visual system already serves your brand well, we respect and stick to it.</p>
   </section>
 
   <section class="ab-principles on-blue wrap" aria-label="How we work">
