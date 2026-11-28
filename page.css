@@ -214,7 +214,10 @@ html.drawer-open { overflow: hidden; }
 .page-band__label { margin-bottom: var(--s1); font-family: var(--mono); font-weight: 400; line-height: 1.5; }
 .page-band:has(> .page-band__label) { --label-h: calc(var(--t-label) * 1.5 + var(--s1)); }
 .page-title { font-size: calc((100vw - 2 * var(--g)) / 6.75); line-height: 0.98; white-space: nowrap; } /* fixed line breaks */
-.page-title .fog-w { padding-bottom: 0.06em; margin-bottom: -0.06em; } /* descenders are not clipped by the blur layer */
+/* Each word is its own layer while it blurs in, and a layer is cut to the word's box. Display-face ascenders, i-dots and
+   descenders reach outside that box (line-height 0.98), so the box gets a safe margin on every side, cancelled by negative margins:
+   the layout does not move, but nothing is clipped (Safari also kept the cut after the animation). */
+.page-title .fog-w { padding: 0.28em 0.1em 0.32em; margin: -0.28em -0.1em -0.32em; }
 @media (min-width: 900px) {
   /* gap between the header and the title is 20% larger than the plain half-screen band gives:
      band = 50svh + 0.2 x (50svh - header - two title lines - bottom padding) */
