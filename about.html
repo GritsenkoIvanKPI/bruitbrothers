@@ -20,7 +20,7 @@
 /* 1. The claim: blue band, label + big display line */
 
 /* 2. Who we are: two large paragraphs */
-.ab-intro { padding-top: var(--s4); padding-bottom: var(--s4); }
+.ab-intro { padding-top: var(--s4); padding-bottom: 0; } /* the next section's top padding is the space below: same as above */
 /* same as the homepage screen-2 copy (.intro__copy): size, weight, line spacing, paragraph gap, width */
 .ab-intro__copy { display: grid; gap: 1.3em; max-width: 44ch; font-size: clamp(18px, 1.5vw, 28px); line-height: var(--lh-text); }
 
@@ -75,7 +75,7 @@
 }
 @media (min-width: 900px) {
   /* who we are: steps in to the centre line, like the homepage intro copy */
-  .ab-intro { padding-top: var(--s5); padding-bottom: var(--s5); }
+  .ab-intro { padding-top: var(--s5); padding-bottom: 0; }
   .ab-intro__copy { margin-left: 50%; }
   /* staircase on wide screens: four quarter-wide steps; the note fills the free bottom-left corner, level with the last step */
   .ab-system { padding-top: var(--s5); padding-bottom: var(--s5); }
